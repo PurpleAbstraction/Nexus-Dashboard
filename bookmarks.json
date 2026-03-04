@@ -39,6 +39,11 @@
           "id": "l3",
           "name": "Hacker News",
           "url": "https://news.ycombinator.com"
+        },
+        {
+          "id": "x2pbl2r7",
+          "name": "Comic: Get Fuzzy",
+          "url": "https://www.gocomics.com/getfuzzy"
         }
       ]
     },
@@ -467,11 +472,6 @@
       "name": "Comics",
       "open": true,
       "links": [
-        {
-          "id": "x2pbl2r7",
-          "name": "Comic: Get Fuzzy",
-          "url": "https://www.gocomics.com/getfuzzy"
-        },
         {
           "id": "xycfizpu",
           "name": "Comic: Non Sequitur",
