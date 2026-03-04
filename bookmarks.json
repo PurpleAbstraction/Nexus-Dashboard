@@ -28,6 +28,113 @@
           "url": "https://news.ycombinator.com"
         }
       ]
+    },
+    {
+      "id": "x04my4i1",
+      "name": "Favorites",
+      "open": true,
+      "links": [
+        {
+          "id": "xgzh5vs2",
+          "name": "Amazon",
+          "url": "https://www.amazon.com/"
+        },
+        {
+          "id": "xypclm76",
+          "name": "Apple",
+          "url": "http://www.apple.com/"
+        },
+        {
+          "id": "x54bezh1",
+          "name": "Apple Feedback",
+          "url": "https://www.apple.com/feedback/"
+        },
+        {
+          "id": "x4x54lmk",
+          "name": "‎Apple TV+",
+          "url": "https://tv.apple.com/"
+        },
+        {
+          "id": "xxpto2ss",
+          "name": "Apple Support - Factory Reset Mac",
+          "url": "https://support.apple.com/guide/mac-help/erase-your-mac-mchl7676b710/15.0/mac/15.0"
+        },
+        {
+          "id": "x8anwh58",
+          "name": "Best Buy",
+          "url": "https://www.bestbuy.com/"
+        },
+        {
+          "id": "xazxp8km",
+          "name": "BitWarden",
+          "url": "https://vault.bitwarden.com/"
+        },
+        {
+          "id": "xivbi5p3",
+          "name": "GameGlass",
+          "url": "https://app.gameglass.gg/"
+        },
+        {
+          "id": "xsf7mejw",
+          "name": "Gmail",
+          "url": "https://www.google.com/gmail/"
+        },
+        {
+          "id": "xfn695lp",
+          "name": "iCloud",
+          "url": "https://www.icloud.com/"
+        },
+        {
+          "id": "xf0o61w2",
+          "name": "Outlook",
+          "url": "https://outlook.live.com/mail/0/"
+        },
+        {
+          "id": "xpsd5zj0",
+          "name": "Peloton",
+          "url": "https://members.onepeloton.com/classes"
+        },
+        {
+          "id": "x8kj59yi",
+          "name": "Perplexity",
+          "url": "https://www.perplexity.ai/"
+        },
+        {
+          "id": "xon03h2k",
+          "name": "ChatGPT",
+          "url": "https://chatgpt.com/"
+        },
+        {
+          "id": "xvk5h0t6",
+          "name": "Proton",
+          "url": "https://proton.me/"
+        },
+        {
+          "id": "xuxvtz1u",
+          "name": "Proton Mail",
+          "url": "https://proton.me/"
+        },
+        {
+          "id": "xdwenzzt",
+          "name": "Proton Pass",
+          "url": "https://proton.me/pass"
+        },
+        {
+          "id": "xdsalyjp",
+          "name": "Search",
+          "url": "https://www.startpage.com/do/mypage.pl?prfe=52132bab623680358148e3c6762e51e2dc4927549a510935961a81c05ca208c679292083859ea75fbc673cb7b9444d80d63aa9df5f2ee5eb5f03d0c8cddc5b5695877436df453cd701a49c"
+        },
+        {
+          "id": "xsgy732z",
+          "name": "SimHub",
+          "url": "http://192.168.1.32:8888/"
+        },
+        {
+          "id": "x8dac89u",
+          "name": "YouTube",
+          "url": "https://www.youtube.com/"
+        }
+      ]
     }
   ]
 }
