@@ -109,6 +109,11 @@
           "id": "xwmgi49w",
           "name": "NASA - Spot The Station",
           "url": "https://spotthestation.nasa.gov/"
+        },
+        {
+          "id": "x1rn3kqy",
+          "name": "NASA Europa Clipper - Message In A Bottle",
+          "url": "https://europa.nasa.gov/message-in-a-bottle/join-us/"
         }
       ]
     },
@@ -594,11 +599,6 @@
       "name": "NASA",
       "open": true,
       "links": [
-        {
-          "id": "x1rn3kqy",
-          "name": "NASA Europa Clipper - Message In A Bottle",
-          "url": "https://europa.nasa.gov/message-in-a-bottle/join-us/"
-        },
         {
           "id": "x9txi8jy",
           "name": "NASA VIPER - Fly your name to the Moon",
