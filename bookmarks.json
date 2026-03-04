@@ -104,6 +104,11 @@
           "id": "xevqitef",
           "name": "NASA - Moon",
           "url": "https://science.nasa.gov/moon/"
+        },
+        {
+          "id": "xwmgi49w",
+          "name": "NASA - Spot The Station",
+          "url": "https://spotthestation.nasa.gov/"
         }
       ]
     },
@@ -589,11 +594,6 @@
       "name": "NASA",
       "open": true,
       "links": [
-        {
-          "id": "xwmgi49w",
-          "name": "NASA - Spot The Station",
-          "url": "https://spotthestation.nasa.gov/"
-        },
         {
           "id": "x1rn3kqy",
           "name": "NASA Europa Clipper - Message In A Bottle",
