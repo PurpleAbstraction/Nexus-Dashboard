@@ -31,6 +31,11 @@
           "id": "x8kj59yi",
           "name": "Perplexity",
           "url": "https://www.perplexity.ai/"
+        },
+        {
+          "id": "xon03h2k",
+          "name": "ChatGPT",
+          "url": "https://chatgpt.com/"
         }
       ]
     },
@@ -93,11 +98,6 @@
           "id": "xpsd5zj0",
           "name": "Peloton",
           "url": "https://members.onepeloton.com/classes"
-        },
-        {
-          "id": "xon03h2k",
-          "name": "ChatGPT",
-          "url": "https://chatgpt.com/"
         },
         {
           "id": "xvk5h0t6",
