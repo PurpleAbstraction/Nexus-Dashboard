@@ -69,6 +69,11 @@
           "id": "xwy3tkug",
           "name": "DJI - Official Website",
           "url": "https://www.dji.com/"
+        },
+        {
+          "id": "xrfbkc1h",
+          "name": "FAA Recreational Flyers & Modeler Community-Based Organizations",
+          "url": "https://www.faa.gov/uas/recreational_fliers/"
         }
       ]
     },
@@ -554,11 +559,6 @@
       "name": "Drones",
       "open": true,
       "links": [
-        {
-          "id": "xrfbkc1h",
-          "name": "FAA Recreational Flyers & Modeler Community-Based Organizations",
-          "url": "https://www.faa.gov/uas/recreational_fliers/"
-        },
         {
           "id": "xsvv9zge",
           "name": "FAA UAS (Drones) Getting Started",
