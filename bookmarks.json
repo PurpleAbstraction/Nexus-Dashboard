@@ -151,6 +151,11 @@
           "id": "x299v4m1",
           "name": "Midjourney",
           "url": "https://www.midjourney.com/app/"
+        },
+        {
+          "id": "xkedcuh4",
+          "name": "OpenAI",
+          "url": "https://openai.com/"
         }
       ]
     },
@@ -562,11 +567,6 @@
       "name": "AI Tools",
       "open": true,
       "links": [
-        {
-          "id": "xkedcuh4",
-          "name": "OpenAI",
-          "url": "https://openai.com/"
-        },
         {
           "id": "x44h0a5c",
           "name": "OpenAI API - Playground",
