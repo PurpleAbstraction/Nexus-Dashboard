@@ -94,6 +94,11 @@
           "id": "x4hygkmb",
           "name": "Tello Drone",
           "url": "https://www.ryzerobotics.com/tello"
+        },
+        {
+          "id": "xiihyfwz",
+          "name": "NASA",
+          "url": "https://www.nasa.gov/"
         }
       ]
     },
@@ -579,11 +584,6 @@
       "name": "NASA",
       "open": true,
       "links": [
-        {
-          "id": "xiihyfwz",
-          "name": "NASA",
-          "url": "https://www.nasa.gov/"
-        },
         {
           "id": "xevqitef",
           "name": "NASA - Moon",
