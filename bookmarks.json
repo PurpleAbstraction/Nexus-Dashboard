@@ -103,11 +103,6 @@
           "id": "xdwenzzt",
           "name": "Proton Pass",
           "url": "https://proton.me/pass"
-        },
-        {
-          "id": "xsgy732z",
-          "name": "SimHub",
-          "url": "http://192.168.1.32:8888/"
         }
       ]
     },
@@ -385,6 +380,11 @@
           "id": "xccpw6kg",
           "name": "Warframe - Wiki",
           "url": "https://warframe.fandom.com/wiki/WARFRAME_Wiki"
+        },
+        {
+          "id": "xsgy732z",
+          "name": "SimHub",
+          "url": "http://192.168.1.32:8888/"
         }
       ]
     },
