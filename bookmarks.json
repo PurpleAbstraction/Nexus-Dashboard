@@ -209,7 +209,7 @@
     {
       "id": "xmjqiqo8",
       "name": "Gaming",
-      "open": true,
+      "open": false,
       "links": [
         {
           "id": "xqlh64hk",
@@ -545,7 +545,7 @@
     {
       "id": "x5uzn7og",
       "name": "AI Tools",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "x7lywk92",
