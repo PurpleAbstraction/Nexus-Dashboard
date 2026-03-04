@@ -54,6 +54,11 @@
           "id": "xpwm7e51",
           "name": "Comic: Pearls Before Swine",
           "url": "https://www.gocomics.com/pearlsbeforeswine"
+        },
+        {
+          "id": "xb2v2fku",
+          "name": "Comic: Sysadminotaur",
+          "url": "https://sysadminotaur.devolutions.net/"
         }
       ]
     },
@@ -482,11 +487,6 @@
       "name": "Comics",
       "open": true,
       "links": [
-        {
-          "id": "xb2v2fku",
-          "name": "Comic: Sysadminotaur",
-          "url": "https://sysadminotaur.devolutions.net/"
-        },
         {
           "id": "xeqgcf8g",
           "name": "Comic: xkcd",
