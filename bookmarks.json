@@ -51,7 +51,7 @@
         },
         {
           "id": "x4x54lmk",
-          "name": "‎Apple TV+",
+          "name": "âApple TV+",
           "url": "https://tv.apple.com/"
         },
         {
@@ -130,7 +130,697 @@
       "id": "xmjqiqo8",
       "name": "Gaming",
       "open": true,
-      "links": []
+      "links": [
+        {
+          "id": "xqlh64hk",
+          "name": "Elite Dangerous - Elite Dangerous",
+          "url": "https://www.elitedangerous.com/"
+        },
+        {
+          "id": "xegtwerm",
+          "name": "Elite Dangerous - Elite Dangerous - Coriolis Shipyard",
+          "url": "https://coriolis.io/"
+        },
+        {
+          "id": "xwb05hzr",
+          "name": "Elite Dangerous - Elite Dangerous - EDDB",
+          "url": "https://eddb.io/"
+        },
+        {
+          "id": "xz6sts1g",
+          "name": "Elite Dangerous - Elite Dangerous - INARA",
+          "url": "https://inara.cz/"
+        },
+        {
+          "id": "xkj0oi2w",
+          "name": "Elite Dangerous - Elite Dangerous - Spansh Body Search",
+          "url": "https://spansh.co.uk/bodies"
+        },
+        {
+          "id": "xay66dpi",
+          "name": "Elite Dangerous - Elite Dangerous - Spansh Road to Riches",
+          "url": "https://spansh.co.uk/riches"
+        },
+        {
+          "id": "xy4der0q",
+          "name": "Elite Dangerous - Elite Dangerous - Pre-Upgraded Gear Forum Thread",
+          "url": "https://forums.frontier.co.uk/threads/the-great-pre-upgraded-gear-sharing-is-caring-thread.576352/"
+        },
+        {
+          "id": "xkry4ume",
+          "name": "Elite Dangerous - Elite Dangerous - Adventures and Tools",
+          "url": "https://elitedangereuse.fr/en/#"
+        },
+        {
+          "id": "xa5z4q28",
+          "name": "Elite Dangerous - Elite Dangerous - CMDRs ToolBox",
+          "url": "https://cmdrs-toolbox.com/"
+        },
+        {
+          "id": "xqd2edoy",
+          "name": "Elite Dangerous - Elite Dangerous - EDCoPilot",
+          "url": "https://www.razzafrag.com/"
+        },
+        {
+          "id": "xjp81g60",
+          "name": "Elite Dangerous - Elite Dangerous - Merit Miner",
+          "url": "https://meritminer.cc/"
+        },
+        {
+          "id": "xbvp97nc",
+          "name": "Elite Dangerous - Elite Dangerous - EDSY (Shipyard)",
+          "url": "https://edsy.org/"
+        },
+        {
+          "id": "xi3vjb2d",
+          "name": "Elite Dangerous - Elite Dangerous - Wiki",
+          "url": "https://elite-dangerous.fandom.com/wiki/Elite_Dangerous_Wiki"
+        },
+        {
+          "id": "x1b5wm4c",
+          "name": "Elite Dangerous - Elite Dangerous - System Colonization",
+          "url": "https://elite-dangerous.fandom.com/wiki/System_Colonisation"
+        },
+        {
+          "id": "x9qo1n7u",
+          "name": "Elite Dangerous - Elite Dangerous - Sirius Corporation Tools",
+          "url": "https://siriuscorp.cc/"
+        },
+        {
+          "id": "xc575zt7",
+          "name": "Star Citizen - Cloud Imperium Games Jobs",
+          "url": "https://cloudimperiumgames.com/join-us"
+        },
+        {
+          "id": "xw4bq3ax",
+          "name": "Star Citizen - Roberts Space Industries",
+          "url": "https://robertsspaceindustries.com/"
+        },
+        {
+          "id": "xor98p28",
+          "name": "Star Citizen - Roberts Space Industries - Current Status",
+          "url": "https://status.robertsspaceindustries.com/"
+        },
+        {
+          "id": "x4224vfk",
+          "name": "Star Citizen - Star Citizen - Armory",
+          "url": "https://armory.thespacecoder.space/"
+        },
+        {
+          "id": "x2t67tx7",
+          "name": "Star Citizen - Star Citizen - ATMO esports",
+          "url": "https://www.atmo.gg/"
+        },
+        {
+          "id": "xtrnnb8b",
+          "name": "Star Citizen - Star Citizen - Bar Citizen",
+          "url": "https://barcitizen.sc/"
+        },
+        {
+          "id": "xzfqlwtg",
+          "name": "Star Citizen - Star Citizen - Cornerstone Item Finder",
+          "url": "https://finder.cstone.space/"
+        },
+        {
+          "id": "xx7yxmcu",
+          "name": "Star Citizen - Star Citizen - Cornerstone Planetary Survey",
+          "url": "https://cornerstonebase.space/survey/"
+        },
+        {
+          "id": "xk678c95",
+          "name": "Star Citizen - Star Citizen - Delta Consulting",
+          "url": "https://www.deltaconsultingsc.com/"
+        },
+        {
+          "id": "xl8b8d1p",
+          "name": "Star Citizen - Star Citizen - Erkul Calculator",
+          "url": "https://www.erkul.games/live/calculator"
+        },
+        {
+          "id": "xxvkbtid",
+          "name": "Star Citizen - Star Citizen - Galactapedia",
+          "url": "https://robertsspaceindustries.com/galactapedia/"
+        },
+        {
+          "id": "x4iljcvz",
+          "name": "Star Citizen - Star Citizen - Hyper Vanguard Force",
+          "url": "https://robertsspaceindustries.com/comm-link/transmission/14704-hyper-vanguard-force"
+        },
+        {
+          "id": "xgffhbb3",
+          "name": "Star Citizen - Star Citizen - Ship Sales & Rental Prices",
+          "url": "https://scfocus.org/ship-sale-rental-locations-history/"
+        },
+        {
+          "id": "xzwipliv",
+          "name": "Star Citizen - Star Citizen - StarJump Viewer",
+          "url": "https://hangar.link/"
+        },
+        {
+          "id": "xia1giyc",
+          "name": "Star Citizen - Star Citizen - UEE Xenolinguistics Institute",
+          "url": "https://ueexi.com/"
+        },
+        {
+          "id": "x291uaup",
+          "name": "Star Citizen - Star Citizen - UEX Trading Tool",
+          "url": "https://uexcorp.space/"
+        },
+        {
+          "id": "xswatx81",
+          "name": "Star Citizen - Star Citizen - Wiki",
+          "url": "https://starcitizen.tools/"
+        },
+        {
+          "id": "xdai9ylc",
+          "name": "Star Citizen - Star Citizen - CCU Game",
+          "url": "https://ccugame.app/sign-in?redirectURL=%2Fyour-items%2Ffleet"
+        },
+        {
+          "id": "xw63rpz5",
+          "name": "Star Citizen - Star Citizen - Funding Dashboard",
+          "url": "https://ccugame.app/star-citizen-funding-dashboard/funding-dashboard"
+        },
+        {
+          "id": "xychq4da",
+          "name": "Star Citizen - Star Citizen - Galactic Logistics",
+          "url": "https://gallog.co/"
+        },
+        {
+          "id": "xqvikylo",
+          "name": "Star Citizen - Star Citizen - In-Game Vehicle Sales & Rentals",
+          "url": "https://scfocus.org/ship-sale-rental-locations-history/"
+        },
+        {
+          "id": "x908r36t",
+          "name": "Star Citizen - Star Citizen - JRDF",
+          "url": "https://www.jrdf.sc/"
+        },
+        {
+          "id": "xwyf7e4b",
+          "name": "Star Citizen - Star Citizen - Mining Mom",
+          "url": "https://www.scminingmom.com/"
+        },
+        {
+          "id": "x0qn2znb",
+          "name": "Star Citizen - Star Citizen - Org Tools",
+          "url": "https://scorg.tools/"
+        },
+        {
+          "id": "xxghl1ud",
+          "name": "Star Citizen - Star Citizen - Pledge Store Vehicles",
+          "url": "https://starcitizen.tools/List_of_pledge_vehicles"
+        },
+        {
+          "id": "xnfd916q",
+          "name": "Star Citizen - Star Citizen - StarShip42",
+          "url": "https://starship42.com/"
+        },
+        {
+          "id": "xn5qasxo",
+          "name": "Star Citizen - Star Citizen - VerseGuide",
+          "url": "https://verseguide.com/"
+        },
+        {
+          "id": "xrwuuju9",
+          "name": "Star Citizen - Star Citizen - VerseTime",
+          "url": "https://dydrmr.github.io/VerseTime/"
+        },
+        {
+          "id": "x41ev3lp",
+          "name": "Star Citizen - Star Citizen - Regolith Mining Tool",
+          "url": "https://regolith.rocks/"
+        },
+        {
+          "id": "xolta2pl",
+          "name": "X4 Foundations - X4: Foundations - Full List of Ships",
+          "url": "https://x4-foundations-wiki.fandom.com/wiki/Full_ships_list"
+        },
+        {
+          "id": "xuxeq3qn",
+          "name": "Epic Games",
+          "url": "https://store.epicgames.com/en-US/"
+        },
+        {
+          "id": "xnfek6f9",
+          "name": "EVE Online",
+          "url": "https://www.eveonline.com/"
+        },
+        {
+          "id": "xx7w25az",
+          "name": "EVE Universe: Project Awakening",
+          "url": "https://www.projectawakening.io/"
+        },
+        {
+          "id": "x0p1lveh",
+          "name": "GameTouch Controller",
+          "url": "https://www.gametouchcontroller.com/home"
+        },
+        {
+          "id": "xpny4pfe",
+          "name": "iRacing",
+          "url": "https://members.iracing.com/membersite/member/Home.do"
+        },
+        {
+          "id": "xdsmlubw",
+          "name": "SimHub",
+          "url": "http://192.168.1.21:8888/"
+        },
+        {
+          "id": "xg41n7u4",
+          "name": "Warframe",
+          "url": "https://www.warframe.com/landing"
+        },
+        {
+          "id": "xjgzieml",
+          "name": "Warframe - Hub",
+          "url": "https://hub.warframestat.us/#/"
+        },
+        {
+          "id": "xccpw6kg",
+          "name": "Warframe - Wiki",
+          "url": "https://warframe.fandom.com/wiki/WARFRAME_Wiki"
+        }
+      ]
+    },
+    {
+      "id": "xeh3lg5j",
+      "name": "Business",
+      "open": true,
+      "links": [
+        {
+          "id": "xgigurid",
+          "name": "Chase Bank",
+          "url": "https://www.chase.com/"
+        },
+        {
+          "id": "xrghysk0",
+          "name": "Citi Bank",
+          "url": "https://citiretailservices.citibankonline.com/"
+        },
+        {
+          "id": "xcwl0y7l",
+          "name": "LinkedIn",
+          "url": "https://www.linkedin.com/feed/"
+        },
+        {
+          "id": "xynrwakp",
+          "name": "Progressive Insurance",
+          "url": "https://www.progressive.com/"
+        },
+        {
+          "id": "xw5cmov3",
+          "name": "TownSq (HOA)",
+          "url": "https://app.townsq.io/"
+        },
+        {
+          "id": "xzoncwuq",
+          "name": "Transamerica Retirement",
+          "url": "https://www.transamerica.com/portal/"
+        }
+      ]
+    },
+    {
+      "id": "xkmtcjnp",
+      "name": "Chess",
+      "open": true,
+      "links": [
+        {
+          "id": "xvo883ue",
+          "name": "Chess Puzzles",
+          "url": "http://www.chesspuzzles.com/"
+        },
+        {
+          "id": "x9j7ev2b",
+          "name": "Chess Puzzles - 365Chess",
+          "url": "https://www.365chess.com/puzzles.php"
+        },
+        {
+          "id": "xej5djts",
+          "name": "Chess.com",
+          "url": "https://www.chess.com/"
+        }
+      ]
+    },
+    {
+      "id": "x4axwxdx",
+      "name": "Comics",
+      "open": true,
+      "links": [
+        {
+          "id": "xwq5jsqr",
+          "name": "Comic: B.C.",
+          "url": "https://www.gocomics.com/bc"
+        },
+        {
+          "id": "x2pbl2r7",
+          "name": "Comic: Get Fuzzy",
+          "url": "https://www.gocomics.com/getfuzzy"
+        },
+        {
+          "id": "xycfizpu",
+          "name": "Comic: Non Sequitur",
+          "url": "https://www.gocomics.com/nonsequitur"
+        },
+        {
+          "id": "xpwm7e51",
+          "name": "Comic: Pearls Before Swine",
+          "url": "https://www.gocomics.com/pearlsbeforeswine"
+        },
+        {
+          "id": "xb2v2fku",
+          "name": "Comic: Sysadminotaur",
+          "url": "https://sysadminotaur.devolutions.net/"
+        },
+        {
+          "id": "xeqgcf8g",
+          "name": "Comic: xkcd",
+          "url": "https://xkcd.com/"
+        }
+      ]
+    },
+    {
+      "id": "x5uzn7og",
+      "name": "AI Tools",
+      "open": true,
+      "links": [
+        {
+          "id": "x7lywk92",
+          "name": "DALL·E 2",
+          "url": "https://openai.com/product/dall-e-2"
+        },
+        {
+          "id": "x91c9ws4",
+          "name": "DreamStudio",
+          "url": "https://beta.dreamstudio.ai/generate"
+        },
+        {
+          "id": "x299v4m1",
+          "name": "Midjourney",
+          "url": "https://www.midjourney.com/app/"
+        },
+        {
+          "id": "xkedcuh4",
+          "name": "OpenAI",
+          "url": "https://openai.com/"
+        },
+        {
+          "id": "x44h0a5c",
+          "name": "OpenAI API - Playground",
+          "url": "https://platform.openai.com/playground"
+        },
+        {
+          "id": "xce858lp",
+          "name": "OpenAI API - User Settings",
+          "url": "https://platform.openai.com/account/profile"
+        },
+        {
+          "id": "x0kje665",
+          "name": "SOUNDRAW - AI Music Generator",
+          "url": "https://soundraw.io/"
+        },
+        {
+          "id": "xr0suwwd",
+          "name": "Stable Diffusion - Hugging Face",
+          "url": "https://huggingface.co/spaces/stabilityai/stable-diffusion"
+        },
+        {
+          "id": "xhqpz49h",
+          "name": "Prompt Engineering Guide",
+          "url": "https://www.promptingguide.ai/"
+        },
+        {
+          "id": "x2a9mm5c",
+          "name": "Zapier - Automation",
+          "url": "https://zapier.com/"
+        }
+      ]
+    },
+    {
+      "id": "x6kwbng2",
+      "name": "Drones",
+      "open": true,
+      "links": [
+        {
+          "id": "xwy3tkug",
+          "name": "DJI - Official Website",
+          "url": "https://www.dji.com/"
+        },
+        {
+          "id": "xrfbkc1h",
+          "name": "FAA Recreational Flyers & Modeler Community-Based Organizations",
+          "url": "https://www.faa.gov/uas/recreational_fliers/"
+        },
+        {
+          "id": "xsvv9zge",
+          "name": "FAA UAS (Drones) Getting Started",
+          "url": "https://www.faa.gov/uas/getting_started/"
+        },
+        {
+          "id": "xuv87ylt",
+          "name": "FAADroneZone - Recreational Flyer Dashboard",
+          "url": "https://faadronezone.faa.gov/#/home"
+        },
+        {
+          "id": "x7t5nx4c",
+          "name": "Know Before You Fly",
+          "url": "http://www.knowbeforeyoufly.org/home"
+        },
+        {
+          "id": "x4hygkmb",
+          "name": "Tello Drone",
+          "url": "https://www.ryzerobotics.com/tello"
+        }
+      ]
+    },
+    {
+      "id": "xz3a28km",
+      "name": "NASA",
+      "open": true,
+      "links": [
+        {
+          "id": "xiihyfwz",
+          "name": "NASA",
+          "url": "https://www.nasa.gov/"
+        },
+        {
+          "id": "xevqitef",
+          "name": "NASA - Moon",
+          "url": "https://science.nasa.gov/moon/"
+        },
+        {
+          "id": "xwmgi49w",
+          "name": "NASA - Spot The Station",
+          "url": "https://spotthestation.nasa.gov/"
+        },
+        {
+          "id": "x1rn3kqy",
+          "name": "NASA Europa Clipper - Message In A Bottle",
+          "url": "https://europa.nasa.gov/message-in-a-bottle/join-us/"
+        },
+        {
+          "id": "x9txi8jy",
+          "name": "NASA VIPER - Fly your name to the Moon",
+          "url": "https://www3.nasa.gov/send-your-name-with-viper/"
+        }
+      ]
+    },
+    {
+      "id": "xiiyy9yh",
+      "name": "Shopping",
+      "open": true,
+      "links": [
+        {
+          "id": "x9i4nxu3",
+          "name": "Ann Taylor - Tall Clothing",
+          "url": "https://www.anntaylor.com/tall/all-tall/cat140012/"
+        },
+        {
+          "id": "xv585csq",
+          "name": "Barnes & Noble",
+          "url": "https://www.barnesandnoble.com/"
+        },
+        {
+          "id": "xnwcayh0",
+          "name": "Boy Smells",
+          "url": "https://boysmells.com/"
+        },
+        {
+          "id": "x6e543yb",
+          "name": "Club Monaco",
+          "url": "https://www.clubmonaco.com/"
+        },
+        {
+          "id": "xlsiwnsw",
+          "name": "Daniel Alain - Wigs",
+          "url": "https://www.danielalain.com/"
+        },
+        {
+          "id": "xxznk3kr",
+          "name": "doTERRA Essential Oils",
+          "url": "https://www.doterra.com/US/en"
+        },
+        {
+          "id": "xr5pypcu",
+          "name": "Etsy",
+          "url": "https://www.etsy.com/"
+        },
+        {
+          "id": "x3mgsiph",
+          "name": "Eureka Ergonomic",
+          "url": "https://eurekaergonomic.com/"
+        },
+        {
+          "id": "x5ummtpf",
+          "name": "Everlane",
+          "url": "https://www.everlane.com/"
+        },
+        {
+          "id": "x4bvivhd",
+          "name": "Express",
+          "url": "https://www.express.com/"
+        },
+        {
+          "id": "xqn8zj1v",
+          "name": "Gap - Tall Women's Clothing",
+          "url": "https://www.gap.com/"
+        },
+        {
+          "id": "xi36cbae",
+          "name": "H&M - Divided",
+          "url": "https://www2.hm.com/en_us/divided.html"
+        },
+        {
+          "id": "xx5xuti8",
+          "name": "Henson Shaving",
+          "url": "https://hensonshaving.com/"
+        },
+        {
+          "id": "xabkui7w",
+          "name": "Holzkern",
+          "url": "https://www.world.holzkern.com/en_world/"
+        },
+        {
+          "id": "xexujsoy",
+          "name": "J.Crew - Women's Clothing",
+          "url": "https://www.jcrew.com/all/womens/categories/"
+        },
+        {
+          "id": "x2sinmnw",
+          "name": "Ka'Chava",
+          "url": "https://www.kachava.com/"
+        },
+        {
+          "id": "xgxk3h2x",
+          "name": "Keurig - Login",
+          "url": "https://www.keurig.com/login"
+        },
+        {
+          "id": "xw1vgakj",
+          "name": "Lands' End",
+          "url": "https://www.landsend.com/"
+        },
+        {
+          "id": "x8s82b30",
+          "name": "MAC Cosmetics",
+          "url": "https://www.maccosmetics.com/"
+        },
+        {
+          "id": "xn452g3z",
+          "name": "Modest Wedding Dresses",
+          "url": "https://www.moncheribridals.com/modest-by-mon-cheri"
+        },
+        {
+          "id": "xrnp2ifh",
+          "name": "One Golden Thread",
+          "url": "https://onegoldenthread.com/"
+        },
+        {
+          "id": "xq7l4jbb",
+          "name": "Parachute",
+          "url": "https://www.parachutehome.com/"
+        },
+        {
+          "id": "xbzkwmwv",
+          "name": "Peloton Apparel",
+          "url": "https://apparel.onepeloton.com/"
+        },
+        {
+          "id": "xyg9l5gx",
+          "name": "Prince Official Store",
+          "url": "https://store.prince.com/"
+        },
+        {
+          "id": "xijkau6q",
+          "name": "Sephora",
+          "url": "https://www.sephora.com/"
+        },
+        {
+          "id": "ximhs8gd",
+          "name": "Sharpe Suiting",
+          "url": "https://sharpesuiting.com/"
+        },
+        {
+          "id": "xt9iv66d",
+          "name": "Showpo",
+          "url": "https://www.showpo.com/us/"
+        },
+        {
+          "id": "x0rabmnq",
+          "name": "SKECHERS - Women's Shoes",
+          "url": "https://www.skechers.com/women/shoes/"
+        },
+        {
+          "id": "x8eig447",
+          "name": "SKIMS",
+          "url": "https://skims.com/"
+        },
+        {
+          "id": "x0302wk4",
+          "name": "SPANX",
+          "url": "https://spanx.com/"
+        },
+        {
+          "id": "x5vzwngf",
+          "name": "Thursday Boots",
+          "url": "https://thursdayboots.com/collections/womens-boots"
+        },
+        {
+          "id": "x7mp60up",
+          "name": "Trak Racer",
+          "url": "https://trakracer.com/"
+        },
+        {
+          "id": "x5f0cj01",
+          "name": "Ulta Beauty",
+          "url": "https://www.ulta.com/"
+        },
+        {
+          "id": "xmrnqjwi",
+          "name": "UniWigs",
+          "url": "https://www.uniwigs.com/"
+        },
+        {
+          "id": "xuxyzoip",
+          "name": "Victoria's Secret",
+          "url": "https://www.victoriassecret.com/us/"
+        },
+        {
+          "id": "xea9cxk5",
+          "name": "VIRPIL USA",
+          "url": "https://virpil-controls.us.com/"
+        },
+        {
+          "id": "x08ej2q4",
+          "name": "Whole Foods Market",
+          "url": "https://www.wholefoodsmarket.com/"
+        },
+        {
+          "id": "xhnje3c6",
+          "name": "Uwajimaya",
+          "url": "https://www.uwajimaya.com/departments/"
+        }
+      ]
     }
   ]
 }
