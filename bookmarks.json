@@ -64,6 +64,11 @@
           "id": "xeqgcf8g",
           "name": "Comic: xkcd",
           "url": "https://xkcd.com/"
+        },
+        {
+          "id": "xwy3tkug",
+          "name": "DJI - Official Website",
+          "url": "https://www.dji.com/"
         }
       ]
     },
@@ -549,11 +554,6 @@
       "name": "Drones",
       "open": true,
       "links": [
-        {
-          "id": "xwy3tkug",
-          "name": "DJI - Official Website",
-          "url": "https://www.dji.com/"
-        },
         {
           "id": "xrfbkc1h",
           "name": "FAA Recreational Flyers & Modeler Community-Based Organizations",
