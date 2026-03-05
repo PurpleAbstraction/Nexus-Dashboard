@@ -2,21 +2,24 @@
 
 A self-hosted personal dashboard and bookmark manager. Lives in your GitHub repo, works in any browser, on any device — no accounts, no sync services, no third-party dependencies for your data.
 
-![Theme](https://img.shields.io/badge/theme-dark%20%2F%20light-c8a96e) ![Storage](https://img.shields.io/badge/storage-GitHub%20JSON-7eb8c9) ![Dependencies](https://img.shields.io/badge/dependencies-none-6ec98a)
+![Theme](https://img.shields.io/badge/theme-dark%20%2F%20light-c8a96e) ![Storage](https://img.shields.io/badge/storage-GitHub%20JSON-7eb8c9) ![Dependencies](https://img.shields.io/badge/dependencies-none-6ec98a) ![Mobile](https://img.shields.io/badge/layout-responsive-c96eb4)
 
 ---
 
 ## Features
 
-- **Bookmark manager** — collapsible categories, favicons, instant search with clear button
+- **Bookmark manager** — collapsible categories with color-coded accents, favicons, instant search with Clear button
 - **Inline editing** — rename categories, add/edit/delete links without touching code
-- **GitHub-backed storage** — bookmarks saved to `bookmarks.json` in this repo via the GitHub API
-- **Browser import** — import from Safari or Firefox bookmark HTML exports with preview, deduplication, and category merging
-- **RSS feed reader** — paste any feed URL, results load in the sidebar
+- **Alphabetical sort** — sort all categories and their links A–Z in one click
+- **GitHub-backed storage** — bookmarks saved to `bookmarks.json` in this repo via the GitHub API, with live sync status indicator
+- **Browser import** — import from Safari or Firefox bookmark HTML exports with preview, inline rename, category merging, and duplicate detection
+- **Web search widget** — search DuckDuckGo, Perplexity, or Brave Search directly from the dashboard; engine preference remembered between sessions; DDG launches with no AI, no ads, dark mode, and privacy settings baked in
+- **RSS feed reader** — paste any feed URL, results load in the sidebar with refresh button
 - **Scratch pad** — quick notes that auto-save to browser localStorage
-- **Theme switcher** — dark and light modes
+- **Theme switcher** — warm dark and parchment light modes
 - **Export** — download your bookmarks as a clean JSON file any time
-- **Single file** — everything in one `index.html`, no build tools, no frameworks
+- **Responsive layout** — works on desktop, tablet, and mobile
+- **Single file** — everything in one `index.html`, no build tools, no frameworks, no dependencies
 
 ---
 
@@ -60,6 +63,20 @@ The import preview lets you rename categories, merge them into existing ones, an
 
 ---
 
+## Web Search
+
+The web search panel in the sidebar supports three engines:
+
+| Engine | Notes |
+|--------|-------|
+| **DuckDuckGo** | No AI · No ads · Dark mode · Private — all baked into the search URL |
+| **Perplexity** | AI-powered answers · Account settings carry over when logged in |
+| **Brave Search** | Independent index · Fallback option |
+
+Your last-used engine is remembered between sessions.
+
+---
+
 ## Data & Portability
 
 Your bookmarks live in `bookmarks.json` alongside `index.html`. You can edit it directly, back it up, or use it with other tools. The format is simple:
@@ -94,11 +111,8 @@ GitHub tokens expire based on the duration you set. When yours is close to expir
 ## Roadmap
 
 - [ ] Drag-and-drop category and link reordering
-- [ ] Alphabetical sort button
-- [ ] Web search widget (DuckDuckGo / Perplexity / Brave)
 - [ ] Multiple RSS feeds
-- [ ] Search clear button positioning fix
-- [ ] Responsive / mobile layout
+- [ ] Game launcher integration
 
 ---
 
@@ -113,4 +127,5 @@ No frameworks. No build step. No package manager.
 
 ---
 
-*Built with Claude — [claude.ai](https://claude.ai)*
+*Built with [Claude](https://claude.ai) — AI-assisted development at its finest.*
+
