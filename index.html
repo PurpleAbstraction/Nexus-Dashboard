@@ -310,12 +310,13 @@
     color: var(--text-muted);
     cursor: pointer;
     padding: 0 0 0 4px;
-    display: none;
+    visibility: hidden;
+    display: flex;
     align-items: center;
     font-size: 11px;
     transition: color var(--transition);
   }
-  .link-chip:hover .link-edit-btn { display: flex; }
+  .link-chip:hover .link-edit-btn { visibility: visible; }
   .link-edit-btn:hover { color: var(--accent); }
 
   .link-del-btn {
@@ -324,12 +325,13 @@
     color: var(--text-muted);
     cursor: pointer;
     padding: 0;
-    display: none;
+    visibility: hidden;
+    display: flex;
     align-items: center;
     font-size: 11px;
     transition: color var(--transition);
   }
-  .link-chip:hover .link-del-btn { display: flex; }
+  .link-chip:hover .link-del-btn { visibility: visible; }
   .link-del-btn:hover { color: var(--danger); }
 
   /* Add link row */
@@ -1022,7 +1024,16 @@ async function loadData() {
 }
 
 // ── GITHUB WRITE ──────────────────────────────────────────────────────
-async function saveData() {
+async function fetchCurrentSha() {
+  const headers = { 'Accept': 'application/vnd.github+json' };
+  if (getToken()) headers['Authorization'] = `Bearer ${getToken()}`;
+  const res = await fetch(GH_API + `?ref=${GH_BRANCH}&t=${Date.now()}`, { headers });
+  if (!res.ok) throw new Error(`Could not fetch current SHA: ${res.status}`);
+  const meta = await res.json();
+  return meta.sha;
+}
+
+async function saveData(retry = false) {
   if (!getToken()) {
     openTokenModal();
     return;
@@ -1051,6 +1062,12 @@ async function saveData() {
     });
     if (!res.ok) {
       const err = await res.json();
+      // SHA mismatch — fetch the current SHA and retry once
+      if (!retry && err.message && err.message.includes('does not match')) {
+        showToast('Syncing with GitHub…');
+        _ghSha = await fetchCurrentSha();
+        return saveData(true);
+      }
       throw new Error(err.message || res.status);
     }
     const data = await res.json();
