@@ -97,7 +97,7 @@
     margin-left: auto;
   }
 
-  .search-wrap svg:first-of-type {
+  .search-wrap svg {
     position: absolute;
     left: 12px;
     top: 50%;
@@ -111,7 +111,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 8px 30px 8px 36px;
+    padding: 8px 12px 8px 36px;
     color: var(--text);
     font-family: 'Inconsolata', monospace;
     font-size: 14px;
@@ -120,23 +120,6 @@
   }
   #search:focus { border-color: var(--accent); }
   #search::placeholder { color: var(--text-muted); }
-  #searchClear {
-    display: none;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 2px;
-    align-items: center;
-    line-height: 0;
-    transition: color var(--transition);
-  }
-  #searchClear.visible { display: flex; }
-  #searchClear:hover { color: var(--text); }
 
   .header-actions {
     display: flex;
@@ -753,10 +736,11 @@
     <div class="search-wrap">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input id="search" type="text" placeholder="Search links…" autocomplete="off">
-      <button id="searchClear" title="Clear search">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
     </div>
+    <button class="icon-btn" id="searchClear" title="Clear search" style="display:none;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Clear
+    </button>
     <div class="header-actions">
       <span id="syncStatus" style="font-size:12px;font-family:'Inconsolata',monospace;color:var(--text-muted);cursor:pointer;" title="GitHub sync status" onclick="openTokenModal()">● GitHub</span>
       <button class="icon-btn" id="themeToggle" title="Toggle theme">
@@ -1219,13 +1203,13 @@ document.getElementById('addCategoryBtn').addEventListener('click', () => {
 const searchClear = document.getElementById('searchClear');
 document.getElementById('search').addEventListener('input', e => {
   render(e.target.value);
-  searchClear.classList.toggle('visible', e.target.value.length > 0);
+  searchClear.style.display = e.target.value ? 'flex' : 'none';
 });
 searchClear.addEventListener('click', () => {
   const s = document.getElementById('search');
   s.value = '';
   s.focus();
-  searchClear.classList.remove('visible');
+  searchClear.style.display = 'none';
   render('');
 });
 
