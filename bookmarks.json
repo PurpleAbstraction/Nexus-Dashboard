@@ -125,7 +125,7 @@
     {
       "id": "cat2",
       "name": "AI Tools",
-      "open": true,
+      "open": false,
       "links": [
         {
           "id": "x8kj59yi",
