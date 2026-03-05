@@ -822,7 +822,7 @@
         Import
       </button>
       <button class="icon-btn" id="exportBtn" title="Export bookmarks">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 10 12 15 7 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 11 12 6 7 11"/><line x1="12" y1="6" x2="12" y2="17"/></svg>
         Export
       </button>
     </div>
@@ -835,6 +835,10 @@
         <button class="add-category-btn" id="sortCatsBtn" title="Sort categories A–Z">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="9" y2="18"/></svg>
           Sort A–Z
+        </button>
+        <button class="add-category-btn" id="quickAddLinkBtn" title="Add a new link">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Link
         </button>
         <button class="add-category-btn" id="addCategoryBtn">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -1766,6 +1770,15 @@ document.getElementById('webSearchClear').addEventListener('click', () => {
 
 // Init engine state
 setEngine(_activeEngine);
+
+// ── QUICK ADD LINK ────────────────────────────────────────────────────
+document.getElementById('quickAddLinkBtn').addEventListener('click', () => {
+  if (!appData.categories.length) {
+    showToast('Add a category first!');
+    return;
+  }
+  openLinkModal(appData.categories[0].id, null);
+});
 
 // ── SORT ──────────────────────────────────────────────────────────────
 document.getElementById('sortCatsBtn').addEventListener('click', () => {
