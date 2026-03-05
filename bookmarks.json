@@ -816,6 +816,11 @@
           "id": "x8anwh58",
           "name": "Best Buy",
           "url": "https://www.bestbuy.com/"
+        },
+        {
+          "id": "x9azcqie",
+          "name": "Nordstrum Rack",
+          "url": "https://nordstromrack.com/"
         }
       ]
     }
