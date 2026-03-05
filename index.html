@@ -97,7 +97,7 @@
     margin-left: auto;
   }
 
-  .search-wrap svg {
+  .search-wrap svg:first-of-type {
     position: absolute;
     left: 12px;
     top: 50%;
@@ -688,7 +688,59 @@
   .import-link-tag.dupe::after { content: ' (dupe)'; font-size: 10px; color: var(--text-muted); }
 
   @media (max-width: 860px) {
-    .shell { grid-template-columns: 1fr; grid-template-areas: "header" "main" "aside"; }
+    .shell {
+      grid-template-columns: 1fr;
+      grid-template-areas: "header" "main" "aside";
+      padding: 0 16px 40px;
+    }
+
+    header {
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 0 12px;
+      margin-bottom: 20px;
+    }
+
+    .logo { font-size: 17px; }
+    .clock { font-size: 11px; order: 3; width: 100%; }
+
+    .search-wrap {
+      order: 2;
+      max-width: 100%;
+      width: 100%;
+      margin-left: 0;
+      flex: 1 1 100%;
+    }
+
+    .header-actions {
+      order: 1;
+      margin-left: auto;
+      gap: 6px;
+    }
+
+    /* Hide button text labels on mobile, show icons only */
+    .icon-btn span, .icon-btn { font-size: 0; padding: 7px 8px; }
+    .icon-btn svg { width: 15px; height: 15px; }
+    #syncStatus { font-size: 11px !important; }
+
+    /* Stack aside panels below main */
+    aside { gap: 16px; }
+
+    /* Make category link chips wrap better on small screens */
+    .links-body { gap: 4px; }
+    .link-chip { font-size: 12px; padding: 5px 8px; }
+  }
+
+  @media (max-width: 480px) {
+    .shell { padding: 0 12px 32px; }
+
+    header { gap: 8px; }
+
+    .category-header { padding: 10px 12px; }
+    .links-body { padding: 10px 12px; }
+
+    .modal { padding: 18px; }
+    .import-modal { max-height: 92vh; }
   }
 </style>
 </head>
