@@ -120,7 +120,23 @@
   }
   #search:focus { border-color: var(--accent); }
   #search::placeholder { color: var(--text-muted); }
-  #searchClear:hover { color: var(--text) !important; }
+  #searchClear {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 2px;
+    align-items: center;
+    line-height: 0;
+    transition: color var(--transition);
+  }
+  #searchClear.visible { display: flex; }
+  #searchClear:hover { color: var(--text); }
 
   .header-actions {
     display: flex;
@@ -685,7 +701,7 @@
     <div class="search-wrap">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input id="search" type="text" placeholder="Search links…" autocomplete="off">
-      <button id="searchClear" title="Clear search" style="display:none;position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;padding:2px;display:none;align-items:center;transition:color 180ms ease;" >
+      <button id="searchClear" title="Clear search">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -1151,13 +1167,13 @@ document.getElementById('addCategoryBtn').addEventListener('click', () => {
 const searchClear = document.getElementById('searchClear');
 document.getElementById('search').addEventListener('input', e => {
   render(e.target.value);
-  searchClear.style.display = e.target.value ? 'flex' : 'none';
+  searchClear.classList.toggle('visible', e.target.value.length > 0);
 });
 searchClear.addEventListener('click', () => {
   const s = document.getElementById('search');
   s.value = '';
   s.focus();
-  searchClear.style.display = 'none';
+  searchClear.classList.remove('visible');
   render('');
 });
 
