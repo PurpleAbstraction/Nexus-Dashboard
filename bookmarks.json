@@ -75,7 +75,8 @@
           "name": "Zapier - Automation",
           "url": "https://zapier.com/"
         }
-      ]
+      ],
+      "pinned": false
     },
     {
       "id": "xeh3lg5j",
@@ -122,7 +123,8 @@
           "name": "US Passport",
           "url": "https://travel.state.gov/content/travel/en/passports/how-apply/forms.html"
         }
-      ]
+      ],
+      "pinned": false
     },
     {
       "id": "xkmtcjnp",
@@ -159,7 +161,8 @@
           "name": "YouTube",
           "url": "https://www.youtube.com/"
         }
-      ]
+      ],
+      "pinned": false
     },
     {
       "id": "x04my4i1",
@@ -242,7 +245,8 @@
           "url": "https://www.timeanddate.com/"
         }
       ],
-      "color": "#9e6ec9"
+      "color": "#9e6ec9",
+      "pinned": true
     },
     {
       "id": "xmjqiqo8",
@@ -529,7 +533,8 @@
           "name": "X4 Foundations - X4: Foundations - Full List of Ships",
           "url": "https://x4-foundations-wiki.fandom.com/wiki/Full_ships_list"
         }
-      ]
+      ],
+      "pinned": false
     },
     {
       "id": "cat1",
@@ -656,7 +661,8 @@
           "name": "Tello Drone",
           "url": "https://www.ryzerobotics.com/tello"
         }
-      ]
+      ],
+      "pinned": false
     },
     {
       "id": "xiiyy9yh",
@@ -868,7 +874,8 @@
           "name": "Whole Foods Market",
           "url": "https://www.wholefoodsmarket.com/"
         }
-      ]
+      ],
+      "pinned": false
     }
   ]
 }
