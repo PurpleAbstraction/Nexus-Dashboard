@@ -892,7 +892,13 @@
       "id": "x6sypw0t",
       "name": "Job Search",
       "open": true,
-      "links": [],
+      "links": [
+        {
+          "id": "xxr3rsk8",
+          "name": "Net Impact",
+          "url": "https://careers.netimpact.org/jobs?country=&state=&city=&zip=&latitude=&longitude=&keywords=&location_autocomplete_data=&city_state_zip=&locale=en&sort=date&location_remote_option_filter=remote"
+        }
+      ],
       "color": "#c9c96e"
     }
   ]
