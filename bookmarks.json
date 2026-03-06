@@ -50,6 +50,45 @@
       "color": "#6ec98a"
     },
     {
+      "id": "xkmtcjnp",
+      "name": "Entertainment",
+      "open": false,
+      "links": [
+        {
+          "id": "x4x54lmk",
+          "name": "Apple TV+",
+          "url": "https://tv.apple.com/"
+        },
+        {
+          "id": "xjlbomk3",
+          "name": "Nebula",
+          "url": "https://nebula.tv/"
+        },
+        {
+          "id": "xjs9yk77",
+          "name": "PBS",
+          "url": "https://www.pbs.org/"
+        },
+        {
+          "id": "xusrdur4",
+          "name": "Steam",
+          "url": "https://store.steampowered.com/"
+        },
+        {
+          "id": "xnoy9q3a",
+          "name": "Twitch",
+          "url": "https://www.twitch.tv/"
+        },
+        {
+          "id": "x8dac89u",
+          "name": "YouTube",
+          "url": "https://www.youtube.com/"
+        }
+      ],
+      "pinned": false,
+      "color": "#c96e6e"
+    },
+    {
       "id": "cat2",
       "name": "AI Tools",
       "open": false,
@@ -127,45 +166,6 @@
       ],
       "pinned": false,
       "color": "#6e9ec9"
-    },
-    {
-      "id": "xkmtcjnp",
-      "name": "Entertainment",
-      "open": false,
-      "links": [
-        {
-          "id": "x4x54lmk",
-          "name": "Apple TV+",
-          "url": "https://tv.apple.com/"
-        },
-        {
-          "id": "xjlbomk3",
-          "name": "Nebula",
-          "url": "https://nebula.tv/"
-        },
-        {
-          "id": "xjs9yk77",
-          "name": "PBS",
-          "url": "https://www.pbs.org/"
-        },
-        {
-          "id": "xusrdur4",
-          "name": "Steam",
-          "url": "https://store.steampowered.com/"
-        },
-        {
-          "id": "xnoy9q3a",
-          "name": "Twitch",
-          "url": "https://www.twitch.tv/"
-        },
-        {
-          "id": "x8dac89u",
-          "name": "YouTube",
-          "url": "https://www.youtube.com/"
-        }
-      ],
-      "pinned": false,
-      "color": "#c96e6e"
     },
     {
       "id": "xmjqiqo8",
