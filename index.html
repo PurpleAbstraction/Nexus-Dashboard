@@ -1296,7 +1296,7 @@ function renderCategory(cat, container, q, isPinned) {
 
   const chevron = isPinned ? '' : `<svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>`;
   const nameSpan = `<span class="category-name" style="color:${color !== 'var(--border)' ? color : ''}">${cat.name}</span>`;
-  const pinnedBadge = isPinned ? `<span class="pinned-badge">▲ PINNED</span>` : '';
+  const pinnedBadge = isPinned ? `<span class="pinned-badge">★ PINNED</span>` : '';
   const countSpan = `<span class="category-count">${cat.links.length}</span>`;
 
   const catActions = document.createElement('div');
