@@ -577,9 +577,9 @@
           "url": "https://www3.nasa.gov/send-your-name-with-viper/"
         },
         {
-          "id": "x4hygkmb",
-          "name": "Tello Drone",
-          "url": "https://www.ryzerobotics.com/tello"
+          "id": "xdprg0zt",
+          "name": "Obsidian",
+          "url": "https://obsidian.md/"
         },
         {
           "id": "xpsd5zj0",
@@ -587,9 +587,9 @@
           "url": "https://members.onepeloton.com/classes"
         },
         {
-          "id": "xdprg0zt",
-          "name": "Obsidian",
-          "url": "https://obsidian.md/"
+          "id": "x4hygkmb",
+          "name": "Tello Drone",
+          "url": "https://www.ryzerobotics.com/tello"
         }
       ],
       "pinned": false,
