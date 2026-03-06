@@ -892,7 +892,8 @@
       "id": "x6sypw0t",
       "name": "Job Search",
       "open": true,
-      "links": []
+      "links": [],
+      "color": "#c9c96e"
     }
   ]
 }
