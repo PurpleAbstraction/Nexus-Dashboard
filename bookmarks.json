@@ -582,7 +582,8 @@
           "url": "https://www.ryzerobotics.com/tello"
         }
       ],
-      "pinned": false
+      "pinned": false,
+      "color": "#c8a96e"
     },
     {
       "id": "x04my4i1",
