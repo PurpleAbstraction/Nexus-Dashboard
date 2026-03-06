@@ -163,7 +163,7 @@
     },
     {
       "id": "x04my4i1",
-      "name": "Favorites",
+      "name": "MAIN",
       "open": true,
       "links": [
         {
@@ -241,7 +241,8 @@
           "name": "Time and Date",
           "url": "https://www.timeanddate.com/"
         }
-      ]
+      ],
+      "color": "#9e6ec9"
     },
     {
       "id": "xmjqiqo8",
