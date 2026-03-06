@@ -166,90 +166,6 @@
       "pinned": false
     },
     {
-      "id": "x04my4i1",
-      "name": "MAIN",
-      "open": true,
-      "links": [
-        {
-          "id": "xypclm76",
-          "name": "Apple",
-          "url": "http://www.apple.com/"
-        },
-        {
-          "id": "x54bezh1",
-          "name": "Apple Feedback",
-          "url": "https://www.apple.com/feedback/"
-        },
-        {
-          "id": "xxpto2ss",
-          "name": "Apple Support - Factory Reset Mac",
-          "url": "https://support.apple.com/guide/mac-help/erase-your-mac-mchl7676b710/15.0/mac/15.0"
-        },
-        {
-          "id": "xazxp8km",
-          "name": "BitWarden",
-          "url": "https://vault.bitwarden.com/"
-        },
-        {
-          "id": "x2pzn5rm",
-          "name": "Fast - Speed Test",
-          "url": "https://fast.com/"
-        },
-        {
-          "id": "xsf7mejw",
-          "name": "Gmail",
-          "url": "https://www.google.com/gmail/"
-        },
-        {
-          "id": "xfn695lp",
-          "name": "iCloud",
-          "url": "https://www.icloud.com/"
-        },
-        {
-          "id": "xf0o61w2",
-          "name": "Outlook",
-          "url": "https://outlook.live.com/mail/0/"
-        },
-        {
-          "id": "xpsd5zj0",
-          "name": "Peloton",
-          "url": "https://members.onepeloton.com/classes"
-        },
-        {
-          "id": "xvk5h0t6",
-          "name": "Proton",
-          "url": "https://proton.me/"
-        },
-        {
-          "id": "xc8ica2z",
-          "name": "Proton Calendar",
-          "url": "https://calendar.proton.me/"
-        },
-        {
-          "id": "xsh5mnc5",
-          "name": "Proton Drive",
-          "url": "https://drive.proton.me/"
-        },
-        {
-          "id": "xuxvtz1u",
-          "name": "Proton Mail",
-          "url": "https://mail.proton.me/"
-        },
-        {
-          "id": "xdwenzzt",
-          "name": "Proton Pass",
-          "url": "https://proton.me/pass"
-        },
-        {
-          "id": "xby883hl",
-          "name": "Time and Date",
-          "url": "https://www.timeanddate.com/"
-        }
-      ],
-      "color": "#9e6ec9",
-      "pinned": true
-    },
-    {
       "id": "xmjqiqo8",
       "name": "Gaming",
       "open": false,
@@ -664,6 +580,90 @@
         }
       ],
       "pinned": false
+    },
+    {
+      "id": "x04my4i1",
+      "name": "MAIN",
+      "open": true,
+      "links": [
+        {
+          "id": "xypclm76",
+          "name": "Apple",
+          "url": "http://www.apple.com/"
+        },
+        {
+          "id": "x54bezh1",
+          "name": "Apple Feedback",
+          "url": "https://www.apple.com/feedback/"
+        },
+        {
+          "id": "xxpto2ss",
+          "name": "Apple Support - Factory Reset Mac",
+          "url": "https://support.apple.com/guide/mac-help/erase-your-mac-mchl7676b710/15.0/mac/15.0"
+        },
+        {
+          "id": "xazxp8km",
+          "name": "BitWarden",
+          "url": "https://vault.bitwarden.com/"
+        },
+        {
+          "id": "x2pzn5rm",
+          "name": "Fast - Speed Test",
+          "url": "https://fast.com/"
+        },
+        {
+          "id": "xsf7mejw",
+          "name": "Gmail",
+          "url": "https://www.google.com/gmail/"
+        },
+        {
+          "id": "xfn695lp",
+          "name": "iCloud",
+          "url": "https://www.icloud.com/"
+        },
+        {
+          "id": "xf0o61w2",
+          "name": "Outlook",
+          "url": "https://outlook.live.com/mail/0/"
+        },
+        {
+          "id": "xpsd5zj0",
+          "name": "Peloton",
+          "url": "https://members.onepeloton.com/classes"
+        },
+        {
+          "id": "xvk5h0t6",
+          "name": "Proton",
+          "url": "https://proton.me/"
+        },
+        {
+          "id": "xc8ica2z",
+          "name": "Proton Calendar",
+          "url": "https://calendar.proton.me/"
+        },
+        {
+          "id": "xsh5mnc5",
+          "name": "Proton Drive",
+          "url": "https://drive.proton.me/"
+        },
+        {
+          "id": "xuxvtz1u",
+          "name": "Proton Mail",
+          "url": "https://mail.proton.me/"
+        },
+        {
+          "id": "xdwenzzt",
+          "name": "Proton Pass",
+          "url": "https://proton.me/pass"
+        },
+        {
+          "id": "xby883hl",
+          "name": "Time and Date",
+          "url": "https://www.timeanddate.com/"
+        }
+      ],
+      "color": "#9e6ec9",
+      "pinned": true
     },
     {
       "id": "xiiyy9yh",
