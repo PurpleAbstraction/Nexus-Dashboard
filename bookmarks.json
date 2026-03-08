@@ -590,6 +590,11 @@
           "id": "x4hygkmb",
           "name": "Tello Drone",
           "url": "https://www.ryzerobotics.com/tello"
+        },
+        {
+          "id": "xyxuym9v",
+          "name": "Nvidia GeForce Drivers",
+          "url": "https://www.nvidia.com/en-us/geforce/drivers/"
         }
       ],
       "pinned": false,
