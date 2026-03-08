@@ -1,6 +1,55 @@
 {
   "categories": [
     {
+      "id": "xeh3lg5j",
+      "name": "Business",
+      "open": true,
+      "links": [
+        {
+          "id": "xgigurid",
+          "name": "Chase Bank",
+          "url": "https://www.chase.com/"
+        },
+        {
+          "id": "xrghysk0",
+          "name": "Citi Bank",
+          "url": "https://citiretailservices.citibankonline.com/"
+        },
+        {
+          "id": "xcwl0y7l",
+          "name": "LinkedIn",
+          "url": "https://www.linkedin.com/feed/"
+        },
+        {
+          "id": "xynrwakp",
+          "name": "Progressive Insurance",
+          "url": "https://www.progressive.com/"
+        },
+        {
+          "id": "xw5cmov3",
+          "name": "TownSq (HOA)",
+          "url": "https://app.townsq.io/"
+        },
+        {
+          "id": "xzoncwuq",
+          "name": "Transamerica Retirement",
+          "url": "https://www.transamerica.com/portal/"
+        },
+        {
+          "id": "x2o1smr2",
+          "name": "Turbo Tax",
+          "url": "https://myturbotax.intuit.com/"
+        },
+        {
+          "id": "xk1uc74v",
+          "name": "US Passport",
+          "url": "https://travel.state.gov/content/travel/en/passports/how-apply/forms.html"
+        }
+      ],
+      "pinned": false,
+      "color": "#6ec98a"
+    },
+    {
       "id": "cat2",
       "name": "AI Tools",
       "open": false,
@@ -78,55 +127,6 @@
       ],
       "pinned": false,
       "color": "#6e9ec9"
-    },
-    {
-      "id": "xeh3lg5j",
-      "name": "Business",
-      "open": true,
-      "links": [
-        {
-          "id": "xgigurid",
-          "name": "Chase Bank",
-          "url": "https://www.chase.com/"
-        },
-        {
-          "id": "xrghysk0",
-          "name": "Citi Bank",
-          "url": "https://citiretailservices.citibankonline.com/"
-        },
-        {
-          "id": "xcwl0y7l",
-          "name": "LinkedIn",
-          "url": "https://www.linkedin.com/feed/"
-        },
-        {
-          "id": "xynrwakp",
-          "name": "Progressive Insurance",
-          "url": "https://www.progressive.com/"
-        },
-        {
-          "id": "xw5cmov3",
-          "name": "TownSq (HOA)",
-          "url": "https://app.townsq.io/"
-        },
-        {
-          "id": "xzoncwuq",
-          "name": "Transamerica Retirement",
-          "url": "https://www.transamerica.com/portal/"
-        },
-        {
-          "id": "x2o1smr2",
-          "name": "Turbo Tax",
-          "url": "https://myturbotax.intuit.com/"
-        },
-        {
-          "id": "xk1uc74v",
-          "name": "US Passport",
-          "url": "https://travel.state.gov/content/travel/en/passports/how-apply/forms.html"
-        }
-      ],
-      "pinned": false,
-      "color": "#6ec98a"
     },
     {
       "id": "xkmtcjnp",
