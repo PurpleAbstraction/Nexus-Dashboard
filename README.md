@@ -165,7 +165,24 @@ GitHub Pages can take a minute or two to reflect changes after a push. If you're
 
 ## Roadmap
 
+### Phase 2
+
+**Search & Navigation**
+- [ ] Global search with unified dropdown — single input that searches bookmarks or dispatches a web search, with mode toggle
+- [ ] Ensure all web search engine URLs have preference parameters fully baked in (privacy, UI, etc.)
+
+**Bookmarks & Categories**
 - [ ] Improved category color picker — full spectrum or expanded palette
+
+**RSS**
+- [ ] Custom feed names — ability to rename feeds in the Edit panel rather than auto-deriving from hostname
+- [ ] Surface the 10-feed cap visibly in the widget UI (currently enforced in code; add a note so it's clear to the user)
+
+**Scratch Pad**
+- [ ] GitHub-backed scratch pad for the full version — persist notes to the repo alongside `bookmarks.json` (lite version keeps localStorage as-is)
+
+**Lite Version**
+- [ ] Stripped-down single-file build for sharing with friends — no GitHub token required, no sync, all data in localStorage only; bookmarks exportable as JSON for portability
 
 ---
 
