@@ -549,6 +549,47 @@
   .rss-feed-row:hover .rss-feed-del { opacity: 1; }
   .rss-feed-del:hover { color: var(--danger); }
 
+  .rss-drag-handle {
+    color: var(--text-muted);
+    cursor: grab;
+    padding: 2px 3px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity var(--transition);
+    flex-shrink: 0;
+  }
+  .rss-feed-row:hover .rss-drag-handle { opacity: 1; }
+  .rss-feed-row.rss-dragging { opacity: 0.4; }
+  .rss-feed-row.rss-drag-over { outline: 1px solid var(--accent2); outline-offset: 1px; border-radius: 4px; }
+
+  .rss-feed-name-input {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    color: var(--text);
+    padding: 1px 6px;
+    font-family: 'Inconsolata', monospace;
+    font-size: 12px;
+    outline: none;
+  }
+
+  .rss-add-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    border-color: var(--border);
+    color: var(--text-muted);
+  }
+  .rss-add-btn:disabled:hover { border-color: var(--border); color: var(--text-muted); }
+
+  .rss-feed-count {
+    font-family: 'Inconsolata', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .rss-feed-count.at-max { color: var(--danger); }
+
   .rss-add-row {
     display: flex;
     gap: 6px;
@@ -997,7 +1038,8 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">RSS Feeds</span>
-        <div style="display:flex;gap:4px;align-items:center;">
+        <div style="display:flex;gap:6px;align-items:center;">
+          <span class="rss-feed-count" id="rssFeedCount"></span>
           <button class="icon-btn" id="rssEditBtn" style="padding:3px 8px;font-size:11px;">Edit</button>
           <button class="icon-btn" id="rssRefresh" style="padding:3px 8px;font-size:11px;border:none;">↻ Refresh</button>
         </div>
@@ -1659,9 +1701,22 @@ function isWithin7Days(dateStr) {
   return (Date.now() - d.getTime()) <= RSS_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
 }
 
+function updateRssFeedCount() {
+  const el = document.getElementById('rssFeedCount');
+  if (!el) return;
+  const n = _rssFeeds.length;
+  el.textContent = n ? `${n} / ${RSS_MAX_FEEDS}` : '';
+  el.classList.toggle('at-max', n >= RSS_MAX_FEEDS);
+  // Also update Add button disabled state
+  const addBtn = document.getElementById('rssAddBtn');
+  if (addBtn) addBtn.disabled = n >= RSS_MAX_FEEDS;
+}
+
 function renderRssFeedList() {
   const list = document.getElementById('rssFeedList');
   const filter = document.getElementById('rssFeedFilter');
+
+  updateRssFeedCount();
 
   if (!_rssFeeds.length) {
     list.innerHTML = '<div class="rss-placeholder" style="padding:8px 0;">No feeds added yet.</div>';
@@ -1669,25 +1724,61 @@ function renderRssFeedList() {
     return;
   }
 
-  list.innerHTML = _rssFeeds.map((f, i) => `
-    <div class="rss-feed-row ${_rssFilter === f.url ? 'active' : ''}" data-idx="${i}">
+  // Build rows
+  list.innerHTML = '';
+  _rssFeeds.forEach((f, i) => {
+    const row = document.createElement('div');
+    row.className = 'rss-feed-row' + (_rssFilter === f.url ? ' active' : '');
+    row.dataset.idx = i;
+    row.draggable = true;
+    row.innerHTML = `
+      <span class="rss-drag-handle" title="Drag to reorder">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="5" r="1.5" fill="currentColor"/><circle cx="15" cy="5" r="1.5" fill="currentColor"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/><circle cx="15" cy="12" r="1.5" fill="currentColor"/><circle cx="9" cy="19" r="1.5" fill="currentColor"/><circle cx="15" cy="19" r="1.5" fill="currentColor"/></svg>
+      </span>
       <span class="rss-feed-name" data-url="${f.url}" title="${f.url}">${f.name}</span>
       <button class="rss-feed-del" data-idx="${i}" title="Remove feed">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>`).join('');
+      </button>`;
+    list.appendChild(row);
+  });
 
   // Feed filter dropdown
   filter.innerHTML = '<option value="all">All feeds</option>' +
     _rssFeeds.map(f => `<option value="${f.url}" ${_rssFilter === f.url ? 'selected' : ''}>${f.name}</option>`).join('');
 
-  // Click feed name to filter
+  // Click feed name — filter if not in edit mode, rename if in edit mode
   list.querySelectorAll('.rss-feed-name').forEach(el => {
     el.addEventListener('click', () => {
-      _rssFilter = _rssFilter === el.dataset.url ? 'all' : el.dataset.url;
-      filter.value = _rssFilter;
-      renderRssFeedList();
-      renderRssItems();
+      const editOpen = document.getElementById('rssMgmt').style.display === 'block';
+      if (editOpen) {
+        // Inline rename
+        const idx = parseInt(el.closest('.rss-feed-row').dataset.idx);
+        const input = document.createElement('input');
+        input.className = 'rss-feed-name-input';
+        input.value = _rssFeeds[idx].name;
+        el.replaceWith(input);
+        input.focus(); input.select();
+        function finishRename() {
+          const val = input.value.trim();
+          if (val) _rssFeeds[idx].name = val;
+          saveRssFeeds();
+          renderRssFeedList();
+          // Update filter dropdown to reflect new name
+          const filterEl = document.getElementById('rssFeedFilter');
+          filterEl.innerHTML = '<option value="all">All feeds</option>' +
+            _rssFeeds.map(f => `<option value="${f.url}" ${_rssFilter === f.url ? 'selected' : ''}>${f.name}</option>`).join('');
+        }
+        input.addEventListener('blur', finishRename);
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Enter') input.blur();
+          if (e.key === 'Escape') { renderRssFeedList(); }
+        });
+      } else {
+        _rssFilter = _rssFilter === el.dataset.url ? 'all' : el.dataset.url;
+        filter.value = _rssFilter;
+        renderRssFeedList();
+        renderRssItems();
+      }
     });
   });
 
@@ -1703,6 +1794,40 @@ function renderRssFeedList() {
       renderRssFeedList();
       renderRssItems();
       showToast('Feed removed.');
+    });
+  });
+
+  // Drag-to-reorder feeds
+  let _dragFeedIdx = null;
+  list.querySelectorAll('.rss-feed-row').forEach(row => {
+    row.addEventListener('dragstart', e => {
+      _dragFeedIdx = parseInt(row.dataset.idx);
+      row.classList.add('rss-dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.stopPropagation();
+    });
+    row.addEventListener('dragend', () => {
+      row.classList.remove('rss-dragging');
+      list.querySelectorAll('.rss-feed-row').forEach(r => r.classList.remove('rss-drag-over'));
+      _dragFeedIdx = null;
+    });
+    row.addEventListener('dragover', e => {
+      if (_dragFeedIdx === null || _dragFeedIdx === parseInt(row.dataset.idx)) return;
+      e.preventDefault();
+      e.stopPropagation();
+      list.querySelectorAll('.rss-feed-row').forEach(r => r.classList.remove('rss-drag-over'));
+      row.classList.add('rss-drag-over');
+    });
+    row.addEventListener('dragleave', () => row.classList.remove('rss-drag-over'));
+    row.addEventListener('drop', e => {
+      const toIdx = parseInt(row.dataset.idx);
+      if (_dragFeedIdx === null || _dragFeedIdx === toIdx) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const [moved] = _rssFeeds.splice(_dragFeedIdx, 1);
+      _rssFeeds.splice(toIdx, 0, moved);
+      saveRssFeeds();
+      renderRssFeedList();
     });
   });
 }
@@ -1820,6 +1945,7 @@ document.getElementById('rssAddBtn').addEventListener('click', async () => {
   saveRssFeeds();
   document.getElementById('rssUrlInput').value = '';
   renderRssFeedList();
+  updateRssFeedCount();
   showToast(`Loading ${name}…`);
   const items = await fetchFeed({ url, name });
   _rssCache[url] = items;
