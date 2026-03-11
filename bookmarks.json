@@ -454,7 +454,7 @@
     {
       "id": "cat1",
       "name": "Interests",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "xvo883ue",
