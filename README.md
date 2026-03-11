@@ -176,7 +176,8 @@ GitHub Pages can take a minute or two to reflect changes. Wait a moment and do a
 
 ## Roadmap
 
-- [ ] Improved category color picker — full spectrum or expanded palette
+- [ ] Morning Brief panel — AI-synthesized daily news brief from wire services (AP, Reuters, AFP), rendered neutral and fact-based via Claude API, with per-item Perplexity deep-dive links
+- [ ] Global search toggle — unified header search bar switchable between bookmark filtering and web search; omnibar with live bookmark results and a "Search the web for…" escape hatch
 
 ---
 
