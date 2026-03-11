@@ -77,7 +77,7 @@
         }
       ],
       "pinned": false,
-      "color": "#6e9ec9"
+      "color": "#9aaab8"
     },
     {
       "id": "xeh3lg5j",
@@ -449,7 +449,7 @@
         }
       ],
       "pinned": false,
-      "color": "#7eb8c9"
+      "color": "#4a90c4"
     },
     {
       "id": "cat1",
@@ -537,11 +537,6 @@
           "url": "https://news.ycombinator.com"
         },
         {
-          "id": "x2v018cy",
-          "name": "Jellyfin",
-          "url": "https://jellyfin.org"
-        },
-        {
           "id": "x7t5nx4c",
           "name": "Know Before You Fly",
           "url": "http://www.knowbeforeyoufly.org/home"
@@ -592,11 +587,6 @@
           "url": "https://members.onepeloton.com/classes"
         },
         {
-          "id": "xcx895u5",
-          "name": "Pop!_OS",
-          "url": "https://system76.com/pop/download/"
-        },
-        {
           "id": "xx07wnso",
           "name": "ROG STRIX Z690-E GAMING WIFI",
           "url": "https://rog.asus.com/us/motherboards/rog-strix/rog-strix-z690-e-gaming-wifi-model/"
@@ -605,6 +595,16 @@
           "id": "x4hygkmb",
           "name": "Tello Drone",
           "url": "https://www.ryzerobotics.com/tello"
+        },
+        {
+          "id": "xcx895u5",
+          "name": "Pop!_OS",
+          "url": "https://system76.com/pop/download/"
+        },
+        {
+          "id": "xhiherxu",
+          "name": "MTSIM (MTS)",
+          "url": "https://www.mtsim.com/"
         }
       ],
       "pinned": false,
@@ -932,5 +932,5 @@
       "color": "#6ec9b4"
     }
   ],
-  "scratch": "- Phase 2 in progress\n- See roadmap in GitHub repo"
+  "scratch": "- Phase 2 in progress\n- See roadmap in GitHub repo\n- Web-based game?"
 }
