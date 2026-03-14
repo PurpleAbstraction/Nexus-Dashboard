@@ -19,14 +19,20 @@ A self-hosted personal dashboard and bookmark manager. Lives in your GitHub repo
 - **Drag-and-drop reordering** — drag categories into any order; drag links within a category to reorder them
 - **GitHub-backed storage** — bookmarks saved to `bookmarks.json` via the GitHub API with live sync status; auto-retries on SHA conflicts
 
+### Search
+- **Omnibar with mode toggle** — a single search bar in the header switches between two modes with one click
+- **Links mode** (default) — filters categories and links inline as you type, exactly as before
+- **Web mode** — typing and pressing Enter launches a new tab with your query in the active search engine; border and placeholder update to reflect the active mode
+- **Persistent mode** — last used mode remembered between sessions
+
 ### Import & Export
 - **Browser import** — import from Safari or Firefox HTML exports with full preview: rename categories, merge into existing ones, skip duplicates
 - **Export** — download a clean `bookmarks.json` backup any time
 
-### Web Search
+### Web Search Panel
 - **Three engines** — DuckDuckGo, Perplexity, and Brave Search, switchable with one click
 - **DDG optimized** — no AI answers, no ads, dark mode, and privacy settings baked into the URL
-- **Persistent preference** — last used engine remembered between sessions
+- **Persistent preference** — last used engine remembered between sessions; omnibar web mode uses the same active engine
 - **Clear button** — clears the search input instantly
 
 ### RSS Feeds
@@ -47,6 +53,7 @@ A self-hosted personal dashboard and bookmark manager. Lives in your GitHub repo
 
 ### Fidget Widget
 - **Collapsible panel** — sits at the bottom of the sidebar, collapsed by default, expands on click
+- **Detachable** — pop out into a freely draggable floating window; close to reattach
 - **Dial** — drag to rotate freely; subtle tick sound every 15° of rotation
 - **Ripple field** — click or hold and drag for cascading ripples with inner echo rings
 - **Clicky button** — satisfying low thock with depress animation and glow
@@ -90,6 +97,17 @@ That's it. Every bookmark change you make will now sync silently back to `bookma
 
 ---
 
+## Omnibar
+
+The header search bar operates in two modes, toggled by the **Links / Web** button beside it:
+
+- **Links mode** — filters your bookmark categories and links inline as you type
+- **Web mode** — pressing Enter launches your query in whichever search engine is currently active in the Web Search panel; the search bar border and placeholder update to reflect the active engine
+
+Your last used mode is remembered between sessions. Switching engines in the sidebar panel instantly updates the omnibar placeholder.
+
+---
+
 ## Importing Bookmarks
 
 Click **Import** in the header and drop your browser's bookmark export file:
@@ -101,7 +119,7 @@ The import preview lets you rename categories, merge them into existing ones, an
 
 ---
 
-## Web Search
+## Web Search Panel
 
 The web search panel in the sidebar supports three engines:
 
@@ -111,7 +129,7 @@ The web search panel in the sidebar supports three engines:
 | **Perplexity** | AI-powered answers · Account settings carry over when logged in |
 | **Brave Search** | Independent index · Reliable fallback |
 
-Your last-used engine is remembered between sessions.
+Your last-used engine is remembered between sessions and shared with the omnibar web mode.
 
 ---
 
@@ -131,7 +149,7 @@ The scratch pad auto-saves to localStorage as you type. To sync it across device
 
 ## Fidget Widget
 
-The fidget panel sits at the bottom of the sidebar and is collapsed by default. Click the panel header to expand it. Theme and sound preferences are remembered between sessions. Sound is off by default — toggle it with the speaker icon in the panel header without needing to expand the panel first.
+The fidget panel sits at the bottom of the sidebar and is collapsed by default. Click the panel header to expand it. Click the detach icon (⤢) to pop the widget out into a freely draggable floating window — close it to reattach. Theme and sound preferences are remembered between sessions. Sound is off by default and can be toggled from the panel header without expanding the panel.
 
 ---
 
@@ -194,7 +212,6 @@ GitHub Pages can take a minute or two to reflect changes. Wait a moment and do a
 ## Roadmap
 
 - [ ] Morning Brief panel — AI-synthesized daily news brief from wire services (AP, Reuters, AFP), rendered neutral and fact-based via Claude API, with per-item Perplexity deep-dive links
-- [ ] Global search toggle — unified header search bar switchable between bookmark filtering and web search; omnibar with live bookmark results and a "Search the web for…" escape hatch
 
 ---
 
