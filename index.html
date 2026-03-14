@@ -3032,6 +3032,7 @@ if (!getToken()) {
   });
 
   // Detach / float
+  const fCanvas          = document.getElementById('fidgetRippleCanvas');
   const fidgetFloat      = document.getElementById('fidgetFloat');
   const fidgetFloatInner = document.getElementById('fidgetFloatInner');
   const fidgetPanel      = document.getElementById('fidgetPanelInner');
@@ -3041,16 +3042,17 @@ if (!getToken()) {
   let isFloating = false;
 
   function detach() {
-    // Move the widget DOM into the float
-    fidgetFloatInner.appendChild(fidgetPanel);
-    // Center on screen
+    // Show float and position it before moving DOM (Firefox needs this)
     fidgetFloat.style.left = `${Math.round((window.innerWidth - 300) / 2)}px`;
     fidgetFloat.style.top  = `${Math.round((window.innerHeight - 360) / 2)}px`;
     fidgetFloat.classList.add('visible');
-    // Collapse sidebar panel
+    // Now move the widget DOM into the float
+    fidgetFloatInner.appendChild(fidgetPanel);
+    // Collapse sidebar panel after DOM move
     setFidgetOpen(false);
     isFloating = true;
-    resizeFidgetCanvas();
+    // Delay resize until after layout settles
+    requestAnimationFrame(() => requestAnimationFrame(() => resizeFidgetCanvas()));
     syncFloatSoundBtn();
     syncFloatTheme();
   }
@@ -3060,7 +3062,7 @@ if (!getToken()) {
     document.getElementById('fidgetBody').appendChild(fidgetPanel);
     fidgetFloat.classList.remove('visible');
     isFloating = false;
-    resizeFidgetCanvas();
+    requestAnimationFrame(() => requestAnimationFrame(() => resizeFidgetCanvas()));
   }
 
   function syncFloatSoundBtn() {
@@ -3128,15 +3130,19 @@ if (!getToken()) {
   }, { passive: true });
   document.addEventListener('mouseup',  () => { fDraggingFloat = false; });
   document.addEventListener('touchend', () => { fDraggingFloat = false; });
+
+  // Ripple canvas
   const fCtx = fCanvas.getContext('2d');
   let fRipples = [];
 
   function resizeFidgetCanvas() {
     const rect = fCanvas.parentElement.getBoundingClientRect();
-    fCanvas.width  = rect.width;
-    fCanvas.height = rect.height;
+    if (rect.width > 0 && rect.height > 0) {
+      fCanvas.width  = rect.width;
+      fCanvas.height = rect.height;
+    }
   }
-  new ResizeObserver(resizeFidgetCanvas).observe(fCanvas.parentElement);
+  new ResizeObserver(() => requestAnimationFrame(resizeFidgetCanvas)).observe(fCanvas.parentElement);
 
   function addFRipple(x, y) {
     fRipples.push({ x, y, r: 0, alpha: 0.7, speed: 1.5 + Math.random() });
