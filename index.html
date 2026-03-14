@@ -876,7 +876,7 @@
   .engine-btn:hover { border-color: var(--accent); color: var(--accent); }
   .engine-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
   .engine-btn.active.perplexity { background: var(--accent2); border-color: var(--accent2); }
-  .engine-btn.active.brave { background: #c96eb4; border-color: #c96eb4; }
+  .engine-btn.active.startpage { background: #6ec98a; border-color: #6ec98a; color: var(--bg); }
 
   .web-search-row {
     display: flex;
@@ -1300,7 +1300,7 @@
       <div class="search-engines">
         <button class="engine-btn active" data-engine="ddg">DDG</button>
         <button class="engine-btn perplexity" data-engine="perplexity">Perplexity</button>
-        <button class="engine-btn brave" data-engine="brave">Brave</button>
+        <button class="engine-btn startpage" data-engine="startpage">Startpage</button>
       </div>
       <div class="web-search-row">
         <input type="text" id="webSearchInput" placeholder="Search the web…" autocomplete="off">
@@ -2675,14 +2675,16 @@ const ENGINES = {
     note: 'AI-powered answers · Log in for full features',
     url: q => `https://www.perplexity.ai/search?q=${encodeURIComponent(q)}`,
   },
-  brave: {
-    label: 'Brave Search',
-    note: 'Independent index · AI summary unavoidable without account',
-    url: q => `https://search.brave.com/search?q=${encodeURIComponent(q)}&source=web&safesearch=off`,
+  startpage: {
+    label: 'Startpage',
+    note: 'Google results · No tracking · Your preferences applied',
+    url: q => `https://www.startpage.com/do/mypage.pl?prfe=aeb546cf2019d03153f75226eec88e75ed35e1cf53a0eeb2fa0c0012f94e36577d97627a3ea08d05c2547444f0b08badd88627c824439b1afa7a255557cef8583e2e5e2bd83273961a05dfaefd63307c&query=${encodeURIComponent(q)}`,
   },
 };
 
 let _activeEngine = localStorage.getItem('nexus_engine') || 'ddg';
+// Guard against stale saved engine key from previous versions
+if (!ENGINES[_activeEngine]) _activeEngine = 'ddg';
 
 function setEngine(key) {
   _activeEngine = key;
@@ -2692,7 +2694,7 @@ function setEngine(key) {
   });
   document.getElementById('engineNote').textContent = ENGINES[key].note;
   // Update Go button color to match active engine
-  const colors = { ddg: 'var(--accent)', perplexity: 'var(--accent2)', brave: '#c96eb4' };
+  const colors = { ddg: 'var(--accent)', perplexity: 'var(--accent2)', startpage: '#6ec98a' };
   const go = document.getElementById('webSearchGo');
   go.style.background = colors[key];
   go.style.borderColor = colors[key];
