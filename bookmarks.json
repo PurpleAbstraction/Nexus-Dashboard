@@ -727,6 +727,11 @@
           "id": "xby883hl",
           "name": "Time and Date",
           "url": "https://www.timeanddate.com/"
+        },
+        {
+          "id": "x2pcg2ch",
+          "name": "Zoom",
+          "url": "https://www.zoom.com/"
         }
       ],
       "color": "#9e6ec9",
