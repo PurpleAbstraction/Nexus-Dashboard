@@ -120,6 +120,27 @@
   }
   #search:focus { border-color: var(--accent); }
   #search::placeholder { color: var(--text-muted); }
+  #search.web-mode { border-color: var(--accent2); }
+  #search.web-mode:focus { border-color: var(--accent2); }
+
+  .search-mode-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 7px 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all var(--transition);
+    flex-shrink: 0;
+  }
+  .search-mode-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .search-mode-btn.web { border-color: var(--accent2); color: var(--accent2); background: var(--surface); }
 
   .header-actions {
     display: flex;
@@ -1225,6 +1246,7 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input id="search" type="text" placeholder="Search links…" autocomplete="off">
     </div>
+    <button class="search-mode-btn" id="searchModeBtn" title="Toggle search mode">Links</button>
     <button class="icon-btn" id="searchClear" title="Clear search" style="display:none;">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       Clear
@@ -1938,18 +1960,59 @@ document.getElementById('addCategoryBtn').addEventListener('click', () => {
 });
 
 // ── SEARCH ────────────────────────────────────────────────────────────
-const searchClear = document.getElementById('searchClear');
-document.getElementById('search').addEventListener('input', e => {
-  render(e.target.value);
-  searchClear.style.display = e.target.value ? 'flex' : 'none';
+const searchInput    = document.getElementById('search');
+const searchClear    = document.getElementById('searchClear');
+const searchModeBtn  = document.getElementById('searchModeBtn');
+let _searchMode = localStorage.getItem('nexus_search_mode') || 'links'; // 'links' | 'web'
+
+function setSearchMode(mode) {
+  _searchMode = mode;
+  localStorage.setItem('nexus_search_mode', mode);
+  const isWeb = mode === 'web';
+  searchModeBtn.textContent = isWeb ? 'Web' : 'Links';
+  searchModeBtn.classList.toggle('web', isWeb);
+  searchInput.classList.toggle('web-mode', isWeb);
+  searchInput.placeholder = isWeb
+    ? `Search with ${ENGINES[_activeEngine]?.label || 'web'}…`
+    : 'Search links…';
+  // In web mode, clear the bookmark filter
+  if (isWeb) render('');
+}
+
+searchModeBtn.addEventListener('click', () => {
+  setSearchMode(_searchMode === 'links' ? 'web' : 'links');
+  searchInput.focus();
 });
+
+searchInput.addEventListener('input', e => {
+  if (_searchMode === 'links') {
+    render(e.target.value);
+    searchClear.style.display = e.target.value ? 'flex' : 'none';
+  } else {
+    // In web mode, don't filter bookmarks
+    searchClear.style.display = e.target.value ? 'flex' : 'none';
+  }
+});
+
+searchInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && _searchMode === 'web') {
+    const q = searchInput.value.trim();
+    if (!q) return;
+    window.open(ENGINES[_activeEngine].url(q), '_blank', 'noopener');
+  }
+});
+
 searchClear.addEventListener('click', () => {
-  const s = document.getElementById('search');
-  s.value = '';
-  s.focus();
+  searchInput.value = '';
+  searchInput.focus();
   searchClear.style.display = 'none';
-  render('');
+  if (_searchMode === 'links') render('');
 });
+
+// Init mode (ENGINES needed — set after web search init below, deferred)
+document.addEventListener('DOMContentLoaded', () => {});  // engines init inline
+// Apply saved mode after engines are set up — called at bottom of script
+function initSearchMode() { setSearchMode(_searchMode); }
 
 // ── LINK MODAL ────────────────────────────────────────────────────────
 let _editCatId = null, _editLinkId = null;
@@ -2634,6 +2697,10 @@ function setEngine(key) {
   go.style.background = colors[key];
   go.style.borderColor = colors[key];
   go.style.color = key === 'ddg' ? 'var(--bg)' : 'var(--bg)';
+  // Update omnibar placeholder if in web mode
+  if (typeof _searchMode !== 'undefined' && _searchMode === 'web') {
+    document.getElementById('search').placeholder = `Search with ${ENGINES[key].label}…`;
+  }
 }
 
 function doWebSearch() {
@@ -2660,6 +2727,7 @@ document.getElementById('webSearchClear').addEventListener('click', () => {
 
 // Init engine state
 setEngine(_activeEngine);
+initSearchMode();
 
 // ── DRAG AND DROP ─────────────────────────────────────────────────────
 let _dragCatId = null;
