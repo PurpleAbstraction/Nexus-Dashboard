@@ -1234,6 +1234,86 @@
     .modal { padding: 18px; }
     .import-modal { max-height: 92vh; }
   }
+
+  /* ── PROMPT MODAL ── */
+  .prompt-modal { width: 520px; max-width: 96vw; }
+  .prompt-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .prompt-tab {
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: none;
+    font-family: 'Inconsolata', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .prompt-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .prompt-tab.active { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+  .prompt-output {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    min-height: 80px;
+    margin-bottom: 14px;
+  }
+  .prompt-type-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .prompt-scene-words { display: flex; flex-wrap: wrap; gap: 12px; }
+  .prompt-slot { display: flex; flex-direction: column; gap: 2px; }
+  .prompt-slot-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .prompt-slot-value { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); }
+  .prompt-scenario { font-size: 15px; line-height: 1.6; color: var(--text); }
+  .prompt-sparks { display: flex; flex-wrap: wrap; gap: 6px; }
+  .prompt-spark {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+  }
+  .prompt-empty { color: var(--text-muted); font-size: 13px; text-align: center; padding: 12px 0; }
+  .prompt-write { display: none; margin-bottom: 14px; }
+  .prompt-write.visible { display: block; }
+  .prompt-write textarea {
+    width: 100%;
+    min-height: 120px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'Inconsolata', monospace;
+    font-size: 13px;
+    padding: 10px 12px;
+    resize: vertical;
+    outline: none;
+    line-height: 1.7;
+    transition: border-color var(--transition);
+  }
+  .prompt-write textarea:focus { border-color: var(--accent); }
+  .prompt-write textarea::placeholder { color: var(--text-muted); }
+  .prompt-actions-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .prompt-actions-row .btn-ghost { font-size: 12px; padding: 6px 12px; }
+  .prompt-actions-row .btn-primary { font-size: 12px; padding: 6px 14px; }
+  .prompt-spacer { flex: 1; }
 </style>
 </head>
 <body>
@@ -1264,6 +1344,10 @@
       <button class="icon-btn" id="exportBtn" title="Export bookmarks">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 11 12 6 7 11"/><line x1="12" y1="6" x2="12" y2="17"/></svg>
         Export
+      </button>
+      <button class="icon-btn" id="promptBtn" title="Writing prompt">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Prompt
       </button>
     </div>
   </header>
@@ -1512,6 +1596,32 @@
     <div class="modal-actions">
       <button class="btn btn-ghost" id="modalCancel">Cancel</button>
       <button class="btn btn-primary" id="modalSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Prompt Modal -->
+<div class="modal-overlay" id="promptModal">
+  <div class="modal prompt-modal">
+    <h3>Prompt Draw</h3>
+    <div class="prompt-tabs">
+      <button class="prompt-tab active" data-ptab="all">All</button>
+      <button class="prompt-tab" data-ptab="scene">Scenes</button>
+      <button class="prompt-tab" data-ptab="scenario">Scenarios</button>
+      <button class="prompt-tab" data-ptab="sparks">Sparks</button>
+    </div>
+    <div class="prompt-output" id="promptOutput">
+      <div class="prompt-empty">Press draw to get a prompt.</div>
+    </div>
+    <div class="prompt-write" id="promptWrite">
+      <textarea id="promptWriteText" placeholder="Write here…"></textarea>
+    </div>
+    <div class="prompt-actions-row">
+      <button class="btn btn-primary" id="promptDraw">Draw</button>
+      <button class="btn btn-ghost" id="promptWriteToggle">Write</button>
+      <button class="btn btn-ghost" id="promptExport" style="display:none;">Export .txt</button>
+      <div class="prompt-spacer"></div>
+      <button class="btn btn-ghost" id="promptClose">Close</button>
     </div>
   </div>
 </div>
@@ -2863,6 +2973,161 @@ if (!getToken()) {
 } else {
   loadData();
 }
+
+// ── WRITING PROMPT ────────────────────────────────────────────────────
+const _promptSlots = {
+  place:       ['forest','cathedral','harbor','rooftop','basement','marketplace','lighthouse','cave','train station','ruins','garden','fairground','kitchen','library','beach'],
+  character:   ['stranger','elder','child','soldier','merchant','healer','outcast','twin','wanderer','thief','inventor','dreamer','jester','rival','neighbor'],
+  object:      ['lantern','letter','key','map','mirror','coin','weapon','journal','mask','clock','teacup','kite','photograph','umbrella','seed'],
+  mood:        ['tense','melancholic','urgent','mysterious','hopeful','eerie','restless','resigned','electric','tender','playful','jubilant','wistful','absurd','warm'],
+  protagonist: ['a disgraced knight','a blind cartographer','a grieving mother','a fugitive scholar','a reformed thief','a retired performer','a curious child','an accidental hero','a lovesick inventor','a forgetful librarian'],
+  situation:   ['discovers a sealed room','receives a message from the dead','is mistaken for someone else','finds an object that shouldn\'t exist','overhears a confession','wins something they never wanted','loses something they never knew they had','makes a promise they can\'t keep','stumbles into a celebration','tells a lie that becomes true'],
+  setting:     ['in a city under siege','at the edge of a known map','during a funeral','on the last night before exile','in a place they swore never to return to','on the morning of a wedding','at the end of a long journey','during an unexpected storm','in a town that seems too perfect','on a perfectly ordinary Tuesday'],
+  complication:['the only witness is a child','time is running out','the truth would destroy someone they love','they are being watched','nothing is what it appears','everyone else finds it funny','the solution is embarrassingly simple','the wrong person gets the credit','they are having the best day of their life','joy and grief arrive at the same moment'],
+  words:       ['threshold','ember','hollow','drift','signal','fracture','remnant','tide','silence','veil','current','shadow','bloom','rust','echo','splinter','grain','descent','mirror','ash','ripple','golden','stumble','feast','ribbon','laughter','detour','spark','unravel','unexpected','gentle','peculiar','shimmer','tangled','ordinary','flourish','hum','borrowed','wander','bright']
+};
+
+const _promptTemplates = [
+  '[protagonist] [situation] [setting], but [complication].',
+  'When [protagonist] [situation], everything they believed about [setting] begins to unravel — and [complication].',
+  'It should have been a simple day. Then [protagonist] [situation] [setting], and [complication].'
+];
+
+let _promptDrawCounts = JSON.parse(localStorage.getItem('nexus_prompt_counts') || '{}');
+let _promptTab = 'all';
+let _promptCurrent = null;
+
+function _promptWeightedPick(arr, key) {
+  const weighted = arr.map(v => ({ v, w: 1 / (1 + (_promptDrawCounts[key + ':' + v] || 0)) }));
+  const total = weighted.reduce((s, x) => s + x.w, 0);
+  let r = Math.random() * total;
+  for (const x of weighted) { r -= x.w; if (r <= 0) return x.v; }
+  return weighted[weighted.length - 1].v;
+}
+
+function _promptMarkDrawn(key, val) {
+  const k = key + ':' + val;
+  _promptDrawCounts[k] = (_promptDrawCounts[k] || 0) + 1;
+  localStorage.setItem('nexus_prompt_counts', JSON.stringify(_promptDrawCounts));
+}
+
+function _promptDraw() {
+  const types = _promptTab === 'all' ? ['scene','scenario','sparks'] : [_promptTab];
+  const type = types[Math.floor(Math.random() * types.length)];
+  let result;
+
+  if (type === 'scene') {
+    const drawn = {};
+    ['place','character','object','mood'].forEach(s => {
+      drawn[s] = _promptWeightedPick(_promptSlots[s], s);
+      _promptMarkDrawn(s, drawn[s]);
+    });
+    result = { type: 'scene', drawn };
+  } else if (type === 'scenario') {
+    const tpl = _promptTemplates[Math.floor(Math.random() * _promptTemplates.length)];
+    const drawn = {};
+    ['protagonist','situation','setting','complication'].forEach(s => {
+      drawn[s] = _promptWeightedPick(_promptSlots[s], s);
+      _promptMarkDrawn(s, drawn[s]);
+    });
+    let text = tpl;
+    Object.entries(drawn).forEach(([s, v]) => { text = text.replace('[' + s + ']', v); });
+    result = { type: 'scenario', text };
+  } else {
+    const pool = [..._promptSlots.words];
+    const picked = [];
+    for (let i = 0; i < 5; i++) {
+      const v = _promptWeightedPick(pool.filter(w => !picked.includes(w)), 'words');
+      picked.push(v); _promptMarkDrawn('words', v);
+    }
+    result = { type: 'sparks', words: picked };
+  }
+
+  _promptCurrent = result;
+  _promptRender(result);
+  document.getElementById('promptExport').style.display = 'none';
+  const wa = document.getElementById('promptWrite');
+  if (wa.classList.contains('visible')) document.getElementById('promptWriteText').value = '';
+}
+
+function _promptRender(p) {
+  const out = document.getElementById('promptOutput');
+  if (!p) { out.innerHTML = '<div class="prompt-empty">Press draw to get a prompt.</div>'; return; }
+  if (p.type === 'scene') {
+    out.innerHTML = `<div class="prompt-type-label">Scene</div>
+      <div class="prompt-scene-words">${
+        Object.entries(p.drawn).map(([k,v]) =>
+          `<span class="prompt-slot"><span class="prompt-slot-label">${k}</span><span class="prompt-slot-value">${v}</span></span>`
+        ).join('')
+      }</div>`;
+  } else if (p.type === 'scenario') {
+    out.innerHTML = `<div class="prompt-type-label">Scenario</div>
+      <div class="prompt-scenario">${p.text}</div>`;
+  } else {
+    out.innerHTML = `<div class="prompt-type-label">Sparks</div>
+      <div class="prompt-sparks">${p.words.map(w => `<span class="prompt-spark">${w}</span>`).join('')}</div>`;
+  }
+}
+
+function _promptGetText() {
+  if (!_promptCurrent) return '';
+  let prompt;
+  if (_promptCurrent.type === 'scene') {
+    prompt = Object.entries(_promptCurrent.drawn).map(([k,v]) => `${k}: ${v}`).join('  ·  ');
+  } else if (_promptCurrent.type === 'scenario') {
+    prompt = _promptCurrent.text;
+  } else {
+    prompt = _promptCurrent.words.join('  ·  ');
+  }
+  const writing = document.getElementById('promptWriteText').value.trim();
+  return `Prompt (${_promptCurrent.type}):\n${prompt}${writing ? '\n\n---\n\n' + writing : ''}`;
+}
+
+document.getElementById('promptBtn').addEventListener('click', () => {
+  document.getElementById('promptModal').classList.add('open');
+});
+document.getElementById('promptClose').addEventListener('click', () => {
+  document.getElementById('promptModal').classList.remove('open');
+});
+document.getElementById('promptModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('promptModal'))
+    document.getElementById('promptModal').classList.remove('open');
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('promptModal').classList.remove('open');
+});
+document.getElementById('promptDraw').addEventListener('click', _promptDraw);
+
+document.querySelectorAll('.prompt-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    _promptTab = btn.dataset.ptab;
+    document.querySelectorAll('.prompt-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.getElementById('promptWriteToggle').addEventListener('click', () => {
+  const wa = document.getElementById('promptWrite');
+  const visible = wa.classList.toggle('visible');
+  document.getElementById('promptExport').style.display = visible && _promptCurrent ? 'inline-flex' : 'none';
+  document.getElementById('promptWriteToggle').textContent = visible ? 'Hide' : 'Write';
+});
+
+document.getElementById('promptWriteText').addEventListener('input', () => {
+  const hasContent = document.getElementById('promptWriteText').value.trim().length > 0;
+  document.getElementById('promptExport').style.display = hasContent && _promptCurrent ? 'inline-flex' : 'none';
+});
+
+document.getElementById('promptExport').addEventListener('click', () => {
+  const content = _promptGetText();
+  if (!content) return;
+  const blob = new Blob([content], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'prompt-' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+  showToast('Prompt exported.');
+});
 
 // ── FIDGET WIDGET ─────────────────────────────────────────────────────
 (function() {
