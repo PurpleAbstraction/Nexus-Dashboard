@@ -30,10 +30,18 @@ A self-hosted personal dashboard and bookmark manager. Lives in your GitHub repo
 - **Export** — download a clean `bookmarks.json` backup any time
 
 ### Web Search Panel
-- **Three engines** — DuckDuckGo, Perplexity, and Brave Search, switchable with one click
-- **DDG optimized** — no AI answers, no ads, dark mode, and privacy settings baked into the URL
+- **Three engines** — Mojeek, Perplexity, and Brave Search, switchable with one click
+- **Mojeek** — independent index, no tracking, preferences baked into the URL
 - **Persistent preference** — last used engine remembered between sessions; omnibar web mode uses the same active engine
 - **Clear button** — clears the search input instantly
+
+### Writing Prompt
+- **Prompt button** — pencil icon in the header opens the prompt modal
+- **Four prompt types** — Scenes (place · character · object · mood), Scenarios (combinatorial prose templates), Sparks (five random words), or All (random mix)
+- **Weighted draw history** — recently drawn values are deprioritized so you get fresh combinations
+- **Write here** — inline textarea opens in the modal for quick writing responses
+- **Export .txt** — saves the prompt and your writing to a dated text file
+- **Draw counts** persisted to localStorage under `nexus_prompt_counts`
 
 ### RSS Feeds
 - **Up to 10 feeds** — add, remove, and manage feeds via an Edit panel that tucks away when not in use
@@ -125,7 +133,7 @@ The web search panel in the sidebar supports three engines:
 
 | Engine | Notes |
 |--------|-------|
-| **DuckDuckGo** | No AI · No ads · Dark mode · Private — all baked into the search URL |
+| **Mojeek** | Independent index · No tracking · Preferences baked into URL |
 | **Perplexity** | AI-powered answers · Account settings carry over when logged in |
 | **Brave Search** | Independent index · Reliable fallback |
 
@@ -144,6 +152,21 @@ Feed URLs are stored in browser localStorage — they persist across sessions bu
 ## Scratch Pad
 
 The scratch pad auto-saves to localStorage as you type. To sync it across devices, press the **Save** button — this writes the pad content into `bookmarks.json` on GitHub alongside your bookmarks. The next time you load the dashboard on any device, the saved content will be restored automatically.
+
+---
+
+## Writing Prompt
+
+Click the **Prompt** button (pencil icon) in the header to open the prompt modal. Choose a tab to filter the type of prompt, or leave it on All for a random mix. Press **Draw** to generate a prompt. The weighted history system deprioritizes recently drawn values so combinations stay fresh over time.
+
+The four prompt types:
+
+- **Scenes** — four labeled words (place, character, object, mood) as a starting tableau
+- **Scenarios** — a full sentence built from combinatorial slots (protagonist, situation, setting, complication)
+- **Sparks** — five random words from a curated pool, no structure imposed
+- **All** — draws randomly from all three types
+
+Press **Write** to open an inline textarea for a quick response, then **Export .txt** to save the prompt and your writing to a dated file. Draw counts persist between sessions so the weighting carries over.
 
 ---
 
