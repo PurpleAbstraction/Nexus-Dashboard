@@ -82,7 +82,7 @@
     {
       "id": "cat1",
       "name": "Assorted",
-      "open": true,
+      "open": false,
       "links": [
         {
           "id": "xvo883ue",
@@ -256,7 +256,7 @@
     {
       "id": "xeh3lg5j",
       "name": "Business",
-      "open": true,
+      "open": false,
       "links": [
         {
           "id": "xgigurid",
