@@ -924,12 +924,6 @@
   }
 
   /* ── FIDGET WIDGET ── */
-  .fidget-body {
-    display: none;
-    overflow: hidden;
-  }
-  .fidget-body.open { display: block; }
-
   .fidget-toggle-btn {
     background: none;
     border: none;
@@ -947,13 +941,6 @@
   }
   .fidget-toggle-btn:hover { color: var(--accent); }
   .fidget-toggle-btn.on { color: var(--accent); }
-
-  .fidget-chevron {
-    color: var(--text-muted);
-    transition: transform var(--transition);
-    flex-shrink: 0;
-  }
-  .fidget-chevron.open { transform: rotate(90deg); }
 
   /* Accent themes */
   .fidget-panel-inner.theme-gold  { --accent:#c8a96e; --accent-dim:rgba(200,169,110,0.15); --accent-glow:rgba(200,169,110,0.3);  --ripple-color:rgba(200,169,110,0.35); }
@@ -1131,33 +1118,50 @@
     white-space: nowrap; opacity: 0.6;
   }
 
-  /* Floating fidget window */
-  .fidget-float {
-    display: none;
-    position: fixed;
-    z-index: 300;
-    background: var(--surface);
+  /* ── APPLETS PANEL ── */
+  .applets-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+  .applet-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 14px 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all var(--transition);
+  }
+  .applet-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
+  .applet-btn svg { opacity: 0.7; transition: opacity var(--transition); }
+  .applet-btn:hover svg { opacity: 1; }
+
+  /* ── FIDGET MODAL ── */
+  .fidget-modal {
+    padding: 0;
     width: 300px;
     overflow: hidden;
-    user-select: none;
   }
-  .fidget-float.visible { display: block; }
-
-  .fidget-float-header {
+  .fidget-modal-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 14px;
     border-bottom: 1px solid var(--border);
     background: var(--surface2);
-    cursor: grab;
   }
-  .fidget-float-header:active { cursor: grabbing; }
-
-  .fidget-float-close {
+  .fidget-modal-close {
     background: none;
     border: none;
     color: var(--text-muted);
@@ -1169,21 +1173,7 @@
     transition: color var(--transition);
     flex-shrink: 0;
   }
-  .fidget-float-close:hover { color: var(--danger); }
-
-  .fidget-detach-btn {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 2px 4px;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    transition: color var(--transition);
-    flex-shrink: 0;
-  }
-  .fidget-detach-btn:hover { color: var(--accent); }
+  .fidget-modal-close:hover { color: var(--danger); }
 
   @media (max-width: 860px) {
     .shell {
@@ -1345,10 +1335,6 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 11 12 6 7 11"/><line x1="12" y1="6" x2="12" y2="17"/></svg>
         Export
       </button>
-      <button class="icon-btn" id="promptBtn" title="Writing prompt">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        Prompt
-      </button>
     </div>
   </header>
 
@@ -1438,98 +1424,91 @@
       </div>
     </div>
 
-    <!-- Fidget Widget -->
+    <!-- Applets -->
     <div class="panel">
-      <div class="panel-header" id="fidgetPanelHeader" style="cursor:pointer;">
-        <span class="panel-title">Fidget</span>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <div class="fidget-theme-dots" id="fidgetThemeDots">
-            <div class="fidget-theme-dot" style="background:#c8a96e;" data-ftheme="gold"   title="Gold"></div>
-            <div class="fidget-theme-dot" style="background:#7eb8c9;" data-ftheme="teal"   title="Teal"></div>
-            <div class="fidget-theme-dot" style="background:#c9784a;" data-ftheme="ember"  title="Ember"></div>
-            <div class="fidget-theme-dot" style="background:#9e7ec9;" data-ftheme="violet" title="Violet"></div>
-            <div class="fidget-theme-dot" style="background:#7a8fa0;" data-ftheme="slate"  title="Slate"></div>
-          </div>
-          <button class="fidget-toggle-btn" id="fidgetSoundBtn">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-          </button>
-          <button class="fidget-detach-btn" id="fidgetDetachBtn" title="Pop out">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-          </button>
-          <svg class="fidget-chevron" id="fidgetChevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
+      <div class="panel-header">
+        <span class="panel-title">Applets</span>
       </div>
-      <div class="fidget-body" id="fidgetBody">
-        <div class="fidget-panel-inner theme-gold" id="fidgetPanelInner">
-          <div class="fidget-grid">
-            <div class="fidget-cell" id="fidgetCellDial">
-              <div class="fidget-dial-wrap">
-                <div class="fidget-dial-track"></div>
-                <div class="fidget-dial-knob" id="fidgetDialKnob">
-                  <div class="fidget-dial-indicator"></div>
-                </div>
-              </div>
-              <span class="fidget-cell-label">Dial</span>
-            </div>
-            <div class="fidget-cell fidget-cell-ripple" id="fidgetCellRipple">
-              <canvas class="fidget-ripple-canvas" id="fidgetRippleCanvas"></canvas>
-            </div>
-            <div class="fidget-cell" id="fidgetCellClicky" style="flex-direction:column;gap:0;">
-              <button class="fidget-clicky-btn" id="fidgetClickyBtn"></button>
-              <span class="fidget-cell-label" style="position:relative;bottom:auto;left:auto;transform:none;margin-top:6px;">Click</span>
-            </div>
-            <div class="fidget-cell" style="flex-direction:row;gap:10px;background:var(--surface);" id="fidgetCellRocker">
-              <div class="fidget-rocker-wrap">
-                <span class="fidget-rocker-label active-label" id="fidgetRockerLabelUp">▲</span>
-                <div class="fidget-rocker up" id="fidgetRocker">
-                  <div class="fidget-rocker-paddle"></div>
-                </div>
-                <span class="fidget-rocker-label" id="fidgetRockerLabelDown">▼</span>
-              </div>
-              <span class="fidget-cell-label" style="position:relative;bottom:auto;left:auto;transform:none;">Rocker</span>
-            </div>
-            <div class="fidget-cell fidget-cell-slider" id="fidgetCellSlider">
-              <div class="fidget-slider-track" id="fidgetSliderTrack">
-                <div class="fidget-slider-fill" id="fidgetSliderFill"></div>
-                <div class="fidget-slider-thumb" id="fidgetSliderThumb"></div>
-              </div>
-              <span style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);font-family:'Syne',sans-serif;opacity:0.6;">Slider</span>
-            </div>
-          </div>
-          <div class="fidget-cell-switches">
-            <div class="fidget-switch-wrap" data-fsw="0"><div class="fidget-switch-body" id="fsw0"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">1</span></div>
-            <div class="fidget-switch-wrap" data-fsw="1"><div class="fidget-switch-body" id="fsw1"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">2</span></div>
-            <div class="fidget-switch-wrap" data-fsw="2"><div class="fidget-switch-body" id="fsw2"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">3</span></div>
-            <div class="fidget-switch-wrap" data-fsw="3"><div class="fidget-switch-body" id="fsw3"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">4</span></div>
-            <div class="fidget-switch-wrap" data-fsw="4"><div class="fidget-switch-body" id="fsw4"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">5</span></div>
-          </div>
-        </div>
+      <div class="applets-grid">
+        <button class="applet-btn" id="appletPromptBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Prompt
+        </button>
+        <button class="applet-btn" id="appletFidgetBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          Fidget
+        </button>
       </div>
     </div>
   </aside>
 </div>
 
-<!-- Floating Fidget Window -->
-<div class="fidget-float" id="fidgetFloat">
-  <div class="fidget-float-header" id="fidgetFloatHeader">
-    <span class="panel-title">Fidget</span>
-    <div style="display:flex;gap:8px;align-items:center;">
-      <div class="fidget-theme-dots" id="fidgetFloatThemeDots">
-        <div class="fidget-theme-dot" style="background:#c8a96e;" data-ftheme="gold"   title="Gold"></div>
-        <div class="fidget-theme-dot" style="background:#7eb8c9;" data-ftheme="teal"   title="Teal"></div>
-        <div class="fidget-theme-dot" style="background:#c9784a;" data-ftheme="ember"  title="Ember"></div>
-        <div class="fidget-theme-dot" style="background:#9e7ec9;" data-ftheme="violet" title="Violet"></div>
-        <div class="fidget-theme-dot" style="background:#7a8fa0;" data-ftheme="slate"  title="Slate"></div>
+<!-- Fidget Modal -->
+<div class="modal-overlay" id="fidgetModal">
+  <div class="modal fidget-modal" id="fidgetModalBox">
+    <div class="fidget-modal-header">
+      <span class="panel-title">Fidget</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div class="fidget-theme-dots" id="fidgetThemeDots">
+          <div class="fidget-theme-dot" style="background:#c8a96e;" data-ftheme="gold"   title="Gold"></div>
+          <div class="fidget-theme-dot" style="background:#7eb8c9;" data-ftheme="teal"   title="Teal"></div>
+          <div class="fidget-theme-dot" style="background:#c9784a;" data-ftheme="ember"  title="Ember"></div>
+          <div class="fidget-theme-dot" style="background:#9e7ec9;" data-ftheme="violet" title="Violet"></div>
+          <div class="fidget-theme-dot" style="background:#7a8fa0;" data-ftheme="slate"  title="Slate"></div>
+        </div>
+        <button class="fidget-toggle-btn" id="fidgetSoundBtn">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
+        <button class="fidget-modal-close" id="fidgetModalClose" title="Close">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
-      <button class="fidget-toggle-btn" id="fidgetFloatSoundBtn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-      </button>
-      <button class="fidget-float-close" id="fidgetFloatClose" title="Close">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+    </div>
+    <div class="fidget-panel-inner theme-gold" id="fidgetPanelInner">
+      <div class="fidget-grid">
+        <div class="fidget-cell" id="fidgetCellDial">
+          <div class="fidget-dial-wrap">
+            <div class="fidget-dial-track"></div>
+            <div class="fidget-dial-knob" id="fidgetDialKnob">
+              <div class="fidget-dial-indicator"></div>
+            </div>
+          </div>
+          <span class="fidget-cell-label">Dial</span>
+        </div>
+        <div class="fidget-cell fidget-cell-ripple" id="fidgetCellRipple">
+          <canvas class="fidget-ripple-canvas" id="fidgetRippleCanvas"></canvas>
+        </div>
+        <div class="fidget-cell" id="fidgetCellClicky" style="flex-direction:column;gap:0;">
+          <button class="fidget-clicky-btn" id="fidgetClickyBtn"></button>
+          <span class="fidget-cell-label" style="position:relative;bottom:auto;left:auto;transform:none;margin-top:6px;">Click</span>
+        </div>
+        <div class="fidget-cell" style="flex-direction:row;gap:10px;background:var(--surface);" id="fidgetCellRocker">
+          <div class="fidget-rocker-wrap">
+            <span class="fidget-rocker-label active-label" id="fidgetRockerLabelUp">▲</span>
+            <div class="fidget-rocker up" id="fidgetRocker">
+              <div class="fidget-rocker-paddle"></div>
+            </div>
+            <span class="fidget-rocker-label" id="fidgetRockerLabelDown">▼</span>
+          </div>
+          <span class="fidget-cell-label" style="position:relative;bottom:auto;left:auto;transform:none;">Rocker</span>
+        </div>
+        <div class="fidget-cell fidget-cell-slider" id="fidgetCellSlider">
+          <div class="fidget-slider-track" id="fidgetSliderTrack">
+            <div class="fidget-slider-fill" id="fidgetSliderFill"></div>
+            <div class="fidget-slider-thumb" id="fidgetSliderThumb"></div>
+          </div>
+          <span style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);font-family:'Syne',sans-serif;opacity:0.6;">Slider</span>
+        </div>
+      </div>
+      <div class="fidget-cell-switches">
+        <div class="fidget-switch-wrap" data-fsw="0"><div class="fidget-switch-body" id="fsw0"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">1</span></div>
+        <div class="fidget-switch-wrap" data-fsw="1"><div class="fidget-switch-body" id="fsw1"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">2</span></div>
+        <div class="fidget-switch-wrap" data-fsw="2"><div class="fidget-switch-body" id="fsw2"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">3</span></div>
+        <div class="fidget-switch-wrap" data-fsw="3"><div class="fidget-switch-body" id="fsw3"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">4</span></div>
+        <div class="fidget-switch-wrap" data-fsw="4"><div class="fidget-switch-body" id="fsw4"><div class="fidget-switch-nub"></div></div><span class="fidget-switch-num">5</span></div>
+      </div>
     </div>
   </div>
-  <div id="fidgetFloatInner"></div>
 </div>
 <div class="modal-overlay" id="importModal">
   <div class="modal import-modal">
@@ -3083,9 +3062,6 @@ function _promptGetText() {
   return `Prompt (${_promptCurrent.type}):\n${prompt}${writing ? '\n\n---\n\n' + writing : ''}`;
 }
 
-document.getElementById('promptBtn').addEventListener('click', () => {
-  document.getElementById('promptModal').classList.add('open');
-});
 document.getElementById('promptClose').addEventListener('click', () => {
   document.getElementById('promptModal').classList.remove('open');
 });
@@ -3129,29 +3105,36 @@ document.getElementById('promptExport').addEventListener('click', () => {
   showToast('Prompt exported.');
 });
 
+// ── APPLETS ───────────────────────────────────────────────────────────
+function resizeFidgetCanvas() {
+  const c = document.getElementById('fidgetRippleCanvas');
+  if (!c) return;
+  const rect = c.parentElement.getBoundingClientRect();
+  if (rect.width > 0 && rect.height > 0) {
+    c.width  = rect.width;
+    c.height = rect.height;
+  }
+}
+
+document.getElementById('appletPromptBtn').addEventListener('click', () => {
+  document.getElementById('promptModal').classList.add('open');
+});
+document.getElementById('appletFidgetBtn').addEventListener('click', () => {
+  document.getElementById('fidgetModal').classList.add('open');
+  requestAnimationFrame(() => requestAnimationFrame(() => resizeFidgetCanvas()));
+});
+
 // ── FIDGET WIDGET ─────────────────────────────────────────────────────
 (function() {
-  // Collapse/expand
-  // Declare fCanvas first — referenced by resizeFidgetCanvas which is called during init
-  const fCanvas          = document.getElementById('fidgetRippleCanvas');
+  const fCanvas = document.getElementById('fidgetRippleCanvas');
 
-  const fidgetBody    = document.getElementById('fidgetBody');
-  const fidgetChevron = document.getElementById('fidgetChevron');
-  const fidgetHeader  = document.getElementById('fidgetPanelHeader');
-  let fidgetOpen = localStorage.getItem('nexus_fidget_open') === 'true';
-
-  function setFidgetOpen(val) {
-    fidgetOpen = val;
-    fidgetBody.classList.toggle('open', fidgetOpen);
-    fidgetChevron.classList.toggle('open', fidgetOpen);
-    localStorage.setItem('nexus_fidget_open', fidgetOpen);
-    if (fidgetOpen) resizeFidgetCanvas();
-  }
-  setFidgetOpen(fidgetOpen);
-
-  fidgetHeader.addEventListener('click', e => {
-    if (e.target.closest('.fidget-theme-dots') || e.target.closest('#fidgetSoundBtn')) return;
-    setFidgetOpen(!fidgetOpen);
+  // Modal open/close
+  document.getElementById('fidgetModalClose').addEventListener('click', () => {
+    document.getElementById('fidgetModal').classList.remove('open');
+  });
+  document.getElementById('fidgetModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('fidgetModal'))
+      document.getElementById('fidgetModal').classList.remove('open');
   });
 
   // Audio
@@ -3369,116 +3352,10 @@ document.getElementById('promptExport').addEventListener('click', () => {
     wrap.addEventListener('touchstart', e => { e.preventDefault(); toggle(); }, { passive: false });
   });
 
-  // Detach / float
-  const fidgetFloat      = document.getElementById('fidgetFloat');
-  const fidgetFloatInner = document.getElementById('fidgetFloatInner');
-  const fidgetPanel      = document.getElementById('fidgetPanelInner');
-  const fidgetDetachBtn  = document.getElementById('fidgetDetachBtn');
-  const fidgetFloatClose = document.getElementById('fidgetFloatClose');
-  const fidgetFloatSoundBtn = document.getElementById('fidgetFloatSoundBtn');
-  let isFloating = false;
-
-  function detach() {
-    // Show float and position it before moving DOM (Firefox needs this)
-    fidgetFloat.style.left = `${Math.round((window.innerWidth - 300) / 2)}px`;
-    fidgetFloat.style.top  = `${Math.round((window.innerHeight - 360) / 2)}px`;
-    fidgetFloat.classList.add('visible');
-    // Now move the widget DOM into the float
-    fidgetFloatInner.appendChild(fidgetPanel);
-    // Collapse sidebar panel after DOM move
-    setFidgetOpen(false);
-    isFloating = true;
-    // Delay resize until after layout settles
-    requestAnimationFrame(() => requestAnimationFrame(() => resizeFidgetCanvas()));
-    syncFloatSoundBtn();
-    syncFloatTheme();
-  }
-
-  function reattach() {
-    // Move widget back into sidebar body
-    document.getElementById('fidgetBody').appendChild(fidgetPanel);
-    fidgetFloat.classList.remove('visible');
-    isFloating = false;
-    requestAnimationFrame(() => requestAnimationFrame(() => resizeFidgetCanvas()));
-  }
-
-  function syncFloatSoundBtn() {
-    fidgetFloatSoundBtn.innerHTML = fSoundOn
-      ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`
-      : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
-    fidgetFloatSoundBtn.classList.toggle('on', fSoundOn);
-  }
-
-  function syncFloatTheme() {
-    const current = localStorage.getItem('nexus_fidget_theme') || 'gold';
-    document.querySelectorAll('#fidgetFloatThemeDots .fidget-theme-dot').forEach(d =>
-      d.classList.toggle('active', d.dataset.ftheme === current));
-  }
-
-  fidgetDetachBtn.addEventListener('click', e => { e.stopPropagation(); detach(); });
-  fidgetFloatClose.addEventListener('click', () => reattach());
-
-  // Float sound toggle syncs with main
-  fidgetFloatSoundBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    fSoundOn = !fSoundOn;
-    syncFloatSoundBtn();
-    // Also update sidebar btn
-    fSoundBtn.innerHTML = fSoundOn
-      ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`
-      : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
-    fSoundBtn.classList.toggle('on', fSoundOn);
-    if (fSoundOn) fPlayClick();
-  });
-
-  // Float theme dots sync with main
-  document.querySelectorAll('#fidgetFloatThemeDots .fidget-theme-dot').forEach(dot => {
-    dot.addEventListener('click', e => { e.stopPropagation(); setFTheme(dot.dataset.ftheme); syncFloatTheme(); fPlayTick(); });
-  });
-
-  // Drag the float
-  let fDragOffX = 0, fDragOffY = 0, fDraggingFloat = false;
-
-  fidgetFloatHeader.addEventListener('mousedown', e => {
-    if (e.target.closest('button') || e.target.closest('.fidget-theme-dots')) return;
-    fDraggingFloat = true;
-    fDragOffX = e.clientX - fidgetFloat.getBoundingClientRect().left;
-    fDragOffY = e.clientY - fidgetFloat.getBoundingClientRect().top;
-    e.preventDefault();
-  });
-  fidgetFloatHeader.addEventListener('touchstart', e => {
-    if (e.target.closest('button') || e.target.closest('.fidget-theme-dots')) return;
-    fDraggingFloat = true;
-    const t = e.touches[0];
-    fDragOffX = t.clientX - fidgetFloat.getBoundingClientRect().left;
-    fDragOffY = t.clientY - fidgetFloat.getBoundingClientRect().top;
-  }, { passive: true });
-
-  document.addEventListener('mousemove', e => {
-    if (!fDraggingFloat) return;
-    fidgetFloat.style.left = `${Math.max(0, Math.min(window.innerWidth - 300, e.clientX - fDragOffX))}px`;
-    fidgetFloat.style.top  = `${Math.max(0, Math.min(window.innerHeight - 100, e.clientY - fDragOffY))}px`;
-  });
-  document.addEventListener('touchmove', e => {
-    if (!fDraggingFloat) return;
-    const t = e.touches[0];
-    fidgetFloat.style.left = `${Math.max(0, Math.min(window.innerWidth - 300, t.clientX - fDragOffX))}px`;
-    fidgetFloat.style.top  = `${Math.max(0, Math.min(window.innerHeight - 100, t.clientY - fDragOffY))}px`;
-  }, { passive: true });
-  document.addEventListener('mouseup',  () => { fDraggingFloat = false; });
-  document.addEventListener('touchend', () => { fDraggingFloat = false; });
-
   // Ripple canvas
   const fCtx = fCanvas.getContext('2d');
   let fRipples = [];
 
-  function resizeFidgetCanvas() {
-    const rect = fCanvas.parentElement.getBoundingClientRect();
-    if (rect.width > 0 && rect.height > 0) {
-      fCanvas.width  = rect.width;
-      fCanvas.height = rect.height;
-    }
-  }
   new ResizeObserver(() => requestAnimationFrame(resizeFidgetCanvas)).observe(fCanvas.parentElement);
 
   function addFRipple(x, y) {
