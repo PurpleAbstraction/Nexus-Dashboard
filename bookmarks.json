@@ -245,14 +245,14 @@
           "url": "https://ubuntu.com/desktop"
         },
         {
-          "id": "x2pcg2ch",
-          "name": "Zoom",
-          "url": "https://www.zoom.com/"
-        },
-        {
           "id": "xviu6m8c",
           "name": "Write PWA (Cloudflare)",
           "url": "https://nexus-dash.general-matrix624.workers.dev/"
+        },
+        {
+          "id": "x2pcg2ch",
+          "name": "Zoom",
+          "url": "https://www.zoom.com/"
         }
       ],
       "pinned": false,
