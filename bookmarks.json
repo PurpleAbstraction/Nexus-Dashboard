@@ -248,6 +248,11 @@
           "id": "x54bezh1",
           "name": "Apple Feedback",
           "url": "https://www.apple.com/feedback/"
+        },
+        {
+          "id": "x2pzn5rm",
+          "name": "Fast - Speed Test",
+          "url": "https://fast.com/"
         }
       ],
       "pinned": false,
@@ -700,11 +705,6 @@
           "id": "xazxp8km",
           "name": "BitWarden",
           "url": "https://vault.bitwarden.com/"
-        },
-        {
-          "id": "x2pzn5rm",
-          "name": "Fast - Speed Test",
-          "url": "https://fast.com/"
         },
         {
           "id": "xsf7mejw",
