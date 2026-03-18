@@ -130,11 +130,6 @@
           "url": "https://xkcd.com/"
         },
         {
-          "id": "x8khp2ar",
-          "name": "Debian Desktop",
-          "url": "https://www.debian.org/distrib/"
-        },
-        {
           "id": "xwy3tkug",
           "name": "DJI - Official Website",
           "url": "https://www.dji.com/"
@@ -955,7 +950,13 @@
       "id": "xv9u9sjg",
       "name": "Linux",
       "open": true,
-      "links": [],
+      "links": [
+        {
+          "id": "x8khp2ar",
+          "name": "Debian Desktop",
+          "url": "https://www.debian.org/distrib/"
+        }
+      ],
       "color": "#b8896a"
     }
   ],
