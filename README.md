@@ -30,8 +30,8 @@ A self-hosted personal dashboard and bookmark manager. Lives in your GitHub repo
 - **Export** — download a clean `bookmarks.json` backup any time
 
 ### Web Search Panel
-- **Three engines** — Mojeek, Perplexity, and Brave Search, switchable with one click
-- **Mojeek** — independent index, no tracking, preferences baked into the URL
+- **Three engines** — Wikipedia, Perplexity, and Brave Search, switchable with one click
+- **Wikipedia** — encyclopedic reference, no tracking, dark mode preference baked into the URL
 - **Persistent preference** — last used engine remembered between sessions; omnibar web mode uses the same active engine
 - **Clear button** — clears the search input instantly
 
@@ -147,7 +147,7 @@ The web search panel in the sidebar supports three engines:
 
 | Engine | Notes |
 |--------|-------|
-| **Mojeek** | Independent index · No tracking · Preferences baked into URL |
+| **Wikipedia** | Encyclopedic reference · No tracking · Dark mode applied |
 | **Perplexity** | AI-powered answers · Account settings carry over when logged in |
 | **Brave Search** | Independent index · Reliable fallback |
 
