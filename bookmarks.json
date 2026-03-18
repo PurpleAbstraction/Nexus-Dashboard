@@ -697,6 +697,11 @@
           "url": "https://vault.bitwarden.com/"
         },
         {
+          "id": "x911k9z7",
+          "name": "Cloudflare",
+          "url": "https://dash.cloudflare.com/"
+        },
+        {
           "id": "x2pzn5rm",
           "name": "Fast - Speed Test",
           "url": "https://fast.com/"
@@ -745,11 +750,6 @@
           "id": "xby883hl",
           "name": "Time and Date",
           "url": "https://www.timeanddate.com/"
-        },
-        {
-          "id": "x911k9z7",
-          "name": "Cloudflare",
-          "url": "https://dash.cloudflare.com/"
         }
       ],
       "color": "#9e6ec9",
