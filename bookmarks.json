@@ -3,7 +3,7 @@
     {
       "id": "cat2",
       "name": "AI Tools",
-      "open": true,
+      "open": false,
       "links": [
         {
           "id": "xon03h2k",
@@ -245,11 +245,6 @@
           "url": "https://ubuntu.com/desktop"
         },
         {
-          "id": "xviu6m8c",
-          "name": "Write PWA (Cloudflare)",
-          "url": "https://nexus-dash.general-matrix624.workers.dev/"
-        },
-        {
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
@@ -310,7 +305,7 @@
     {
       "id": "xkmtcjnp",
       "name": "Entertainment",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "x4x54lmk",
