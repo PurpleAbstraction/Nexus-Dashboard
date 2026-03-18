@@ -3,7 +3,7 @@
     {
       "id": "cat2",
       "name": "AI Tools",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "xon03h2k",
