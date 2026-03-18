@@ -644,6 +644,34 @@
       "color": "#c9c96e"
     },
     {
+      "id": "xv9u9sjg",
+      "name": "Linux",
+      "open": false,
+      "links": [
+        {
+          "id": "xf8i4t4w",
+          "name": "Bazzite",
+          "url": "https://bazzite.gg/"
+        },
+        {
+          "id": "x8khp2ar",
+          "name": "Debian Desktop",
+          "url": "https://www.debian.org/distrib/"
+        },
+        {
+          "id": "xcx895u5",
+          "name": "Pop!_OS",
+          "url": "https://system76.com/pop/download/"
+        },
+        {
+          "id": "xs9z64fr",
+          "name": "Ubuntu Desktop",
+          "url": "https://ubuntu.com/desktop"
+        }
+      ],
+      "color": "#b8896a"
+    },
+    {
       "id": "x04my4i1",
       "name": "MAIN",
       "open": true,
@@ -935,34 +963,6 @@
       ],
       "pinned": false,
       "color": "#6ec9b4"
-    },
-    {
-      "id": "xv9u9sjg",
-      "name": "Linux",
-      "open": false,
-      "links": [
-        {
-          "id": "x8khp2ar",
-          "name": "Debian Desktop",
-          "url": "https://www.debian.org/distrib/"
-        },
-        {
-          "id": "xcx895u5",
-          "name": "Pop!_OS",
-          "url": "https://system76.com/pop/download/"
-        },
-        {
-          "id": "xs9z64fr",
-          "name": "Ubuntu Desktop",
-          "url": "https://ubuntu.com/desktop"
-        },
-        {
-          "id": "xf8i4t4w",
-          "name": "Bazzite",
-          "url": "https://bazzite.gg/"
-        }
-      ],
-      "color": "#b8896a"
     }
   ],
   "scratch": "- Phase 2 in progress\n- See roadmap in GitHub repo\n- Subscribe to https://www.twitch.tv/mattmalone when he is offline\n- DDG settings: oxidizing coroner activist dealer\n- https://www.mozilla.org/en-US/\n- https://www.cloudflare.com/personal/"
