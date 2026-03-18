@@ -243,6 +243,11 @@
           "id": "xxpto2ss",
           "name": "Apple Support - Factory Reset Mac",
           "url": "https://support.apple.com/guide/mac-help/erase-your-mac-mchl7676b710/15.0/mac/15.0"
+        },
+        {
+          "id": "x54bezh1",
+          "name": "Apple Feedback",
+          "url": "https://www.apple.com/feedback/"
         }
       ],
       "pinned": false,
@@ -690,11 +695,6 @@
           "id": "xypclm76",
           "name": "Apple",
           "url": "http://www.apple.com/"
-        },
-        {
-          "id": "x54bezh1",
-          "name": "Apple Feedback",
-          "url": "https://www.apple.com/feedback/"
         },
         {
           "id": "xazxp8km",
