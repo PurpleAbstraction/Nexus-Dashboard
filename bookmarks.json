@@ -649,6 +649,11 @@
           "id": "xl5kw5im",
           "name": "Work for Good",
           "url": "https://workforgood.org/candidates/find-a-job/"
+        },
+        {
+          "id": "xib1ugvn",
+          "name": "Indeed",
+          "url": "https://www.indeed.com/"
         }
       ],
       "color": "#c9c96e"
