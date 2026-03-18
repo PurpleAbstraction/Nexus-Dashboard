@@ -59,9 +59,15 @@ A self-hosted personal dashboard and bookmark manager. Lives in your GitHub repo
 - **GitHub sync** — Save button pushes pad content into `bookmarks.json` alongside your bookmarks; syncs across devices on next load
 - **Clear button** — wipes the pad with confirmation
 
+### Applets
+- **Applets panel** — sidebar panel housing modal-based mini-tools; sits below Web Search
+- **Prompt** — launches the Writing Prompt modal
+- **Fidget** — launches the Fidget widget as a modal
+- **Reflect** — launches the Daily Reflection modal
+- **Brief** — placeholder for the upcoming Morning Brief panel
+
 ### Fidget Widget
-- **Collapsible panel** — sits at the bottom of the sidebar, collapsed by default, expands on click
-- **Detachable** — pop out into a freely draggable floating window; close to reattach
+- **Modal** — launched from the Applets panel
 - **Dial** — drag to rotate freely; subtle tick sound every 15° of rotation
 - **Ripple field** — click or hold and drag for cascading ripples with inner echo rings
 - **Clicky button** — satisfying low thock with depress animation and glow
@@ -70,6 +76,14 @@ A self-hosted personal dashboard and bookmark manager. Lives in your GitHub repo
 - **Toggle switches** — five independent switches tuned to a C major pentatonic scale
 - **Five accent themes** — Gold, Teal, Ember, Violet, Slate; persisted to localStorage
 - **Optional sound** — off by default; each interaction has its own character
+
+### Daily Reflection
+- **Reflect button** — clock icon in the Applets panel opens the reflection modal
+- **Element selector** — four elemental symbols (Water, Earth, Fire, Air) at the top; tap to select the vibe of the day, multiple allowed; each has a tooltip describing its qualities
+- **Three daily questions** — each with a 180-character textarea and live countdown; brief by design
+- **Export .md** — exports a structured Markdown file with date, selected elements, and all three answers; dated filename for easy archiving
+- **Clear button** — resets all answers and element selections with confirmation
+- **No auto-save** — session only; export is the record
 
 ### General
 - **Theme switcher** — warm dark and parchment light modes
@@ -172,7 +186,7 @@ Press **Write** to open an inline textarea for a quick response, then **Export .
 
 ## Fidget Widget
 
-The fidget panel sits at the bottom of the sidebar and is collapsed by default. Click the panel header to expand it. Click the detach icon (⤢) to pop the widget out into a freely draggable floating window — close it to reattach. Theme and sound preferences are remembered between sessions. Sound is off by default and can be toggled from the panel header without expanding the panel.
+The fidget widget is launched from the **Applets** panel in the sidebar. Theme and sound preferences are remembered between sessions. Sound is off by default and can be toggled from the modal header.
 
 ---
 
@@ -230,11 +244,26 @@ Favicons are fetched from Google's favicon service. If one doesn't appear, it's 
 **GitHub Pages showing old version after update**
 GitHub Pages can take a minute or two to reflect changes. Wait a moment and do a hard refresh (`Cmd+Shift+R` / `Ctrl+Shift+R`).
 
+## Daily Reflection
+
+Click the **Reflect** button in the Applets panel to open the reflection modal. Select one or more elemental symbols at the top to capture the vibe of the day — hover each for a tooltip. Answer the three questions concisely (180 characters each), then press **Export .md** to save a structured Markdown file. The filename includes today's date for easy archiving and future processing by a companion tool.
+
+The four elements and their qualities:
+
+| Element | Quality |
+|---------|---------|
+| **Water** | Fluid · productive · in flow |
+| **Earth** | Grounded · restful · steady |
+| **Fire** | Chaotic · turbulent · resistant |
+| **Air** | Light · dreamy · imaginative |
+
 ---
 
 ## Roadmap
 
 - [ ] Morning Brief panel — AI-synthesized daily news brief from wire services (AP, Reuters, AFP), rendered neutral and fact-based via Claude API, with per-item Perplexity deep-dive links
+- [ ] Global colour scheme — dashboard-wide accent selector replacing per-widget theming
+- [ ] `bookmarks.json` → `data.json` rename — dedicated session
 
 ---
 
