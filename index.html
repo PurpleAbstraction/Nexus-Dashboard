@@ -1118,7 +1118,110 @@
     white-space: nowrap; opacity: 0.6;
   }
 
-  /* ── APPLETS PANEL ── */
+  /* ── REFLECTION MODAL ── */
+  .reflect-modal { width: 560px; max-width: 96vw; }
+
+  .reflect-date {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+  }
+
+  .reflect-elements {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 22px;
+    padding: 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .reflect-element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    transition: all var(--transition);
+    user-select: none;
+  }
+  .reflect-element:hover { border-color: var(--border); background: var(--surface); }
+  .reflect-element.selected { border-color: var(--accent); background: var(--surface); }
+  .reflect-element.selected svg { stroke: var(--accent); }
+  .reflect-element.selected .reflect-element-label { color: var(--accent); }
+
+  .reflect-element svg { stroke: var(--text-muted); transition: stroke var(--transition); }
+
+  .reflect-element-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color var(--transition);
+  }
+
+  .reflect-question {
+    margin-bottom: 16px;
+  }
+
+  .reflect-question label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  .reflect-question-wrap {
+    position: relative;
+  }
+
+  .reflect-question textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'Inconsolata', monospace;
+    font-size: 13px;
+    padding: 9px 12px;
+    padding-bottom: 22px;
+    resize: none;
+    outline: none;
+    line-height: 1.6;
+    transition: border-color var(--transition);
+    height: 72px;
+  }
+  .reflect-question textarea:focus { border-color: var(--accent); }
+  .reflect-question textarea::placeholder { color: var(--text-muted); }
+
+  .reflect-char-count {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    font-size: 10px;
+    color: var(--text-muted);
+    font-family: 'Inconsolata', monospace;
+    pointer-events: none;
+  }
+  .reflect-char-count.warn { color: var(--danger); }
+
+  .reflect-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .reflect-spacer { flex: 1; }
   .applets-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1438,6 +1541,10 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
           Fidget
         </button>
+        <button class="applet-btn" id="appletReflectBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Reflect
+        </button>
       </div>
     </div>
   </aside>
@@ -1606,6 +1713,84 @@
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- Daily Reflection Modal -->
+<div class="modal-overlay" id="reflectModal">
+  <div class="modal reflect-modal">
+    <h3>Daily Reflection</h3>
+    <div class="reflect-date" id="reflectDate"></div>
+
+    <!-- Element selector -->
+    <div class="reflect-elements">
+      <div class="reflect-element" data-element="water">
+        <svg width="44" height="38" viewBox="0 0 80 66" fill="none" stroke-linecap="round" stroke-width="3.5">
+          <path d="M0,0  Q20,-12 40,0  Q60,12  80,0"/>
+          <path d="M0,22 Q20,10 40,22 Q60,34  80,22"/>
+          <path d="M0,44 Q20,32 40,44 Q60,56  80,44"/>
+          <path d="M0,66 Q20,54 40,66 Q60,78  80,66"/>
+        </svg>
+        <span class="reflect-element-label">Water</span>
+      </div>
+      <div class="reflect-element" data-element="earth">
+        <svg width="44" height="38" viewBox="0 0 80 66" fill="none" stroke-linecap="round" stroke-width="3.5">
+          <line x1="0" y1="0"  x2="80" y2="0"/>
+          <line x1="0" y1="22" x2="80" y2="22"/>
+          <line x1="0" y1="44" x2="80" y2="44"/>
+          <line x1="0" y1="66" x2="80" y2="66"/>
+        </svg>
+        <span class="reflect-element-label">Earth</span>
+      </div>
+      <div class="reflect-element" data-element="fire">
+        <svg width="44" height="38" viewBox="-4 0 100 80" fill="none" stroke-linecap="round" stroke-width="3.5">
+          <path d="M0,80 L14,60 L0,40 L14,20 L0,0"/>
+          <path d="M26,80 L40,60 L26,40 L40,20 L26,0"/>
+          <path d="M52,80 L66,60 L52,40 L66,20 L52,0"/>
+          <path d="M78,80 L92,60 L78,40 L92,20 L78,0"/>
+        </svg>
+        <span class="reflect-element-label">Fire</span>
+      </div>
+      <div class="reflect-element" data-element="air">
+        <svg width="44" height="38" viewBox="0 0 80 88" fill="none" stroke-linecap="round" stroke-width="3.5">
+          <line x1="0" y1="0"  x2="80" y2="22"/>
+          <line x1="0" y1="22" x2="80" y2="44"/>
+          <line x1="0" y1="44" x2="80" y2="66"/>
+          <line x1="0" y1="66" x2="80" y2="88"/>
+        </svg>
+        <span class="reflect-element-label">Air</span>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div class="reflect-question">
+      <label>What felt heavy, and what felt light today?</label>
+      <div class="reflect-question-wrap">
+        <textarea id="reflectQ1" maxlength="180" placeholder="One good sentence…"></textarea>
+        <span class="reflect-char-count" id="reflectC1">180</span>
+      </div>
+    </div>
+    <div class="reflect-question">
+      <label>What did you learn today, and where did failure or friction teach you the most?</label>
+      <div class="reflect-question-wrap">
+        <textarea id="reflectQ2" maxlength="180" placeholder="One good sentence…"></textarea>
+        <span class="reflect-char-count" id="reflectC2">180</span>
+      </div>
+    </div>
+    <div class="reflect-question">
+      <label>How did your priorities today reflect the person you are becoming?</label>
+      <div class="reflect-question-wrap">
+        <textarea id="reflectQ3" maxlength="180" placeholder="One good sentence…"></textarea>
+        <span class="reflect-char-count" id="reflectC3">180</span>
+      </div>
+    </div>
+
+    <div class="reflect-actions">
+      <button class="btn btn-primary" id="reflectExport">Export .md</button>
+      <button class="btn btn-ghost" id="reflectClear">Clear</button>
+      <div class="reflect-spacer"></div>
+      <button class="btn btn-ghost" id="reflectClose">Close</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ── GITHUB CONFIG ─────────────────────────────────────────────────────
@@ -3115,6 +3300,94 @@ function resizeFidgetCanvas() {
     c.height = rect.height;
   }
 }
+
+document.getElementById('appletReflectBtn').addEventListener('click', () => {
+  // Set today's date on open
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('reflectDate').textContent = dateStr;
+  document.getElementById('reflectModal').classList.add('open');
+});
+
+// ── REFLECTION APPLET ─────────────────────────────────────────────────
+(function() {
+  const CHAR_LIMIT = 180;
+  const QUESTIONS = [
+    { id: 'reflectQ1', counter: 'reflectC1', text: 'What felt heavy, and what felt light today?' },
+    { id: 'reflectQ2', counter: 'reflectC2', text: 'What did you learn today, and where did failure or friction teach you the most?' },
+    { id: 'reflectQ3', counter: 'reflectC3', text: 'How did your priorities today reflect the person you are becoming?' },
+  ];
+
+  const ELEMENT_LABELS = {
+    water: 'Water — fluid · productive',
+    earth: 'Earth — grounded · restful',
+    fire:  'Fire — chaotic · turbulent',
+    air:   'Air — light · dreamy',
+  };
+
+  // Character counters
+  QUESTIONS.forEach(q => {
+    const ta = document.getElementById(q.id);
+    const ct = document.getElementById(q.counter);
+    ta.addEventListener('input', () => {
+      const remaining = CHAR_LIMIT - ta.value.length;
+      ct.textContent = remaining;
+      ct.classList.toggle('warn', remaining <= 20);
+    });
+  });
+
+  // Element selection — toggle, multiple allowed
+  document.querySelectorAll('.reflect-element').forEach(el => {
+    el.addEventListener('click', () => el.classList.toggle('selected'));
+  });
+
+  // Close / backdrop
+  document.getElementById('reflectClose').addEventListener('click', () => {
+    document.getElementById('reflectModal').classList.remove('open');
+  });
+  document.getElementById('reflectModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('reflectModal'))
+      document.getElementById('reflectModal').classList.remove('open');
+  });
+
+  // Clear
+  document.getElementById('reflectClear').addEventListener('click', () => {
+    if (!confirm('Clear all answers?')) return;
+    QUESTIONS.forEach(q => {
+      document.getElementById(q.id).value = '';
+      const ct = document.getElementById(q.counter);
+      ct.textContent = CHAR_LIMIT;
+      ct.classList.remove('warn');
+    });
+    document.querySelectorAll('.reflect-element').forEach(el => el.classList.remove('selected'));
+  });
+
+  // Export .md
+  document.getElementById('reflectExport').addEventListener('click', () => {
+    const date = document.getElementById('reflectDate').textContent;
+    const isoDate = new Date().toISOString().slice(0, 10);
+
+    const selectedElements = [...document.querySelectorAll('.reflect-element.selected')]
+      .map(el => el.dataset.element);
+    const elementLine = selectedElements.length
+      ? selectedElements.map(e => ELEMENT_LABELS[e]).join('\n')
+      : '(none selected)';
+
+    const answers = QUESTIONS.map(q => {
+      const val = document.getElementById(q.id).value.trim();
+      return `## ${q.text}\n${val || '(no answer)'}`;
+    }).join('\n\n');
+
+    const md = `# Daily Reflection\n**Date:** ${date}\n\n**Element:**\n${elementLine}\n\n---\n\n${answers}\n`;
+
+    const blob = new Blob([md], { type: 'text/markdown' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `reflection-${isoDate}.md`;
+    a.click();
+    showToast('Reflection exported.');
+  });
+})();
 
 document.getElementById('appletPromptBtn').addEventListener('click', () => {
   document.getElementById('promptModal').classList.add('open');
