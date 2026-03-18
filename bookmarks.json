@@ -955,6 +955,11 @@
           "id": "xs9z64fr",
           "name": "Ubuntu Desktop",
           "url": "https://ubuntu.com/desktop"
+        },
+        {
+          "id": "xf8i4t4w",
+          "name": "Bazzite",
+          "url": "https://bazzite.gg/"
         }
       ],
       "color": "#b8896a"
