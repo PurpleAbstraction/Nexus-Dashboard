@@ -248,6 +248,11 @@
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
+        },
+        {
+          "id": "xviu6m8c",
+          "name": "Write PWA (Cloudflare)",
+          "url": "https://nexus-dash.general-matrix624.workers.dev/"
         }
       ],
       "pinned": false,
