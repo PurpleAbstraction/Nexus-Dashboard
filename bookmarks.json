@@ -155,11 +155,6 @@
           "url": "https://feedly.com/"
         },
         {
-          "id": "l1",
-          "name": "GitHub",
-          "url": "https://github.com"
-        },
-        {
           "id": "l3",
           "name": "Hacker News",
           "url": "https://news.ycombinator.com"
@@ -687,6 +682,11 @@
           "id": "x911k9z7",
           "name": "Cloudflare",
           "url": "https://dash.cloudflare.com/"
+        },
+        {
+          "id": "l1",
+          "name": "GitHub",
+          "url": "https://github.com"
         }
       ],
       "color": "#b8896a"
