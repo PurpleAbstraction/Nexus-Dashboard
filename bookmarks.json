@@ -235,6 +235,11 @@
           "url": "https://members.onepeloton.com/classes"
         },
         {
+          "id": "xc8ica2z",
+          "name": "Proton Calendar",
+          "url": "https://calendar.proton.me/"
+        },
+        {
           "id": "xx07wnso",
           "name": "ROG STRIX Z690-E GAMING WIFI",
           "url": "https://rog.asus.com/us/motherboards/rog-strix/rog-strix-z690-e-gaming-wifi-model/"
@@ -248,11 +253,6 @@
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
-        },
-        {
-          "id": "xc8ica2z",
-          "name": "Proton Calendar",
-          "url": "https://calendar.proton.me/"
         }
       ],
       "pinned": false,
