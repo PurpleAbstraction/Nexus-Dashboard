@@ -253,6 +253,11 @@
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
+        },
+        {
+          "id": "xeex1xlt",
+          "name": "Proton Docs",
+          "url": "https://docs.proton.me/"
         }
       ],
       "pinned": false,
