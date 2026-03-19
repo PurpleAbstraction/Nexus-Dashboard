@@ -3,17 +3,12 @@
     {
       "id": "cat2",
       "name": "AI",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "xon03h2k",
           "name": "ChatGPT",
           "url": "https://chatgpt.com/"
-        },
-        {
-          "id": "xj23zf62",
-          "name": "Claude AI Status",
-          "url": "https://status.claude.com/"
         },
         {
           "id": "xq39kquy",
