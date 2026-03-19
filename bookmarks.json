@@ -240,11 +240,6 @@
           "url": "https://calendar.proton.me/"
         },
         {
-          "id": "xeex1xlt",
-          "name": "Proton Docs",
-          "url": "https://docs.proton.me/"
-        },
-        {
           "id": "xx07wnso",
           "name": "ROG STRIX Z690-E GAMING WIFI",
           "url": "https://rog.asus.com/us/motherboards/rog-strix/rog-strix-z690-e-gaming-wifi-model/"
@@ -643,7 +638,7 @@
     {
       "id": "x6sypw0t",
       "name": "Jobs",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "xfwfmt17",
