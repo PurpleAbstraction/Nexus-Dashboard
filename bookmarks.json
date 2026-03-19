@@ -248,6 +248,11 @@
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
+        },
+        {
+          "id": "xc8ica2z",
+          "name": "Proton Calendar",
+          "url": "https://calendar.proton.me/"
         }
       ],
       "pinned": false,
@@ -697,11 +702,6 @@
           "id": "xvk5h0t6",
           "name": "Proton",
           "url": "https://proton.me/"
-        },
-        {
-          "id": "xc8ica2z",
-          "name": "Proton Calendar",
-          "url": "https://calendar.proton.me/"
         },
         {
           "id": "xsh5mnc5",
