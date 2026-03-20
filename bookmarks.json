@@ -16,6 +16,11 @@
           "url": "https://status.claude.com/"
         },
         {
+          "id": "xfu56bld",
+          "name": "Claude Console",
+          "url": "https://platform.claude.com/"
+        },
+        {
           "id": "xq39kquy",
           "name": "Claude.AI",
           "url": "https://claude.ai/"
@@ -79,11 +84,6 @@
           "id": "x2a9mm5c",
           "name": "Zapier - Automation",
           "url": "https://zapier.com/"
-        },
-        {
-          "id": "xfu56bld",
-          "name": "Claude Console",
-          "url": "https://platform.claude.com/"
         }
       ],
       "pinned": false,
