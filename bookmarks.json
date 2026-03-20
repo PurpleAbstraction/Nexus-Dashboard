@@ -357,11 +357,6 @@
       "open": false,
       "links": [
         {
-          "id": "xqlh64hk",
-          "name": "Elite Dangerous Home",
-          "url": "https://www.elitedangerous.com/"
-        },
-        {
           "id": "xkry4ume",
           "name": "Elite Dangerous - Adventures and Tools",
           "url": "https://elitedangereuse.fr/en/"
@@ -432,6 +427,11 @@
           "url": "https://elite-dangerous.fandom.com/wiki/Elite_Dangerous_Wiki"
         },
         {
+          "id": "xqlh64hk",
+          "name": "Elite Dangerous Home",
+          "url": "https://www.elitedangerous.com/"
+        },
+        {
           "id": "xuxeq3qn",
           "name": "Epic Games",
           "url": "https://store.epicgames.com/en-US/"
@@ -462,21 +462,6 @@
           "url": "http://192.168.1.3:8888/"
         },
         {
-          "id": "xc575zt7",
-          "name": "Star Citizen - Cloud Imperium Games",
-          "url": "https://cloudimperiumgames.com/"
-        },
-        {
-          "id": "xw4bq3ax",
-          "name": "Star Citizen - Roberts Space Industries",
-          "url": "https://robertsspaceindustries.com/"
-        },
-        {
-          "id": "xor98p28",
-          "name": "Star Citizen - RSI Current Status",
-          "url": "https://status.robertsspaceindustries.com/"
-        },
-        {
           "id": "x4224vfk",
           "name": "Star Citizen - Armory",
           "url": "https://armory.thespacecoder.space/"
@@ -495,6 +480,11 @@
           "id": "xdai9ylc",
           "name": "Star Citizen - CCU Game",
           "url": "https://ccugame.app/sign-in?redirectURL=%2Fyour-items%2Ffleet"
+        },
+        {
+          "id": "xc575zt7",
+          "name": "Star Citizen - Cloud Imperium Games",
+          "url": "https://cloudimperiumgames.com/"
         },
         {
           "id": "xzfqlwtg",
@@ -567,6 +557,16 @@
           "url": "https://regolith.rocks/"
         },
         {
+          "id": "xw4bq3ax",
+          "name": "Star Citizen - Roberts Space Industries",
+          "url": "https://robertsspaceindustries.com/"
+        },
+        {
+          "id": "xor98p28",
+          "name": "Star Citizen - RSI Current Status",
+          "url": "https://status.robertsspaceindustries.com/"
+        },
+        {
           "id": "xgffhbb3",
           "name": "Star Citizen - Ship Sales & Rental Prices",
           "url": "https://scfocus.org/ship-sale-rental-locations-history/"
@@ -602,6 +602,11 @@
           "url": "https://starcitizen.tools/"
         },
         {
+          "id": "xusrdur4",
+          "name": "Steam",
+          "url": "https://store.steampowered.com/"
+        },
+        {
           "id": "xrwzbqru",
           "name": "This Week in Video Games",
           "url": "https://thisweekinvideogames.com/"
@@ -625,11 +630,6 @@
           "id": "xolta2pl",
           "name": "X4 Foundations - Full List of Ships",
           "url": "https://x4-foundations-wiki.fandom.com/wiki/Full_ships_list"
-        },
-        {
-          "id": "xusrdur4",
-          "name": "Steam",
-          "url": "https://store.steampowered.com/"
         }
       ],
       "pinned": false,
