@@ -985,6 +985,11 @@
           "id": "l3",
           "name": "Hacker News",
           "url": "https://news.ycombinator.com"
+        },
+        {
+          "id": "xg70iigo",
+          "name": "The Verge",
+          "url": "https://www.theverge.com/"
         }
       ],
       "color": "#b8896a"
