@@ -3,7 +3,7 @@
     {
       "id": "cat2",
       "name": "AI",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "xon03h2k",
@@ -643,7 +643,7 @@
     {
       "id": "x6sypw0t",
       "name": "Jobs",
-      "open": true,
+      "open": false,
       "links": [
         {
           "id": "xckry2ew",
