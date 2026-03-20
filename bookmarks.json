@@ -253,6 +253,11 @@
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
+        },
+        {
+          "id": "xy1ep6sb",
+          "name": "Mojeek Search",
+          "url": "https://www.mojeek.com/?theme=dark&arc=none&tn=0&ref=1&newtab=1&ib=0&sumt=0&sumb=0&autocomp=0&safe=1&hp=minimal&lb=en&qsbu=0&qss=disable"
         }
       ],
       "pinned": false,
