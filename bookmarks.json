@@ -235,6 +235,11 @@
           "url": "https://obsidian.md/"
         },
         {
+          "id": "xccvieqx",
+          "name": "OPB",
+          "url": "https://www.opb.org/"
+        },
+        {
           "id": "xpsd5zj0",
           "name": "Peloton",
           "url": "https://members.onepeloton.com/classes"
@@ -258,11 +263,6 @@
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
-        },
-        {
-          "id": "xccvieqx",
-          "name": "OPB",
-          "url": "https://www.opb.org/"
         }
       ],
       "pinned": false,
