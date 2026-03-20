@@ -338,11 +338,6 @@
           "url": "https://www.plex.tv/"
         },
         {
-          "id": "xusrdur4",
-          "name": "Steam",
-          "url": "https://store.steampowered.com/"
-        },
-        {
           "id": "xnoy9q3a",
           "name": "Twitch",
           "url": "https://www.twitch.tv/"
@@ -630,6 +625,11 @@
           "id": "xolta2pl",
           "name": "X4 Foundations - Full List of Ships",
           "url": "https://x4-foundations-wiki.fandom.com/wiki/Full_ships_list"
+        },
+        {
+          "id": "xusrdur4",
+          "name": "Steam",
+          "url": "https://store.steampowered.com/"
         }
       ],
       "pinned": false,
