@@ -79,6 +79,11 @@
           "id": "x2a9mm5c",
           "name": "Zapier - Automation",
           "url": "https://zapier.com/"
+        },
+        {
+          "id": "xfu56bld",
+          "name": "Claude Console",
+          "url": "https://platform.claude.com/"
         }
       ],
       "pinned": false,
@@ -638,7 +643,7 @@
     {
       "id": "x6sypw0t",
       "name": "Jobs",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "xckry2ew",
