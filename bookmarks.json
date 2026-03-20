@@ -972,24 +972,24 @@
           "url": "https://github.com"
         },
         {
-          "id": "xcx895u5",
-          "name": "Pop!_OS",
-          "url": "https://system76.com/pop/download/"
-        },
-        {
-          "id": "xs9z64fr",
-          "name": "Ubuntu Desktop",
-          "url": "https://ubuntu.com/desktop"
-        },
-        {
           "id": "l3",
           "name": "Hacker News",
           "url": "https://news.ycombinator.com"
         },
         {
+          "id": "xcx895u5",
+          "name": "Pop!_OS",
+          "url": "https://system76.com/pop/download/"
+        },
+        {
           "id": "xg70iigo",
           "name": "The Verge",
           "url": "https://www.theverge.com/"
+        },
+        {
+          "id": "xs9z64fr",
+          "name": "Ubuntu Desktop",
+          "url": "https://ubuntu.com/desktop"
         }
       ],
       "color": "#b8896a"
