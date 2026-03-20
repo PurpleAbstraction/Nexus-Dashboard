@@ -180,11 +180,6 @@
           "url": "https://feedly.com/"
         },
         {
-          "id": "l3",
-          "name": "Hacker News",
-          "url": "https://news.ycombinator.com"
-        },
-        {
           "id": "x7t5nx4c",
           "name": "Know Before You Fly",
           "url": "http://www.knowbeforeyoufly.org/home"
@@ -985,6 +980,11 @@
           "id": "xs9z64fr",
           "name": "Ubuntu Desktop",
           "url": "https://ubuntu.com/desktop"
+        },
+        {
+          "id": "l3",
+          "name": "Hacker News",
+          "url": "https://news.ycombinator.com"
         }
       ],
       "color": "#b8896a"
