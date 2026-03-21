@@ -1000,6 +1000,11 @@
           "id": "xs9z64fr",
           "name": "Ubuntu Desktop",
           "url": "https://ubuntu.com/desktop"
+        },
+        {
+          "id": "xfid219w",
+          "name": "Mozilla",
+          "url": "https://www.mozilla.org/en-US/"
         }
       ],
       "color": "#b8896a"
