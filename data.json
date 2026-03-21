@@ -987,6 +987,11 @@
           "url": "https://news.ycombinator.com"
         },
         {
+          "id": "xfid219w",
+          "name": "Mozilla",
+          "url": "https://www.mozilla.org/en-US/"
+        },
+        {
           "id": "xcx895u5",
           "name": "Pop!_OS",
           "url": "https://system76.com/pop/download/"
@@ -1000,11 +1005,6 @@
           "id": "xs9z64fr",
           "name": "Ubuntu Desktop",
           "url": "https://ubuntu.com/desktop"
-        },
-        {
-          "id": "xfid219w",
-          "name": "Mozilla",
-          "url": "https://www.mozilla.org/en-US/"
         }
       ],
       "color": "#b8896a"
