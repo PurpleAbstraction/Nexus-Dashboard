@@ -100,6 +100,11 @@
           "url": "https://www.apple.com/feedback/"
         },
         {
+          "id": "xi3okjs4",
+          "name": "Apple Mac Mini (2018)",
+          "url": "https://support.apple.com/en-us/111912"
+        },
+        {
           "id": "xxpto2ss",
           "name": "Apple Support - Factory Reset Mac",
           "url": "https://support.apple.com/guide/mac-help/erase-your-mac-mchl7676b710/15.0/mac/15.0"
@@ -258,11 +263,6 @@
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
-        },
-        {
-          "id": "xi3okjs4",
-          "name": "Apple Mac Mini (2018)",
-          "url": "https://support.apple.com/en-us/111912"
         }
       ],
       "pinned": false,
