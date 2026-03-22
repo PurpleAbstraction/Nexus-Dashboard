@@ -858,6 +858,11 @@
           "url": "https://www.moncheribridals.com/modest-by-mon-cheri"
         },
         {
+          "id": "x4lwnuo7",
+          "name": "Moza Racing US",
+          "url": "https://us.mozaracing.com"
+        },
+        {
           "id": "xt307xkf",
           "name": "Nordstrom",
           "url": "https://www.nordstrom.com/"
@@ -951,11 +956,6 @@
           "id": "x08ej2q4",
           "name": "Whole Foods Market",
           "url": "https://www.wholefoodsmarket.com/"
-        },
-        {
-          "id": "x4lwnuo7",
-          "name": "Moza Racing US",
-          "url": "https://us.mozaracing.com"
         }
       ],
       "pinned": false,
