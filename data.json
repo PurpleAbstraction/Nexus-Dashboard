@@ -967,6 +967,16 @@
           "url": "https://bazzite.gg/"
         },
         {
+          "id": "xqfbl4d3",
+          "name": "Browser Config",
+          "url": "https://about:config"
+        },
+        {
+          "id": "xuksmqki",
+          "name": "Browser Preferences",
+          "url": "https://about:preferences"
+        },
+        {
           "id": "x911k9z7",
           "name": "Cloudflare",
           "url": "https://dash.cloudflare.com/"
@@ -1005,16 +1015,6 @@
           "id": "xs9z64fr",
           "name": "Ubuntu Desktop",
           "url": "https://ubuntu.com/desktop"
-        },
-        {
-          "id": "xuksmqki",
-          "name": "Browser Preferences",
-          "url": "https://about:preferences"
-        },
-        {
-          "id": "xqfbl4d3",
-          "name": "Browser Config",
-          "url": "https://about:config"
         }
       ],
       "color": "#b8896a"
