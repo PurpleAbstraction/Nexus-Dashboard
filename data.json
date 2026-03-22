@@ -1010,6 +1010,11 @@
           "id": "xuksmqki",
           "name": "Browser Preferences",
           "url": "https://about:preferences"
+        },
+        {
+          "id": "xqfbl4d3",
+          "name": "Browser Config",
+          "url": "https://about:config"
         }
       ],
       "color": "#b8896a"
