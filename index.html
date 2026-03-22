@@ -3779,7 +3779,7 @@ Each items array should have 1-2 entries. Only include a section if there is gen
 
     const userPrompt = `Here are today's headlines from wire services. Write the Morning Brief.\n\n${headlineText}`;
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https://nexus-brief.schema-syntax.workers.dev', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
