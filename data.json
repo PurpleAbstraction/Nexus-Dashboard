@@ -1005,6 +1005,11 @@
           "id": "xs9z64fr",
           "name": "Ubuntu Desktop",
           "url": "https://ubuntu.com/desktop"
+        },
+        {
+          "id": "xuksmqki",
+          "name": "Firefox Preferences",
+          "url": "https://about:preferences"
         }
       ],
       "color": "#b8896a"
