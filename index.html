@@ -1561,6 +1561,245 @@
   .prompt-actions-row .btn-ghost { font-size: 12px; padding: 6px 12px; }
   .prompt-actions-row .btn-primary { font-size: 12px; padding: 6px 14px; }
   .prompt-spacer { flex: 1; }
+  /* ── MORNING BRIEF MODAL ── */
+  .brief-modal {
+    width: 720px;
+    max-width: 96vw;
+    max-height: 85vh;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .brief-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+    flex-shrink: 0;
+  }
+
+  .brief-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .brief-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  .brief-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .brief-refresh-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 5px 12px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all var(--transition);
+  }
+  .brief-refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .brief-refresh-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .brief-refresh-btn.spinning svg { animation: briefSpin 1s linear infinite; }
+  @keyframes briefSpin { to { transform: rotate(360deg); } }
+
+  .brief-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    transition: color var(--transition);
+  }
+  .brief-close-btn:hover { color: var(--danger); }
+
+  .brief-body {
+    overflow-y: auto;
+    flex: 1;
+    padding: 22px 24px 20px;
+  }
+  .brief-body::-webkit-scrollbar { width: 4px; }
+  .brief-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .brief-overview {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brief-watch {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  .brief-watch strong {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .brief-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .brief-section {
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    gap: 0 16px;
+    align-items: baseline;
+  }
+
+  .brief-section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-top: 2px;
+  }
+
+  .brief-section-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .brief-item { display: flex; flex-direction: column; gap: 3px; }
+
+  .brief-item-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .brief-item-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color var(--transition);
+  }
+  .brief-item-link:hover { color: var(--accent2); }
+
+  .brief-footer {
+    padding: 9px 18px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    background: var(--surface2);
+  }
+
+  .brief-powered {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  .brief-powered span { color: var(--accent); }
+
+  .brief-timestamp {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .brief-loading {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 60px 24px;
+    color: var(--text-muted);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .brief-loading.visible { display: flex; }
+
+  .brief-loading-bar {
+    width: 180px;
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .brief-loading-bar::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 40%;
+    background: var(--accent);
+    border-radius: 1px;
+    animation: briefShimmer 1.2s ease-in-out infinite;
+  }
+  @keyframes briefShimmer {
+    0%   { transform: translateX(-150%); }
+    100% { transform: translateX(350%); }
+  }
+
+  .brief-empty {
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .brief-empty strong {
+    color: var(--accent);
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .brief-error {
+    padding: 32px 24px;
+    text-align: center;
+    color: var(--danger);
+    font-size: 13px;
+    line-height: 1.8;
+    display: none;
+  }
+  .brief-error.visible { display: block; }
+
 </style>
 </head>
 <body>
@@ -1998,6 +2237,48 @@
       <div class="reflect-spacer"></div>
       <button class="btn btn-ghost" id="reflectClose">Close</button>
     </div>
+  </div>
+</div>
+
+<!-- Morning Brief Modal -->
+<div class="modal-overlay" id="briefModal">
+  <div class="modal brief-modal">
+
+    <div class="brief-header">
+      <span class="brief-title">Morning Brief</span>
+      <span class="brief-date" id="briefDate"></span>
+      <div class="brief-header-actions">
+        <button class="brief-refresh-btn" id="briefRefreshBtn">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+          Refresh
+        </button>
+        <button class="brief-close-btn" id="briefCloseBtn" title="Close">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="brief-body" id="briefBody">
+      <div class="brief-loading" id="briefLoading">
+        <div class="brief-loading-bar"></div>
+        Assembling your brief…
+      </div>
+      <div class="brief-error" id="briefError"></div>
+      <div class="brief-empty" id="briefEmpty">
+        <strong>No brief yet</strong>
+        Hit Refresh to fetch today's news and generate your brief.
+      </div>
+      <div id="briefContent" style="display:none;">
+        <div class="brief-overview" id="briefOverview"></div>
+        <div class="brief-sections" id="briefSections"></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <span class="brief-powered">Powered by <span>Claude</span></span>
+      <span class="brief-timestamp" id="briefTimestamp">—</span>
+    </div>
+
   </div>
 </div>
 
@@ -3382,6 +3663,227 @@ document.getElementById('tokenSave').addEventListener('click', () => {
   showToast('Token saved. Syncing…');
   loadData();
 });
+
+// ── MORNING BRIEF ─────────────────────────────────────────────────────
+const BRIEF_RSS_SOURCES = [
+  { url: 'https://feeds.apnews.com/rss/apf-topnews',         label: 'AP Top News' },
+  { url: 'https://feeds.apnews.com/rss/apf-usnews',          label: 'AP US News' },
+  { url: 'https://feeds.apnews.com/rss/apf-business',        label: 'AP Business' },
+  { url: 'https://feeds.apnews.com/rss/apf-science',         label: 'AP Science' },
+  { url: 'https://www.sciencedaily.com/rss/top/technology.xml', label: 'ScienceDaily Tech' },
+  { url: 'https://feeds.feedburner.com/TheHackersNews',       label: 'The Hacker News' },
+  { url: 'https://www.statnews.com/feed/',                    label: 'STAT News' },
+  { url: 'https://importai.substack.com/feed',                label: 'Import AI' },
+];
+
+const RSS2JSON_API = 'https://api.rss2json.com/v1/api.json?rss_url=';
+const BRIEF_CACHE_KEY = 'nexus_brief_cache';
+const BRIEF_MAX_HEADLINES = 5; // per source
+
+let _briefCache = null;
+
+function openBriefModal() {
+  const modal = document.getElementById('briefModal');
+  modal.classList.add('open');
+  // Set date
+  document.getElementById('briefDate').textContent = new Date().toLocaleDateString('en-US', {
+    weekday: 'long', month: 'long', day: 'numeric'
+  });
+  // Load from cache if available
+  const cached = localStorage.getItem(BRIEF_CACHE_KEY);
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached);
+      renderBrief(parsed);
+      return;
+    } catch(_) {}
+  }
+  // Otherwise show empty state
+  setBriefState('empty');
+}
+
+function closeBriefModal() {
+  document.getElementById('briefModal').classList.remove('open');
+}
+
+function setBriefState(state, msg) {
+  document.getElementById('briefLoading').classList.toggle('visible', state === 'loading');
+  document.getElementById('briefEmpty').style.display   = state === 'empty'   ? 'block' : 'none';
+  document.getElementById('briefContent').style.display = state === 'content' ? 'block' : 'none';
+  const errEl = document.getElementById('briefError');
+  if (state === 'error') {
+    errEl.textContent = msg || 'Something went wrong. Try again.';
+    errEl.classList.add('visible');
+  } else {
+    errEl.classList.remove('visible');
+  }
+  document.getElementById('briefRefreshBtn').disabled = state === 'loading';
+  document.getElementById('briefRefreshBtn').classList.toggle('spinning', state === 'loading');
+}
+
+async function fetchBriefFeed(source) {
+  try {
+    const res = await fetch(RSS2JSON_API + encodeURIComponent(source.url));
+    const data = await res.json();
+    if (data.status === 'ok' && data.items?.length) {
+      return data.items.slice(0, BRIEF_MAX_HEADLINES).map(i => ({
+        title: i.title?.trim() || '',
+        description: i.description
+          ? i.description.replace(/<[^>]+>/g, '').trim().slice(0, 200)
+          : '',
+        source: source.label,
+      }));
+    }
+  } catch(_) {}
+  return [];
+}
+
+async function refreshBrief() {
+  setBriefState('loading');
+  try {
+    // Fetch all sources in parallel
+    const results = await Promise.all(BRIEF_RSS_SOURCES.map(fetchBriefFeed));
+    const allHeadlines = results.flat().filter(h => h.title);
+
+    if (!allHeadlines.length) {
+      setBriefState('error', 'Could not fetch news feeds. Check your connection and try again.');
+      return;
+    }
+
+    // Build headline digest for the prompt
+    const headlineText = allHeadlines
+      .map(h => `[${h.source}] ${h.title}${h.description ? ' — ' + h.description : ''}`)
+      .join('\n');
+
+    // Claude API call
+    const systemPrompt = `You are a sharp, neutral news editor writing a daily brief. Your rules:
+- No political bias or commentary of any kind.
+- Never use people's names. Use their title and country/organization instead (e.g. "the President of the United States", "the Prime Minister of India", "the CEO of the company").
+- Always specify the country or region when referencing events. Never say "the region" or "the government" without specifying which one.
+- Write short, punchy sentences. Two sentences maximum per bullet. No long compound clauses.
+- Tone: confident and editorial, not dry wire-copy. A smart human wrote this.
+- Focus on what's happening and why it matters. No filler.
+
+Respond ONLY with a JSON object in this exact shape, no markdown, no preamble:
+{
+  "overview": "2-3 sentence paragraph covering the most significant world and US news. Close with a single 'What to watch:' sentence.",
+  "sections": [
+    { "label": "Tech",      "items": ["one tight sentence.", "optional second story."] },
+    { "label": "Financial", "items": ["one tight sentence."] },
+    { "label": "Science",   "items": ["one tight sentence."] },
+    { "label": "Health",    "items": ["one tight sentence."] },
+    { "label": "AI",        "items": ["one tight sentence."] }
+  ]
+}
+Each items array should have 1-2 entries. Only include a section if there is genuinely relevant news for it.`;
+
+    const userPrompt = `Here are today's headlines from wire services. Write the Morning Brief.\n\n${headlineText}`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }],
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error?.message || `API error ${response.status}`);
+    }
+
+    const apiData = await response.json();
+    const rawText = apiData.content?.[0]?.text || '';
+    const clean = rawText.replace(/```json|```/g, '').trim();
+    const brief = JSON.parse(clean);
+
+    // Cache with timestamp
+    brief.refreshedAt = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    brief.headlines = allHeadlines; // store for Perplexity link construction
+    localStorage.setItem(BRIEF_CACHE_KEY, JSON.stringify(brief));
+
+    renderBrief(brief);
+
+  } catch(err) {
+    setBriefState('error', `Failed to generate brief: ${err.message}`);
+  }
+}
+
+function buildPerplexityUrl(text) {
+  return `https://www.perplexity.ai/search?q=${encodeURIComponent(text)}`;
+}
+
+function renderBrief(brief) {
+  // Overview
+  const overviewEl = document.getElementById('briefOverview');
+  // Split "What to watch:" onto its own styled line if present
+  const watchMatch = brief.overview.match(/(.*?)(What to watch[:\s].+)/is);
+  if (watchMatch) {
+    overviewEl.innerHTML = `<span>${watchMatch[1].trim()}</span><p class="brief-watch"><strong>What to watch:</strong> ${watchMatch[2].replace(/what to watch[:\s]*/i, '').trim()}</p>`;
+  } else {
+    overviewEl.textContent = brief.overview;
+  }
+
+  // Sections
+  const sectionsEl = document.getElementById('briefSections');
+  sectionsEl.innerHTML = '';
+  (brief.sections || []).forEach(section => {
+    const sectionDiv = document.createElement('div');
+    sectionDiv.className = 'brief-section';
+
+    const label = document.createElement('span');
+    label.className = 'brief-section-label';
+    label.textContent = section.label;
+
+    const itemsDiv = document.createElement('div');
+    itemsDiv.className = 'brief-section-items';
+
+    (section.items || []).forEach(itemText => {
+      const item = document.createElement('div');
+      item.className = 'brief-item';
+
+      const text = document.createElement('span');
+      text.className = 'brief-item-text';
+      text.textContent = itemText;
+
+      const link = document.createElement('a');
+      link.className = 'brief-item-link';
+      link.href = buildPerplexityUrl(itemText);
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Deep dive on Perplexity`;
+
+      item.appendChild(text);
+      item.appendChild(link);
+      itemsDiv.appendChild(item);
+    });
+
+    sectionDiv.appendChild(label);
+    sectionDiv.appendChild(itemsDiv);
+    sectionsEl.appendChild(sectionDiv);
+  });
+
+  // Timestamp
+  document.getElementById('briefTimestamp').textContent =
+    brief.refreshedAt ? `Last refreshed: ${brief.refreshedAt}` : '—';
+
+  setBriefState('content');
+}
+
+// Event wiring
+document.getElementById('appletNewsBtn').addEventListener('click', openBriefModal);
+document.getElementById('appletNewsBtn').style.opacity = '1';
+document.getElementById('appletNewsBtn').style.cursor = 'pointer';
+document.getElementById('appletNewsBtn').removeAttribute('title');
+
+document.getElementById('briefCloseBtn').addEventListener('click', closeBriefModal);
+document.getElementById('briefModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('briefModal')) closeBriefModal();
+});
+document.getElementById('briefRefreshBtn').addEventListener('click', refreshBrief);
 
 // ── INITIAL LOAD ──────────────────────────────────────────────────────
 // Prompt for token on first visit if none stored
