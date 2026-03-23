@@ -992,6 +992,11 @@
           "url": "https://github.com"
         },
         {
+          "id": "xy3beu34",
+          "name": "GitHUb Status",
+          "url": "https://githubstatus.com/"
+        },
+        {
           "id": "l3",
           "name": "Hacker News",
           "url": "https://news.ycombinator.com"
@@ -1015,11 +1020,6 @@
           "id": "xs9z64fr",
           "name": "Ubuntu Desktop",
           "url": "https://ubuntu.com/desktop"
-        },
-        {
-          "id": "xy3beu34",
-          "name": "GitHUb Status",
-          "url": "https://githubstatus.com/"
         }
       ],
       "color": "#b8896a"
