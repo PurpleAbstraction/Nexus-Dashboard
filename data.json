@@ -3,7 +3,7 @@
     {
       "id": "cat2",
       "name": "A.I.",
-      "open": true,
+      "open": false,
       "links": [
         {
           "id": "xon03h2k",
