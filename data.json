@@ -260,14 +260,14 @@
           "url": "https://www.ryzerobotics.com/tello"
         },
         {
-          "id": "x2pcg2ch",
-          "name": "Zoom",
-          "url": "https://www.zoom.com/"
-        },
-        {
           "id": "xxcugmet",
           "name": "The Game Crafter",
           "url": "https://www.thegamecrafter.com/"
+        },
+        {
+          "id": "x2pcg2ch",
+          "name": "Zoom",
+          "url": "https://www.zoom.com/"
         }
       ],
       "pinned": false,
