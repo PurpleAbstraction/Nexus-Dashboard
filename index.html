@@ -65,13 +65,13 @@
   /* ── LAYOUT ── */
   .shell {
     display: grid;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto 1fr auto;
     grid-template-columns: 1fr;
-    grid-template-areas: "header" "tabs" "content";
+    grid-template-areas: "header" "tabs" "content" "footer";
     min-height: 100vh;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 24px 40px;
+    padding: 0 24px 24px;
   }
 
   /* ── HEADER ── */
@@ -1479,8 +1479,8 @@
 
   @media (max-width: 860px) {
     .shell {
-      grid-template-areas: "header" "tabs" "content";
-      padding: 0 16px 40px;
+      grid-template-areas: "header" "tabs" "content" "footer";
+      padding: 0 16px 24px;
     }
 
     header {
@@ -1517,7 +1517,7 @@
   }
 
   @media (max-width: 480px) {
-    .shell { padding: 0 12px 32px; }
+    .shell { padding: 0 12px 20px; }
     header { gap: 6px; }
     .tab-btn { padding: 8px 12px 6px; font-size: 10px; letter-spacing: 0.08em; }
     .category-header { padding: 10px 12px; }
@@ -1847,6 +1847,38 @@
   }
   .brief-error.visible { display: block; }
 
+  /* ── KEYBOARD SHORTCUT FOOTER ── */
+  .shortcut-footer {
+    grid-area: footer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 14px 0 0;
+    flex-wrap: wrap;
+  }
+
+  .shortcut-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    opacity: 0.6;
+    letter-spacing: 0.04em;
+  }
+
+  .shortcut-key {
+    font-family: 'Inconsolata', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 6px;
+    letter-spacing: 0.06em;
+  }
+
 </style>
 </head>
 <body>
@@ -2051,6 +2083,12 @@
     </div>
 
   </div>
+
+  <footer class="shortcut-footer">
+    <span class="shortcut-hint"><span class="shortcut-key">1</span><span class="shortcut-key">2</span><span class="shortcut-key">3</span> tabs</span>
+    <span class="shortcut-hint"><span class="shortcut-key">/</span> search</span>
+    <span class="shortcut-hint"><span class="shortcut-key">Esc</span> close</span>
+  </footer>
 
 <!-- Fidget Modal -->
 <div class="modal-overlay" id="fidgetModal">
@@ -2974,9 +3012,41 @@ document.getElementById('modalSave').addEventListener('click', () => {
   render(document.getElementById('search').value);
 });
 
-// Keyboard shortcut: Escape closes modal
+// ── KEYBOARD SHORTCUTS ────────────────────────────────────────────────
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.getElementById('linkModal').classList.remove('open');
+  const tag = document.activeElement?.tagName;
+  const isTyping = tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement?.isContentEditable;
+  const anyModalOpen = document.querySelector('.modal-overlay.open');
+
+  // Escape — close any open modal, or clear search if focused
+  if (e.key === 'Escape') {
+    if (anyModalOpen) {
+      anyModalOpen.classList.remove('open');
+    } else if (document.activeElement === document.getElementById('search')) {
+      const s = document.getElementById('search');
+      s.value = '';
+      s.blur();
+      document.getElementById('searchClear').style.display = 'none';
+      render('');
+    }
+    return;
+  }
+
+  // Skip all other shortcuts if typing or a modal is open
+  if (isTyping || anyModalOpen) return;
+
+  // 1 / 2 / 3 — switch tabs
+  if (e.key === '1') { e.preventDefault(); showTab('bookmarks'); }
+  if (e.key === '2') { e.preventDefault(); showTab('workspace'); }
+  if (e.key === '3') { e.preventDefault(); showTab('settings'); }
+
+  // / — focus search
+  if (e.key === '/') {
+    e.preventDefault();
+    const s = document.getElementById('search');
+    s.focus();
+    s.select();
+  }
 });
 
 // ── EXPORT ────────────────────────────────────────────────────────────
