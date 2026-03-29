@@ -2240,12 +2240,12 @@
   </div>
 </div>
 
-<!-- Morning Brief Modal -->
+<!-- News Brief Modal -->
 <div class="modal-overlay" id="briefModal">
   <div class="modal brief-modal">
 
     <div class="brief-header">
-      <span class="brief-title">Morning Brief</span>
+      <span class="brief-title">News Brief</span>
       <span class="brief-date" id="briefDate"></span>
       <div class="brief-header-actions">
         <button class="brief-refresh-btn" id="briefRefreshBtn">
@@ -3732,10 +3732,20 @@ async function fetchBriefFeed(source) {
           ? i.description.replace(/<[^>]+>/g, '').trim().slice(0, 200)
           : '',
         source: source.label,
+        pubDate: i.pubDate || '',
       }));
     }
   } catch(_) {}
   return [];
+}
+
+const BRIEF_MAX_AGE_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+function isBriefItemFresh(pubDate) {
+  if (!pubDate) return true; // no date = include it
+  const d = new Date(pubDate);
+  if (isNaN(d)) return true;
+  return (Date.now() - d.getTime()) <= BRIEF_MAX_AGE_MS;
 }
 
 async function refreshBrief() {
@@ -3743,7 +3753,8 @@ async function refreshBrief() {
   try {
     // Fetch all sources in parallel
     const results = await Promise.all(BRIEF_RSS_SOURCES.map(fetchBriefFeed));
-    const allHeadlines = results.flat().filter(h => h.title);
+    const allHeadlines = results.flat()
+      .filter(h => h.title && isBriefItemFresh(h.pubDate));
 
     if (!allHeadlines.length) {
       setBriefState('error', 'Could not fetch news feeds. Check your connection and try again.');
@@ -3779,7 +3790,7 @@ Respond ONLY with a JSON object in this exact shape, no markdown, no preamble:
 }
 Each items array should have 1-2 entries. Only include a section if there is genuinely relevant news for it.`;
 
-    const userPrompt = `Here are today's headlines from wire services. Write the Morning Brief.\n\n${headlineText}`;
+    const userPrompt = `Here are today's headlines from wire services. Write the News Brief.\n\n${headlineText}`;
 
     const response = await fetch('https://nexus-brief.schema-syntax.workers.dev', {
       method: 'POST',
@@ -4124,7 +4135,8 @@ document.getElementById('appletReflectBtn').addEventListener('click', () => {
   // Export .md
   document.getElementById('reflectExport').addEventListener('click', () => {
     const date = document.getElementById('reflectDate').textContent;
-    const isoDate = new Date().toISOString().slice(0, 10);
+    const d = new Date();
+    const isoDate = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 
     const selectedElements = [...document.querySelectorAll('.reflect-element.selected')]
       .map(el => el.dataset.element);
