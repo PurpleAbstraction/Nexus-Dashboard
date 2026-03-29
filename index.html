@@ -1322,22 +1322,69 @@
   }
 
   .reflect-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .reflect-question:last-of-type { border-bottom: none; }
+
+  .reflect-question label {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  .reflect-choice-group {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .reflect-choice-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 5px 10px;
+    font-family: 'Inconsolata', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    transition: all var(--transition);
+    white-space: nowrap;
+  }
+  .reflect-choice-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .reflect-choice-btn.selected { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .reflect-choice-btn.selected.somewhat { background: var(--surface2); border-color: var(--accent); color: var(--accent); }
+
+  .reflect-questions-wrap {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 4px 14px;
     margin-bottom: 16px;
   }
 
-  .reflect-question label {
+  .reflect-optional {
+    margin-bottom: 4px;
+  }
+
+  .reflect-optional-label {
     display: block;
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-bottom: 6px;
-    line-height: 1.5;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
   }
 
-  .reflect-question-wrap {
-    position: relative;
-  }
+  .reflect-optional-wrap { position: relative; }
 
-  .reflect-question textarea {
+  .reflect-optional textarea {
     width: 100%;
     background: var(--surface2);
     border: 1px solid var(--border);
@@ -1351,10 +1398,10 @@
     outline: none;
     line-height: 1.6;
     transition: border-color var(--transition);
-    height: 72px;
+    height: 80px;
   }
-  .reflect-question textarea:focus { border-color: var(--accent); }
-  .reflect-question textarea::placeholder { color: var(--text-muted); }
+  .reflect-optional textarea:focus { border-color: var(--accent); }
+  .reflect-optional textarea::placeholder { color: var(--text-muted); }
 
   .reflect-char-count {
     position: absolute;
@@ -1371,7 +1418,7 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 16px;
   }
   .reflect-spacer { flex: 1; }
   .applets-grid {
@@ -2208,26 +2255,57 @@
       </div>
     </div>
 
-    <!-- Questions -->
-    <div class="reflect-question">
-      <label>What felt heavy, and what felt light today?</label>
-      <div class="reflect-question-wrap">
-        <textarea id="reflectQ1" maxlength="180" placeholder="One good sentence…"></textarea>
-        <span class="reflect-char-count" id="reflectC1">180</span>
+    <!-- Structured questions -->
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;letter-spacing:0.04em;">Reflecting on today, did you experience any of the following?</p>
+    <div class="reflect-questions-wrap">
+      <div class="reflect-question" data-q="failures">
+        <label>Failures</label>
+        <div class="reflect-choice-group">
+          <button class="reflect-choice-btn" data-value="yes">Yes</button>
+          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
+          <button class="reflect-choice-btn" data-value="no">No</button>
+        </div>
+      </div>
+      <div class="reflect-question" data-q="successes">
+        <label>Successes</label>
+        <div class="reflect-choice-group">
+          <button class="reflect-choice-btn" data-value="yes">Yes</button>
+          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
+          <button class="reflect-choice-btn" data-value="no">No</button>
+        </div>
+      </div>
+      <div class="reflect-question" data-q="learning">
+        <label>Learning</label>
+        <div class="reflect-choice-group">
+          <button class="reflect-choice-btn" data-value="yes">Yes</button>
+          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
+          <button class="reflect-choice-btn" data-value="no">No</button>
+        </div>
+      </div>
+      <div class="reflect-question" data-q="creating">
+        <label>Creating</label>
+        <div class="reflect-choice-group">
+          <button class="reflect-choice-btn" data-value="yes">Yes</button>
+          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
+          <button class="reflect-choice-btn" data-value="no">No</button>
+        </div>
+      </div>
+      <div class="reflect-question" data-q="selfcare">
+        <label>Self-care</label>
+        <div class="reflect-choice-group">
+          <button class="reflect-choice-btn" data-value="yes">Yes</button>
+          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
+          <button class="reflect-choice-btn" data-value="no">No</button>
+        </div>
       </div>
     </div>
-    <div class="reflect-question">
-      <label>What did you learn today, and where did failure or friction teach you the most?</label>
-      <div class="reflect-question-wrap">
-        <textarea id="reflectQ2" maxlength="180" placeholder="One good sentence…"></textarea>
-        <span class="reflect-char-count" id="reflectC2">180</span>
-      </div>
-    </div>
-    <div class="reflect-question">
-      <label>How did your priorities today reflect the person you are becoming?</label>
-      <div class="reflect-question-wrap">
-        <textarea id="reflectQ3" maxlength="180" placeholder="One good sentence…"></textarea>
-        <span class="reflect-char-count" id="reflectC3">180</span>
+
+    <!-- Optional freeform -->
+    <div class="reflect-optional">
+      <span class="reflect-optional-label">Optional — Becoming your best self</span>
+      <div class="reflect-optional-wrap">
+        <textarea id="reflectOptional" maxlength="280" placeholder="If you prioritized becoming your best self today, write a thought about it…"></textarea>
+        <span class="reflect-char-count" id="reflectOptionalCount">280</span>
       </div>
     </div>
 
@@ -4081,12 +4159,7 @@ document.getElementById('appletReflectBtn').addEventListener('click', () => {
 
 // ── REFLECTION APPLET ─────────────────────────────────────────────────
 (function() {
-  const CHAR_LIMIT = 180;
-  const QUESTIONS = [
-    { id: 'reflectQ1', counter: 'reflectC1', text: 'What felt heavy, and what felt light today?' },
-    { id: 'reflectQ2', counter: 'reflectC2', text: 'What did you learn today, and where did failure or friction teach you the most?' },
-    { id: 'reflectQ3', counter: 'reflectC3', text: 'How did your priorities today reflect the person you are becoming?' },
-  ];
+  const OPTIONAL_LIMIT = 280;
 
   const ELEMENT_LABELS = {
     water: 'Water: fluid, productive, in flow',
@@ -4095,15 +4168,32 @@ document.getElementById('appletReflectBtn').addEventListener('click', () => {
     air:   'Air: light, dreamy, imaginative',
   };
 
-  // Character counters
-  QUESTIONS.forEach(q => {
-    const ta = document.getElementById(q.id);
-    const ct = document.getElementById(q.counter);
-    ta.addEventListener('input', () => {
-      const remaining = CHAR_LIMIT - ta.value.length;
-      ct.textContent = remaining;
-      ct.classList.toggle('warn', remaining <= 20);
+  const QUESTION_LABELS = {
+    failures:  'Failures',
+    successes: 'Successes',
+    learning:  'Learning',
+    creating:  'Creating',
+    selfcare:  'Self-care',
+  };
+
+  // Choice button logic — one selection per question row
+  document.querySelectorAll('.reflect-question[data-q]').forEach(row => {
+    row.querySelectorAll('.reflect-choice-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const wasSelected = btn.classList.contains('selected');
+        row.querySelectorAll('.reflect-choice-btn').forEach(b => b.classList.remove('selected'));
+        if (!wasSelected) btn.classList.add('selected');
+      });
     });
+  });
+
+  // Optional textarea counter
+  const optionalTA = document.getElementById('reflectOptional');
+  const optionalCount = document.getElementById('reflectOptionalCount');
+  optionalTA.addEventListener('input', () => {
+    const remaining = OPTIONAL_LIMIT - optionalTA.value.length;
+    optionalCount.textContent = remaining;
+    optionalCount.classList.toggle('warn', remaining <= 40);
   });
 
   // Element selection — toggle, multiple allowed
@@ -4123,13 +4213,11 @@ document.getElementById('appletReflectBtn').addEventListener('click', () => {
   // Clear
   document.getElementById('reflectClear').addEventListener('click', () => {
     if (!confirm('Clear all answers?')) return;
-    QUESTIONS.forEach(q => {
-      document.getElementById(q.id).value = '';
-      const ct = document.getElementById(q.counter);
-      ct.textContent = CHAR_LIMIT;
-      ct.classList.remove('warn');
-    });
+    document.querySelectorAll('.reflect-choice-btn').forEach(b => b.classList.remove('selected'));
     document.querySelectorAll('.reflect-element').forEach(el => el.classList.remove('selected'));
+    optionalTA.value = '';
+    optionalCount.textContent = OPTIONAL_LIMIT;
+    optionalCount.classList.remove('warn');
   });
 
   // Export .md
@@ -4144,12 +4232,19 @@ document.getElementById('appletReflectBtn').addEventListener('click', () => {
       ? selectedElements.map(e => ELEMENT_LABELS[e]).join('\n')
       : '(none selected)';
 
-    const answers = QUESTIONS.map(q => {
-      const val = document.getElementById(q.id).value.trim();
-      return `## ${q.text}\n${val || '(no answer)'}`;
-    }).join('\n\n');
+    const answers = Object.keys(QUESTION_LABELS).map(key => {
+      const row = document.querySelector(`.reflect-question[data-q="${key}"]`);
+      const selected = row?.querySelector('.reflect-choice-btn.selected');
+      const value = selected ? selected.dataset.value : '(no answer)';
+      return `**${QUESTION_LABELS[key]}:** ${value}`;
+    }).join('\n');
 
-    const md = `# Daily Reflection\n**Date:** ${date}\n\n**Element:**\n${elementLine}\n\n---\n\n${answers}\n`;
+    const optional = optionalTA.value.trim();
+    const optionalSection = optional
+      ? `\n\n## Becoming your best self\n${optional}`
+      : '';
+
+    const md = `# Daily Reflection\n**Date:** ${date}\n\n## Element\n${elementLine}\n\n---\n\n## Inventory\n${answers}${optionalSection}\n`;
 
     const blob = new Blob([md], { type: 'text/markdown' });
     const a = document.createElement('a');
