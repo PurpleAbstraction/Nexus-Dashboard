@@ -185,11 +185,6 @@
           "url": "https://feedly.com/"
         },
         {
-          "id": "xidzyzpz",
-          "name": "FL Studio",
-          "url": "https://www.image-line.com/"
-        },
-        {
           "id": "xs6bapc6",
           "name": "Keychron Launcher",
           "url": "https://launcher.keychron.com/"
@@ -366,6 +361,11 @@
           "id": "x8dac89u",
           "name": "YouTube",
           "url": "https://www.youtube.com/"
+        },
+        {
+          "id": "xidzyzpz",
+          "name": "FL Studio",
+          "url": "https://www.image-line.com/"
         }
       ],
       "pinned": false,
