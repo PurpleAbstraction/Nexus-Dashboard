@@ -338,6 +338,11 @@
           "url": "https://tv.apple.com/"
         },
         {
+          "id": "xidzyzpz",
+          "name": "FL Studio",
+          "url": "https://www.image-line.com/"
+        },
+        {
           "id": "xjlbomk3",
           "name": "Nebula",
           "url": "https://nebula.tv/"
@@ -361,11 +366,6 @@
           "id": "x8dac89u",
           "name": "YouTube",
           "url": "https://www.youtube.com/"
-        },
-        {
-          "id": "xidzyzpz",
-          "name": "FL Studio",
-          "url": "https://www.image-line.com/"
         }
       ],
       "pinned": false,
