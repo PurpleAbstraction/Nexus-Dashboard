@@ -2087,6 +2087,7 @@
   <footer class="shortcut-footer">
     <span class="shortcut-hint"><span class="shortcut-key">1</span><span class="shortcut-key">2</span><span class="shortcut-key">3</span> tabs</span>
     <span class="shortcut-hint"><span class="shortcut-key">/</span> search</span>
+    <span class="shortcut-hint"><span class="shortcut-key">\</span> mode</span>
     <span class="shortcut-hint"><span class="shortcut-key">Esc</span> close</span>
   </footer>
 
@@ -3046,6 +3047,13 @@ document.addEventListener('keydown', e => {
     const s = document.getElementById('search');
     s.focus();
     s.select();
+  }
+
+  // \ — toggle search mode
+  if (e.key === '\\') {
+    e.preventDefault();
+    setSearchMode(_searchMode === 'links' ? 'web' : 'links');
+    document.getElementById('search').focus();
   }
 });
 
