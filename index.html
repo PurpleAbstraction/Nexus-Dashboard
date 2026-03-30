@@ -3822,14 +3822,19 @@ document.getElementById('tokenSave').addEventListener('click', () => {
 
 // ── MORNING BRIEF ─────────────────────────────────────────────────────
 const BRIEF_RSS_SOURCES = [
-  { url: 'https://feeds.apnews.com/rss/apf-topnews',         label: 'AP Top News' },
-  { url: 'https://feeds.apnews.com/rss/apf-usnews',          label: 'AP US News' },
-  { url: 'https://feeds.apnews.com/rss/apf-business',        label: 'AP Business' },
-  { url: 'https://feeds.apnews.com/rss/apf-science',         label: 'AP Science' },
-  { url: 'https://www.sciencedaily.com/rss/top/technology.xml', label: 'ScienceDaily Tech' },
-  { url: 'https://feeds.feedburner.com/TheHackersNews',       label: 'The Hacker News' },
-  { url: 'https://www.statnews.com/feed/',                    label: 'STAT News' },
-  { url: 'https://importai.substack.com/feed',                label: 'Import AI' },
+  { url: 'https://feeds.apnews.com/rss/apf-topnews',              label: 'AP Top News' },
+  { url: 'https://feeds.apnews.com/rss/apf-worldnews',            label: 'AP World News' },
+  { url: 'https://feeds.apnews.com/rss/apf-usnews',               label: 'AP US News' },
+  { url: 'https://feeds.apnews.com/rss/apf-business',             label: 'AP Business' },
+  { url: 'https://feeds.apnews.com/rss/apf-science',              label: 'AP Science' },
+  { url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',label: 'NYT World' },
+  { url: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml', label: 'NYT Business' },
+  { url: 'https://feeds.bbci.co.uk/news/world/rss.xml',           label: 'BBC World' },
+  { url: 'https://feeds.bbci.co.uk/news/business/rss.xml',        label: 'BBC Business' },
+  { url: 'https://www.sciencedaily.com/rss/top/science.xml',      label: 'ScienceDaily' },
+  { url: 'https://www.statnews.com/feed/',                        label: 'STAT News' },
+  { url: 'https://importai.substack.com/feed',                    label: 'Import AI' },
+  { url: 'https://feeds.arstechnica.com/arstechnica/technology-lab', label: 'Ars Technica' },
 ];
 
 const RSS2JSON_API = 'https://api.rss2json.com/v1/api.json?rss_url=';
@@ -3923,28 +3928,47 @@ async function refreshBrief() {
       .join('\n');
 
     // Claude API call
-    const systemPrompt = `You are a sharp, neutral news editor writing a daily brief. Your rules:
-- No political bias or commentary of any kind.
-- Never use people's names. Use their title and country/organization instead (e.g. "the President of the United States", "the Prime Minister of India", "the CEO of the company").
-- Never use administration names that embed a person's name. Use "the current US administration", "the previous administration", "the federal administration", or "the [country] government" instead (e.g. never "the Trump Administration" or "the Biden Administration").
-- Always specify the country or region when referencing events. Never say "the region" or "the government" without specifying which one.
-- Category rules: Space exploration, astronomy, physics, biology, chemistry, and earth science belong in Science regardless of the technology involved — even if a telescope, satellite, or instrument is central to the story. AI belongs in the AI category only if the story is primarily about machine learning, large language models, or AI systems. If a story involves both health policy and financial impact, categorise by primary subject: patient care, public health, and medical research → Health; market impact, insurance industry, investment → Financial.
-- Write short, punchy sentences. Two sentences maximum per bullet. No long compound clauses.
-- Tone: confident and editorial, not dry wire-copy. A smart human wrote this.
-- Focus on what's happening and why it matters. No filler.
+    const systemPrompt = `You are a sharp, neutral news editor writing a daily news brief. Your rules:
+
+TONE & STYLE:
+- Write short, punchy sentences. Two sentences maximum per bullet. No compound clauses.
+- Confident and factual. Not sensationalist. Not dry wire-copy.
+- Focus on what happened and why it matters. No filler, no drama.
+
+NAMES & ATTRIBUTION:
+- Never use people's names. Use title and country/org instead (e.g. "the President of the United States", "the Prime Minister of the United Kingdom", "the CEO of the company").
+- Never embed a person's name in an administration label. Use "the current US administration", "the French government", "the Brazilian government" etc.
+- Always name the specific country or region. Never say "the government" or "the region" without specifying which one.
+
+CATEGORIES:
+- World: the single most significant global story that is not primarily a US domestic story.
+- US: the single most significant US national story.
+- Financial — Global: the most impactful global economic story (trade, commodities, central banks, international markets).
+- Financial — US: the most significant US economic story (domestic policy, US markets, employment, Federal Reserve).
+- Tech: significant technology industry news. Not AI — that has its own section.
+- Science: space, astronomy, physics, biology, chemistry, earth science, environment. Include even if a telescope or instrument is central. Not AI.
+- Health: significant public health, medicine, or medical research news. Omit if nothing significant.
+- AI: machine learning, large language models, AI policy, AI systems only. Not general tech.
+
+DEDUPLICATION:
+- Never include the same story in more than one section.
+- If a story could fit two sections, place it in the more specific one.
+- Prefer the most recent stories. Skip anything that reads like ongoing background rather than a new development.
 
 Respond ONLY with a JSON object in this exact shape, no markdown, no preamble:
 {
-  "overview": "2-3 sentence paragraph covering the most significant world and US news. Close with a single 'What to watch:' sentence.",
   "sections": [
-    { "label": "Tech",      "items": ["one tight sentence.", "optional second story."] },
-    { "label": "Financial", "items": ["one tight sentence."] },
-    { "label": "Science",   "items": ["one tight sentence."] },
-    { "label": "Health",    "items": ["one tight sentence."] },
-    { "label": "AI",        "items": ["one tight sentence."] }
+    { "label": "World",              "items": ["one bullet — top global story."] },
+    { "label": "US",                 "items": ["one bullet — top national story."] },
+    { "label": "Financial — Global", "items": ["one bullet."] },
+    { "label": "Financial — US",     "items": ["one bullet."] },
+    { "label": "Tech",               "items": ["one to two bullets."] },
+    { "label": "Science",            "items": ["one to two bullets."] },
+    { "label": "Health",             "items": ["one bullet if significant."] },
+    { "label": "AI",                 "items": ["one to two bullets."] }
   ]
 }
-Each items array should have 1-2 entries. Only include a section if there is genuinely relevant news for it.`;
+World, US, Financial — Global, and Financial — US are always required. Health is optional — omit it entirely if there is no significant health news. All other sections should have 1-2 items.`;
 
     const userPrompt = `Here are today's headlines from wire services. Write the News Brief.\n\n${headlineText}`;
 
@@ -3953,7 +3977,7 @@ Each items array should have 1-2 entries. Only include a section if there is gen
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
+        max_tokens: 1500,
         system: systemPrompt,
         messages: [{ role: 'user', content: userPrompt }],
       }),
@@ -3986,15 +4010,9 @@ function buildPerplexityUrl(text) {
 }
 
 function renderBrief(brief) {
-  // Overview
+  // Hide overview element — no longer used
   const overviewEl = document.getElementById('briefOverview');
-  // Split "What to watch:" onto its own styled line if present
-  const watchMatch = brief.overview.match(/(.*?)(What to watch[:\s].+)/is);
-  if (watchMatch) {
-    overviewEl.innerHTML = `<span>${watchMatch[1].trim()}</span><p class="brief-watch"><strong>What to watch:</strong> ${watchMatch[2].replace(/what to watch[:\s]*/i, '').trim()}</p>`;
-  } else {
-    overviewEl.textContent = brief.overview;
-  }
+  if (overviewEl) overviewEl.style.display = 'none';
 
   // Sections
   const sectionsEl = document.getElementById('briefSections');
