@@ -3941,10 +3941,10 @@ NAMES & ATTRIBUTION:
 - Always name the specific country or region. Never say "the government" or "the region" without specifying which one.
 
 CATEGORIES:
-- World: the single most significant global story that is not primarily a US domestic story.
-- US: the single most significant US national story.
-- Financial — Global: the most impactful global economic story (trade, commodities, central banks, international markets).
-- Financial — US: the most significant US economic story (domestic policy, US markets, employment, Federal Reserve).
+- World: the single most significant global story that is not primarily a US domestic story. One sentence only.
+- US: the single most significant US national story. One sentence only.
+- Financial — Global: the most impactful global economic story (trade, commodities, central banks, international markets). One sentence only.
+- Financial — US: the most significant US domestic economic story only. No other countries. One sentence only.
 - Tech: significant technology industry news. Not AI — that has its own section.
 - Science: space, astronomy, physics, biology, chemistry, earth science, environment. Include even if a telescope or instrument is central. Not AI.
 - Health: significant public health, medicine, or medical research news. Omit if nothing significant.
@@ -3958,10 +3958,10 @@ DEDUPLICATION:
 Respond ONLY with a JSON object in this exact shape, no markdown, no preamble:
 {
   "sections": [
-    { "label": "World",              "items": ["one bullet — top global story."] },
-    { "label": "US",                 "items": ["one bullet — top national story."] },
-    { "label": "Financial — Global", "items": ["one bullet."] },
-    { "label": "Financial — US",     "items": ["one bullet."] },
+    { "label": "World",              "items": ["exactly one sentence — top global story."] },
+    { "label": "US",                 "items": ["exactly one sentence — top national story."] },
+    { "label": "Financial — Global", "items": ["exactly one sentence — global economy only."] },
+    { "label": "Financial — US",     "items": ["exactly one sentence — US domestic economy only."] },
     { "label": "Tech",               "items": ["one to two bullets."] },
     { "label": "Science",            "items": ["one to two bullets."] },
     { "label": "Health",             "items": ["one bullet if significant."] },
