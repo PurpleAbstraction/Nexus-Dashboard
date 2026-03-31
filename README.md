@@ -16,7 +16,7 @@ Full-width bookmark manager. Categories, links, search — everything you'd expe
 ### Tab 2 — Workspace
 A 2×2 panel grid (collapses to single column on mobile):
 - **Web Search** — DuckDuckGo, Perplexity, or Brave, engine remembered between sessions
-- **Applets** — Writing Prompt, Fidget widget, Reflect journal, Morning Brief (coming soon)
+- **Applets** — Writing Prompt, Fidget widget, Reflect, News Brief
 - **Scratch Pad** — Quick notes, auto-saved locally, syncs to GitHub with the Save button
 - **RSS Feeds** — Up to 10 feeds, merged chronological stream, per-feed filter
 
@@ -68,10 +68,19 @@ Two-column layout (collapses to single column on mobile):
 
 ### Applets
 Launched from the Workspace tab Applets panel:
+
 - **Writing Prompt** — four tabs (All / Scenes / Scenarios / Sparks), weighted draw history, inline Write textarea, export as `.txt`
 - **Fidget** — dial, ripple field, clicky button, rocker switch, spring-back slider, five pentatonic toggle switches; sound on/off; inherits the global accent colour
-- **Reflect** — daily journal with structured prompts
-- **Morning Brief** — coming soon; AI-synthesized daily news brief via Claude API
+- **Reflect** — daily practice applet; select one or more elements (Water, Earth, Fire, Air) to capture the feel of the day; five structured yes/somewhat/no questions (Failures, Successes, Learning, Creating, Self-care); optional freeform note; export as dated `.md` file
+- **News Brief** — AI-synthesized daily news brief via Claude API; fetches headlines from wire services; generates eight structured sections (World, US, Financial — Global, Financial — US, Tech, Science, Health, AI); per-item Perplexity deep-dive links; on-demand refresh; cached between sessions; requires a Cloudflare Worker proxy (see setup below)
+
+### Keyboard Shortcuts
+- `1` `2` `3` — switch between Bookmarks, Workspace, and Settings tabs
+- `/` — focus the search omnibar
+- `\` — toggle search mode between Links and Web
+- `Esc` — close any open modal, or clear and blur the search bar if focused
+
+Shortcut hints are always visible in the footer.
 
 ### General
 - **Single file** — everything in one `index.html`, no build tools, no frameworks, no dependencies
@@ -102,6 +111,36 @@ https://yourusername.github.io/reponame
 Open your dashboard URL. On first visit, a prompt will appear asking for your token. Paste it in and hit Save. It's stored only in your browser's `localStorage` — never in the repo.
 
 That's it. Every bookmark change you make will now sync silently back to `data.json` in this repo.
+
+---
+
+## News Brief Setup
+
+The News Brief applet requires a Cloudflare Worker to proxy requests to the Anthropic API. This keeps your API key off the client and handles CORS.
+
+### 1. Create a Cloudflare Worker
+1. Go to [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Create Worker**
+2. Name it (e.g. `nexus-brief`)
+3. Click **Edit code** and paste the contents of `nexus-brief-worker.js`
+4. Click **Deploy**
+
+### 2. Add your Anthropic API key
+1. In the Worker settings, go to **Settings → Variables and Secrets**
+2. Add a new variable: name `ANTHROPIC_API_KEY`, value is your key from [console.anthropic.com](https://console.anthropic.com)
+3. Set it as a **Secret** (encrypted)
+4. Save and deploy
+
+### 3. Update the Worker URL in index.html
+Find the line in `index.html`:
+```js
+const response = await fetch('https://nexus-brief.yourname.workers.dev', {
+```
+Replace the URL with your actual Worker URL.
+
+### 4. Lock the Worker to your domain
+The provided Worker script only accepts requests from `https://yourusername.github.io`. Update the `ALLOWED_ORIGIN` constant at the top of `nexus-brief-worker.js` to match your GitHub Pages domain exactly before deploying.
+
+The News Brief uses the Anthropic API on a pay-per-use basis. At roughly $0.01 per refresh, $5 in credits lasts a long time.
 
 ---
 
@@ -139,7 +178,7 @@ The web search panel in the Workspace tab supports three engines:
 | **Perplexity** | AI-powered answers · Account settings carry over when logged in |
 | **Brave Search** | Independent index · Reliable fallback |
 
-Your last-used engine is remembered between sessions.
+Your last-used engine is remembered between sessions. Use `\` to toggle between Links and Web search mode from the keyboard.
 
 ---
 
@@ -216,6 +255,9 @@ Make sure you're using a direct export from the browser itself (File → Export 
 **RSS feed not loading**
 The dashboard tries two proxies (rss2json and corsproxy.io) before giving up. If a feed still fails, verify the URL is correct and publicly accessible. Some feeds behind hard paywalls or with aggressive CORS restrictions cannot be fetched from a static site.
 
+**News Brief: "Load failed" or "Failed to generate brief"**
+This is usually a CORS or Worker issue. Verify your Cloudflare Worker is deployed and that `ALLOWED_ORIGIN` in the Worker matches your GitHub Pages domain exactly. Check the Worker URL in `index.html` is correct. If your Anthropic API credits are exhausted, the Worker will return an error — check your usage at [console.anthropic.com](https://console.anthropic.com).
+
 **Favicons not loading**
 Favicons are fetched from Google's favicon service. If a favicon doesn't appear, the site either doesn't have one or the request was blocked. Cosmetic only.
 
@@ -226,8 +268,9 @@ GitHub Pages can take a minute or two to reflect changes after a push. Wait a mo
 
 ## Roadmap
 
-- [ ] Morning Brief panel — AI-synthesized daily news brief from wire services via Claude API, with per-item Perplexity deep-dive links
-- [ ] Daily Reflection companion tool — processes exported `.md` files, maps data points, charts trends over time
+- [ ] Qualia — Reflect companion tool; cross-platform offline app; processes exported `.md` files; visualizes element frequency and response patterns over time
+- [ ] Flow — card meditation practice; canonical word list in `data.json`; Draw/Flow mode toggle in the Prompt applet
+- [ ] Prompt applet — Flow mode with four element+word pairings; Reflect→Prompt element bridge via localStorage
 
 ---
 
@@ -238,6 +281,7 @@ No frameworks. No build step. No package manager.
 - Vanilla HTML, CSS, JavaScript
 - [Syne](https://fonts.google.com/specimen/Syne) + [Inconsolata](https://fonts.google.com/specimen/Inconsolata) via Google Fonts
 - [GitHub Contents API](https://docs.github.com/en/rest/repos/contents) for read/write
+- [Anthropic API](https://anthropic.com) via Cloudflare Worker proxy for News Brief
 - [rss2json](https://rss2json.com) + [corsproxy.io](https://corsproxy.io) as CORS proxies for RSS feeds
 
 ---
