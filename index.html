@@ -3822,19 +3822,22 @@ document.getElementById('tokenSave').addEventListener('click', () => {
 
 // ── MORNING BRIEF ─────────────────────────────────────────────────────
 const BRIEF_RSS_SOURCES = [
-  { url: 'https://feeds.apnews.com/rss/apf-topnews',              label: 'AP Top News' },
-  { url: 'https://feeds.apnews.com/rss/apf-worldnews',            label: 'AP World News' },
-  { url: 'https://feeds.apnews.com/rss/apf-usnews',               label: 'AP US News' },
-  { url: 'https://feeds.apnews.com/rss/apf-business',             label: 'AP Business' },
-  { url: 'https://feeds.apnews.com/rss/apf-science',              label: 'AP Science' },
-  { url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',label: 'NYT World' },
-  { url: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml', label: 'NYT Business' },
-  { url: 'https://feeds.bbci.co.uk/news/world/rss.xml',           label: 'BBC World' },
-  { url: 'https://feeds.bbci.co.uk/news/business/rss.xml',        label: 'BBC Business' },
-  { url: 'https://www.sciencedaily.com/rss/top/science.xml',      label: 'ScienceDaily' },
-  { url: 'https://www.statnews.com/feed/',                        label: 'STAT News' },
-  { url: 'https://importai.substack.com/feed',                    label: 'Import AI' },
-  { url: 'https://feeds.arstechnica.com/arstechnica/technology-lab', label: 'Ars Technica' },
+  { url: 'https://feeds.apnews.com/rss/apf-topnews',                          label: 'AP Top News' },
+  { url: 'https://feeds.apnews.com/rss/apf-worldnews',                        label: 'AP World News' },
+  { url: 'https://feeds.apnews.com/rss/apf-usnews',                           label: 'AP US News' },
+  { url: 'https://feeds.apnews.com/rss/apf-business',                         label: 'AP Business' },
+  { url: 'https://feeds.apnews.com/rss/apf-science',                          label: 'AP Science' },
+  { url: 'https://feeds.reuters.com/reuters/USNewsHeadlines',                  label: 'Reuters US' },
+  { url: 'https://feeds.reuters.com/reuters/businessNews',                     label: 'Reuters Business' },
+  { url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',             label: 'NYT World' },
+  { url: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml',          label: 'NYT Business' },
+  { url: 'https://feeds.bbci.co.uk/news/world/rss.xml',                        label: 'BBC World' },
+  { url: 'https://www.sciencedaily.com/rss/top/science.xml',                   label: 'ScienceDaily' },
+  { url: 'https://www.statnews.com/feed/',                                      label: 'STAT News' },
+  { url: 'https://feeds.arstechnica.com/arstechnica/technology-lab',           label: 'Ars Technica' },
+  { url: 'https://www.technologyreview.com/feed/',                              label: 'MIT Tech Review' },
+  { url: 'https://venturebeat.com/category/ai/feed/',                           label: 'VentureBeat AI' },
+  { url: 'https://www.theverge.com/ai-artificial-intelligence/rss/index.xml',  label: 'The Verge AI' },
 ];
 
 const RSS2JSON_API = 'https://api.rss2json.com/v1/api.json?rss_url=';
@@ -3945,7 +3948,7 @@ CATEGORIES:
 - US: the single most significant US national story. One sentence only.
 - Financial: the two most significant financial and economic stories. Global story first, US story second if available. If both top stories are global, include them both. Two bullets, no more.
 - Tech: significant technology industry news. Not AI — that has its own section.
-- Science: space, astronomy, physics, biology, chemistry, earth science, environment. Include even if a telescope or instrument is central. Not AI.
+- Science: space, astronomy, physics, biology, chemistry, earth science, environment, and quantum computing research. Include even if a telescope, instrument, or computer is central. Not AI.
 - Health: significant public health, medicine, or medical research news. Omit if nothing significant.
 - AI: machine learning, large language models, AI policy, AI systems only. Not general tech.
 
