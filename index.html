@@ -1694,75 +1694,24 @@
   .brief-body::-webkit-scrollbar { width: 4px; }
   .brief-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-  .brief-overview {
+  .brief-prose {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .brief-paragraph {
     font-size: 14px;
-    line-height: 1.8;
+    line-height: 1.85;
     color: var(--text);
-    margin-bottom: 20px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--border);
   }
 
-  .brief-watch {
-    margin-top: 10px;
-    font-size: 13px;
+  .brief-paragraph.brief-good {
     color: var(--text-dim);
-    font-style: italic;
-  }
-  .brief-watch strong {
-    font-style: normal;
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  .brief-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .brief-section {
-    display: grid;
-    grid-template-columns: 86px 1fr;
-    gap: 0 16px;
-    align-items: baseline;
-  }
-
-  .brief-section-label {
-    font-family: 'Syne', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    padding-top: 2px;
-  }
-
-  .brief-section-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .brief-item { display: flex; flex-direction: column; gap: 3px; }
-
-  .brief-item-text {
     font-size: 13px;
-    line-height: 1.6;
-    color: var(--text);
+    padding-top: 4px;
+    border-top: 1px solid var(--border);
   }
-
-  .brief-item-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    color: var(--text-muted);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: color var(--transition);
-  }
-  .brief-item-link:hover { color: var(--accent2); }
 
   .brief-footer {
     padding: 9px 18px;
@@ -2386,8 +2335,7 @@
         Hit Refresh to fetch today's news and generate your brief.
       </div>
       <div id="briefContent" style="display:none;">
-        <div class="brief-overview" id="briefOverview"></div>
-        <div class="brief-sections" id="briefSections"></div>
+        <div class="brief-prose" id="briefProse"></div>
       </div>
     </div>
 
@@ -3931,45 +3879,33 @@ async function refreshBrief() {
       .join('\n');
 
     // Claude API call
-    const systemPrompt = `You are a sharp, neutral news editor writing a daily news brief. Your rules:
+    const systemPrompt = `You are a sharp, neutral news editor writing a short daily news brief. Write in clear, confident prose — not bullet points, not headlines, not wire-copy. A well-informed human wrote this.
 
-TONE & STYLE:
-- Write short, punchy sentences. Two sentences maximum per bullet. No compound clauses.
-- Confident and factual. Not sensationalist. Not dry wire-copy.
-- Focus on what happened and why it matters. No filler, no drama.
+Your brief has exactly three parts:
 
-NAMES & ATTRIBUTION:
-- Never use people's names. Use title and country/org instead (e.g. "the President of the United States", "the Prime Minister of the United Kingdom", "the CEO of the company").
-- Never embed a person's name in an administration label. Use "the current US administration", "the French government", "the Brazilian government" etc.
-- Always name the specific country or region. Never say "the government" or "the region" without specifying which one.
+PART 1 — World & US (one paragraph, 3-5 sentences):
+Synthesize the most significant global and US national stories into connected prose. What happened, where, and why it matters. Do not list stories separately — weave them together naturally if they connect, or flow from one to the next if they don't.
 
-CATEGORIES:
-- World: the single most significant global story that is not primarily a US domestic story. One sentence only.
-- US: the single most significant US national story. One sentence only.
-- Financial: the two most significant financial and economic stories. Global story first, US story second if available. If both top stories are global, include them both. Two bullets, no more.
-- Tech: significant technology industry news. Not AI — that has its own section.
-- Science: space, astronomy, physics, biology, chemistry, earth science, environment, and quantum computing research. Include even if a telescope, instrument, or computer is central. Not AI.
-- Health: significant public health, medicine, or medical research news. Omit if nothing significant.
-- AI: machine learning, large language models, AI policy, AI systems only. Not general tech.
+PART 2 — The broader picture (one paragraph, 3-5 sentences):
+Cover the most noteworthy developments across technology, science, finance, and health. Pick the most genuinely interesting or significant stories. No forced categories — just what's worth knowing today.
 
-DEDUPLICATION:
-- Never include the same story in more than one section.
-- If a story could fit two sections, place it in the more specific one.
+PART 3 — Something good (one sentence):
+End with one uplifting, hopeful, or quietly remarkable story from the good news sources. Keep it genuine — not saccharine.
+
+RULES:
+- Never use people's names. Use their title and country/organization (e.g. "the President of the United States", "the Prime Minister of the United Kingdom", "the CEO of the company").
+- Never embed a person's name in an administration label. Use "the current US administration", "the French government" etc.
+- Always name the specific country or region. Never say "the government" without specifying which one.
+- No political bias or commentary.
 - Prefer the most recent stories. Skip anything that reads like ongoing background rather than a new development.
+- No sensationalism. Confident and factual.
 
 Respond ONLY with a JSON object in this exact shape, no markdown, no preamble:
 {
-  "sections": [
-    { "label": "World",     "items": ["exactly one sentence — top global story."] },
-    { "label": "US",        "items": ["exactly one sentence — top national story."] },
-    { "label": "Financial", "items": ["global story first.", "US story second if available."] },
-    { "label": "Tech",               "items": ["one to two bullets."] },
-    { "label": "Science",            "items": ["one to two bullets."] },
-    { "label": "Health",             "items": ["one bullet if significant."] },
-    { "label": "AI",                 "items": ["one to two bullets."] }
-  ]
-}
-World, US, and Financial are always required. Health is optional — omit it entirely if there is no significant health news. All other sections should have 1-2 items.`;
+  "world": "Paragraph covering world and US news.",
+  "broader": "Paragraph covering tech, science, finance, health.",
+  "good": "One uplifting sentence."
+}`;
 
     const userPrompt = `Here are today's headlines from wire services. Write the News Brief.\n\n${headlineText}`;
 
@@ -3978,7 +3914,7 @@ World, US, and Financial are always required. Health is optional — omit it ent
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 1500,
+        max_tokens: 1000,
         system: systemPrompt,
         messages: [{ role: 'user', content: userPrompt }],
       }),
@@ -3996,7 +3932,6 @@ World, US, and Financial are always required. Health is optional — omit it ent
 
     // Cache with timestamp
     brief.refreshedAt = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-    brief.headlines = allHeadlines; // store for Perplexity link construction
     localStorage.setItem(BRIEF_CACHE_KEY, JSON.stringify(brief));
 
     renderBrief(brief);
@@ -4006,53 +3941,30 @@ World, US, and Financial are always required. Health is optional — omit it ent
   }
 }
 
-function buildPerplexityUrl(text) {
-  return `https://www.perplexity.ai/search?q=${encodeURIComponent(text)}`;
-}
-
 function renderBrief(brief) {
-  // Hide overview element — no longer used
-  const overviewEl = document.getElementById('briefOverview');
-  if (overviewEl) overviewEl.style.display = 'none';
+  const proseEl = document.getElementById('briefProse');
+  proseEl.innerHTML = '';
 
-  // Sections
-  const sectionsEl = document.getElementById('briefSections');
-  sectionsEl.innerHTML = '';
-  (brief.sections || []).forEach(section => {
-    const sectionDiv = document.createElement('div');
-    sectionDiv.className = 'brief-section';
+  if (brief.world) {
+    const p1 = document.createElement('p');
+    p1.className = 'brief-paragraph';
+    p1.textContent = brief.world;
+    proseEl.appendChild(p1);
+  }
 
-    const label = document.createElement('span');
-    label.className = 'brief-section-label';
-    label.textContent = section.label;
+  if (brief.broader) {
+    const p2 = document.createElement('p');
+    p2.className = 'brief-paragraph';
+    p2.textContent = brief.broader;
+    proseEl.appendChild(p2);
+  }
 
-    const itemsDiv = document.createElement('div');
-    itemsDiv.className = 'brief-section-items';
-
-    (section.items || []).forEach(itemText => {
-      const item = document.createElement('div');
-      item.className = 'brief-item';
-
-      const text = document.createElement('span');
-      text.className = 'brief-item-text';
-      text.textContent = itemText;
-
-      const link = document.createElement('a');
-      link.className = 'brief-item-link';
-      link.href = buildPerplexityUrl(itemText);
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Deep dive on Perplexity`;
-
-      item.appendChild(text);
-      item.appendChild(link);
-      itemsDiv.appendChild(item);
-    });
-
-    sectionDiv.appendChild(label);
-    sectionDiv.appendChild(itemsDiv);
-    sectionsEl.appendChild(sectionDiv);
-  });
+  if (brief.good) {
+    const p3 = document.createElement('p');
+    p3.className = 'brief-paragraph brief-good';
+    p3.textContent = brief.good;
+    proseEl.appendChild(p3);
+  }
 
   // Timestamp
   document.getElementById('briefTimestamp').textContent =
