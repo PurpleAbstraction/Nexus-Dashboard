@@ -3943,8 +3943,7 @@ NAMES & ATTRIBUTION:
 CATEGORIES:
 - World: the single most significant global story that is not primarily a US domestic story. One sentence only.
 - US: the single most significant US national story. One sentence only.
-- Financial — Global: the most impactful global economic story (trade, commodities, central banks, international markets). One sentence only.
-- Financial — US: US domestic economic news ONLY. This means news that originates in and directly concerns the United States economy — US markets, US employment, US Federal Reserve, US fiscal policy, US corporate news. If the story is primarily about another country (UK, EU, China, etc.), it belongs in Financial — Global, not here. One sentence only.
+- Financial: the two most significant financial and economic stories. Global story first, US story second if available. If both top stories are global, include them both. Two bullets, no more.
 - Tech: significant technology industry news. Not AI — that has its own section.
 - Science: space, astronomy, physics, biology, chemistry, earth science, environment. Include even if a telescope or instrument is central. Not AI.
 - Health: significant public health, medicine, or medical research news. Omit if nothing significant.
@@ -3958,17 +3957,16 @@ DEDUPLICATION:
 Respond ONLY with a JSON object in this exact shape, no markdown, no preamble:
 {
   "sections": [
-    { "label": "World",              "items": ["exactly one sentence — top global story."] },
-    { "label": "US",                 "items": ["exactly one sentence — top national story."] },
-    { "label": "Financial — Global", "items": ["exactly one sentence — global economy only."] },
-    { "label": "Financial — US",     "items": ["exactly one sentence — US domestic economy only."] },
+    { "label": "World",     "items": ["exactly one sentence — top global story."] },
+    { "label": "US",        "items": ["exactly one sentence — top national story."] },
+    { "label": "Financial", "items": ["global story first.", "US story second if available."] },
     { "label": "Tech",               "items": ["one to two bullets."] },
     { "label": "Science",            "items": ["one to two bullets."] },
     { "label": "Health",             "items": ["one bullet if significant."] },
     { "label": "AI",                 "items": ["one to two bullets."] }
   ]
 }
-World, US, Financial — Global, and Financial — US are always required. Health is optional — omit it entirely if there is no significant health news. All other sections should have 1-2 items.`;
+World, US, and Financial are always required. Health is optional — omit it entirely if there is no significant health news. All other sections should have 1-2 items.`;
 
     const userPrompt = `Here are today's headlines from wire services. Write the News Brief.\n\n${headlineText}`;
 
