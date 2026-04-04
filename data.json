@@ -392,6 +392,11 @@
           "url": "https://coriolis.io/"
         },
         {
+          "id": "xj2eaj6f",
+          "name": "Elite Dangerous - ED Astrometrics",
+          "url": "https://edastro.com/"
+        },
+        {
           "id": "xqd2edoy",
           "name": "Elite Dangerous - EDCoPilot",
           "url": "https://www.razzafrag.com/"
@@ -655,11 +660,6 @@
           "id": "xolta2pl",
           "name": "X4 Foundations - Full List of Ships",
           "url": "https://x4-foundations-wiki.fandom.com/wiki/Full_ships_list"
-        },
-        {
-          "id": "xj2eaj6f",
-          "name": "Elite Dangerous - ED Astrometrics",
-          "url": "https://edastro.com/"
         }
       ],
       "pinned": false,
