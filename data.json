@@ -666,6 +666,16 @@
           "url": "https://candid.org/"
         },
         {
+          "id": "x3fhgphq",
+          "name": "Crunchbase",
+          "url": "https://www.crunchbase.com/"
+        },
+        {
+          "id": "xbxl0gw5",
+          "name": "Glassdoor",
+          "url": "https://www.glassdoor.com/"
+        },
+        {
           "id": "xfwfmt17",
           "name": "Idealist",
           "url": "https://www.idealist.org/en/jobs"
@@ -694,16 +704,6 @@
           "id": "xhk8aweh",
           "name": "Worksource Oregon",
           "url": "https://worksourceoregon.org/jobsearch"
-        },
-        {
-          "id": "x3fhgphq",
-          "name": "Crunchbase",
-          "url": "https://www.crunchbase.com/"
-        },
-        {
-          "id": "xbxl0gw5",
-          "name": "Glassdoor",
-          "url": "https://www.glassdoor.com/"
         }
       ],
       "color": "#c9c96e"
