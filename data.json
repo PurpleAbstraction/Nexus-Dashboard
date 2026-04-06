@@ -699,6 +699,11 @@
           "id": "x3fhgphq",
           "name": "Crunchbase",
           "url": "https://www.crunchbase.com/"
+        },
+        {
+          "id": "xbxl0gw5",
+          "name": "Glassdoor",
+          "url": "https://www.glassdoor.com/"
         }
       ],
       "color": "#c9c96e"
