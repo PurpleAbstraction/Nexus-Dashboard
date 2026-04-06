@@ -694,6 +694,11 @@
           "id": "xhk8aweh",
           "name": "Worksource Oregon",
           "url": "https://worksourceoregon.org/jobsearch"
+        },
+        {
+          "id": "x3fhgphq",
+          "name": "Crunchbase",
+          "url": "https://www.crunchbase.com/"
         }
       ],
       "color": "#c9c96e"
