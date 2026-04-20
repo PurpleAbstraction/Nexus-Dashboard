@@ -240,6 +240,11 @@
           "url": "https://members.onepeloton.com/classes"
         },
         {
+          "id": "xiswta4a",
+          "name": "Poetry Magazine",
+          "url": "https://www.poetryfoundation.org/poetrymagazine"
+        },
+        {
           "id": "xc8ica2z",
           "name": "Proton Calendar",
           "url": "https://calendar.proton.me/"
@@ -263,11 +268,6 @@
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
-        },
-        {
-          "id": "xiswta4a",
-          "name": "Poetry Magazine",
-          "url": "https://www.poetryfoundation.org/poetrymagazine"
         }
       ],
       "pinned": false,
