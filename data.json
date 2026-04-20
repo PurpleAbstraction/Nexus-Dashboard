@@ -883,6 +883,11 @@
           "url": "https://www.moncheribridals.com/modest-by-mon-cheri"
         },
         {
+          "id": "xj8yjea6",
+          "name": "MoveMaster",
+          "url": "https://movemaster.tech/"
+        },
+        {
           "id": "xt307xkf",
           "name": "Nordstrom",
           "url": "https://www.nordstrom.com/"
@@ -976,11 +981,6 @@
           "id": "x08ej2q4",
           "name": "Whole Foods Market",
           "url": "https://www.wholefoodsmarket.com/"
-        },
-        {
-          "id": "xj8yjea6",
-          "name": "MoveMaster",
-          "url": "https://movemaster.tech/"
         }
       ],
       "pinned": false,
