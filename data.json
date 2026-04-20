@@ -79,6 +79,11 @@
           "id": "xmqypvdr",
           "name": "Dreamtonics AI Voices",
           "url": "https://dreamtonics.com/voices/"
+        },
+        {
+          "id": "xyo51udj",
+          "name": "GitHub - OpenUtau AI Voices",
+          "url": "https://github.com/stakira/OpenUtau"
         }
       ],
       "pinned": false,
