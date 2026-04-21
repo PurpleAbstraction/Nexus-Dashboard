@@ -36,6 +36,16 @@
           "url": "https://beta.dreamstudio.ai/generate"
         },
         {
+          "id": "xmqypvdr",
+          "name": "Dreamtonics AI Voices",
+          "url": "https://dreamtonics.com/voices/"
+        },
+        {
+          "id": "xyo51udj",
+          "name": "GitHub - OpenUtau AI Voices",
+          "url": "https://github.com/stakira/OpenUtau"
+        },
+        {
           "id": "x8m58voy",
           "name": "Leonardo.ai",
           "url": "https://app.leonardo.ai/"
@@ -238,6 +248,11 @@
           "id": "xpsd5zj0",
           "name": "Peloton",
           "url": "https://members.onepeloton.com/classes"
+        },
+        {
+          "id": "xiswta4a",
+          "name": "Poetry Magazine",
+          "url": "https://www.poetryfoundation.org/poetrymagazine"
         },
         {
           "id": "xc8ica2z",
@@ -658,7 +673,7 @@
     {
       "id": "x6sypw0t",
       "name": "Jobs",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "xckry2ew",
