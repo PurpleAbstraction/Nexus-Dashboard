@@ -1017,6 +1017,11 @@
           "url": "https://www.debian.org/distrib/"
         },
         {
+          "id": "xr87nokn",
+          "name": "Framework",
+          "url": "https://frame.work/"
+        },
+        {
           "id": "l1",
           "name": "GitHub",
           "url": "https://github.com"
@@ -1050,11 +1055,6 @@
           "id": "xs9z64fr",
           "name": "Ubuntu Desktop",
           "url": "https://ubuntu.com/desktop"
-        },
-        {
-          "id": "xr87nokn",
-          "name": "Framework",
-          "url": "https://frame.work/"
         }
       ],
       "color": "#b8896a"
