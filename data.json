@@ -180,6 +180,11 @@
           "url": "https://feedly.com/"
         },
         {
+          "id": "xtymmdak",
+          "name": "Gimp",
+          "url": "https://www.gimp.org/"
+        },
+        {
           "id": "xs6bapc6",
           "name": "Keychron Launcher",
           "url": "https://launcher.keychron.com/"
@@ -268,11 +273,6 @@
           "id": "x2pcg2ch",
           "name": "Zoom",
           "url": "https://www.zoom.com/"
-        },
-        {
-          "id": "xtymmdak",
-          "name": "Gimp",
-          "url": "https://www.gimp.org/"
         }
       ],
       "pinned": false,
