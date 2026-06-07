@@ -487,6 +487,11 @@
           "url": "http://192.168.1.3:8888/"
         },
         {
+          "id": "xmexwh7e",
+          "name": "SpaceTomato Gaming (GII)",
+          "url": "https://gii.spacetomatogaming.com/"
+        },
+        {
           "id": "x4224vfk",
           "name": "Star Citizen - Armory",
           "url": "https://armory.thespacecoder.space/"
@@ -655,11 +660,6 @@
           "id": "xolta2pl",
           "name": "X4 Foundations - Full List of Ships",
           "url": "https://x4-foundations-wiki.fandom.com/wiki/Full_ships_list"
-        },
-        {
-          "id": "xmexwh7e",
-          "name": "SpaceTomato Gaming (GII)",
-          "url": "https://gii.spacetomatogaming.com/"
         }
       ],
       "pinned": false,
@@ -868,6 +868,11 @@
           "url": "https://www.jcrew.com/all/womens/categories/"
         },
         {
+          "id": "xgue77oe",
+          "name": "JC Penny",
+          "url": "https://www.jcpenney.com/"
+        },
+        {
           "id": "x2sinmnw",
           "name": "Ka'Chava",
           "url": "https://www.kachava.com/"
@@ -896,6 +901,11 @@
           "id": "xj8yjea6",
           "name": "MoveMaster",
           "url": "https://movemaster.tech/"
+        },
+        {
+          "id": "xu72d1jm",
+          "name": "Moza (US)",
+          "url": "https://us.mozaracing.com/"
         },
         {
           "id": "xt307xkf",
@@ -991,16 +1001,6 @@
           "id": "x08ej2q4",
           "name": "Whole Foods Market",
           "url": "https://www.wholefoodsmarket.com/"
-        },
-        {
-          "id": "xu72d1jm",
-          "name": "Moza (US)",
-          "url": "https://us.mozaracing.com/"
-        },
-        {
-          "id": "xgue77oe",
-          "name": "JC Penny",
-          "url": "https://www.jcpenney.com/"
         }
       ],
       "pinned": false,
