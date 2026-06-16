@@ -358,6 +358,11 @@
           "url": "https://www.plex.tv/"
         },
         {
+          "id": "x2fs1c3b",
+          "name": "Pocket Casts",
+          "url": "https://pocketcasts.com/"
+        },
+        {
           "id": "xnoy9q3a",
           "name": "Twitch",
           "url": "https://www.twitch.tv/"
@@ -366,11 +371,6 @@
           "id": "x8dac89u",
           "name": "YouTube",
           "url": "https://www.youtube.com/"
-        },
-        {
-          "id": "x2fs1c3b",
-          "name": "Pocket Casts",
-          "url": "https://pocketcasts.com/"
         }
       ],
       "pinned": false,
