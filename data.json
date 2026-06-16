@@ -366,6 +366,11 @@
           "id": "x8dac89u",
           "name": "YouTube",
           "url": "https://www.youtube.com/"
+        },
+        {
+          "id": "x2fs1c3b",
+          "name": "Pocket Casts",
+          "url": "https://pocketcasts.com/"
         }
       ],
       "pinned": false,
