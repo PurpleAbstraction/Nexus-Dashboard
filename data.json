@@ -294,6 +294,11 @@
           "url": "https://citiretailservices.citibankonline.com/"
         },
         {
+          "id": "xgt96hsx",
+          "name": "Harvard Business Review",
+          "url": "https://hbr.org/"
+        },
+        {
           "id": "xcwl0y7l",
           "name": "LinkedIn",
           "url": "https://www.linkedin.com/feed/"
@@ -322,11 +327,6 @@
           "id": "xk1uc74v",
           "name": "US Passport",
           "url": "https://travel.state.gov/content/travel/en/passports/how-apply/forms.html"
-        },
-        {
-          "id": "xgt96hsx",
-          "name": "Harvard Business Review",
-          "url": "https://hbr.org/"
         }
       ],
       "pinned": false,
@@ -716,6 +716,11 @@
           "url": "https://www.indeed.com/"
         },
         {
+          "id": "xgfol2m8",
+          "name": "Mac's List",
+          "url": "https://www.macslist.org/"
+        },
+        {
           "id": "xxr3rsk8",
           "name": "Net Impact",
           "url": "https://careers.netimpact.org/jobs"
@@ -729,11 +734,6 @@
           "id": "xhk8aweh",
           "name": "Worksource Oregon",
           "url": "https://worksourceoregon.org/jobsearch"
-        },
-        {
-          "id": "xgfol2m8",
-          "name": "Mac's List",
-          "url": "https://www.macslist.org/"
         }
       ],
       "color": "#c9c96e"
