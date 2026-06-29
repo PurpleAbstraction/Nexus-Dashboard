@@ -322,6 +322,11 @@
           "id": "xk1uc74v",
           "name": "US Passport",
           "url": "https://travel.state.gov/content/travel/en/passports/how-apply/forms.html"
+        },
+        {
+          "id": "xgt96hsx",
+          "name": "Harvard Business Review",
+          "url": "https://hbr.org/"
         }
       ],
       "pinned": false,
