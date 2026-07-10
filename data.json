@@ -84,6 +84,11 @@
           "id": "x2a9mm5c",
           "name": "Zapier - Automation",
           "url": "https://zapier.com/"
+        },
+        {
+          "id": "xlq75avt",
+          "name": "Anthropic News",
+          "url": "https://www.anthropic.com/news"
         }
       ],
       "pinned": false,
@@ -384,12 +389,17 @@
     {
       "id": "xmjqiqo8",
       "name": "Gaming",
-      "open": true,
+      "open": false,
       "links": [
         {
           "id": "xkry4ume",
           "name": "Elite Dangerous - Adventures and Tools",
           "url": "https://elitedangereuse.fr/en/"
+        },
+        {
+          "id": "xa5z4q28",
+          "name": "Elite Dangerous - CMDRs ToolBox",
+          "url": "https://cmdrs-toolbox.com/"
         },
         {
           "id": "xegtwerm",
@@ -405,6 +415,11 @@
           "id": "xqd2edoy",
           "name": "Elite Dangerous - EDCoPilot",
           "url": "https://www.razzafrag.com/"
+        },
+        {
+          "id": "xwb05hzr",
+          "name": "Elite Dangerous - EDDB",
+          "url": "https://eddb.io/"
         },
         {
           "id": "xbvp97nc",
