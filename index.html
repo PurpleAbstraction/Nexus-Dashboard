@@ -231,6 +231,73 @@
     gap: 20px;
   }
 
+  /* ── WEATHER PANEL ── */
+  .weather-body {
+    padding: 14px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .weather-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .weather-icon { font-size: 32px; line-height: 1; flex-shrink: 0; }
+  .weather-temps { display: flex; flex-direction: column; gap: 2px; }
+  .weather-current {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .weather-current .temp-c {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-left: 4px;
+  }
+  .weather-condition { font-size: 12px; color: var(--text-dim); letter-spacing: 0.04em; }
+  .weather-details {
+    display: flex;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .weather-detail-item { white-space: nowrap; }
+  .weather-detail-item span { color: var(--text-dim); }
+  .weather-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    margin-top: 2px;
+  }
+  .weather-refresh-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 0;
+    transition: color 180ms ease;
+    line-height: 1;
+  }
+  .weather-refresh-btn:hover { color: var(--accent); }
+  .weather-placeholder {
+    padding: 20px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.7;
+  }
+
   /* ── SETTINGS TAB ── */
   .settings-grid {
     display: grid;
@@ -1982,6 +2049,19 @@
           </div>
         </div>
 
+        <!-- Weather -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Weather</span>
+            <button class="icon-btn" id="weatherRefreshBtn" style="padding:3px 8px;font-size:11px;">↻ Refresh</button>
+          </div>
+          <div id="weatherBody">
+            <div class="weather-placeholder" id="weatherPlaceholder">
+              Enable location in Settings to see weather.
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -2020,6 +2100,14 @@
           <div class="panel">
             <div class="panel-header"><span class="panel-title">Sync &amp; Export</span></div>
             <div class="settings-body">
+              <div class="settings-row">
+                <span class="settings-label">Location</span>
+                <button class="settings-action-btn" id="locationUpdateBtn" style="padding:6px 14px;font-size:12px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.05 11.5 7.35 11.76a1 1 0 0 0 1.3 0C12.95 21.5 20 15.4 20 10a8 8 0 0 0-8-8z"/></svg>
+                  <span id="locationBtnLabel">Update Location</span>
+                </button>
+              </div>
+              <hr class="settings-divider">
               <div class="settings-btn-row">
                 <button class="settings-action-btn" id="importBtn">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -4554,6 +4642,165 @@ document.getElementById('appletFidgetBtn').addEventListener('click', () => {
   fCanvas.addEventListener('mouseup',    () => { clearInterval(fRippleInterval); fRippleInterval = null; });
   fCanvas.addEventListener('mouseleave', () => { clearInterval(fRippleInterval); fRippleInterval = null; });
   fCanvas.addEventListener('mousemove',  e => { if (fRippleInterval) { clearInterval(fRippleInterval); fRippleInterval = setInterval(() => fRippleAt(e), 200); } });
+})();
+
+// ── WEATHER ───────────────────────────────────────────────────────────
+const WMO_CODES = {
+  0:  { label: 'Clear Sky',          icon: '☀️' },
+  1:  { label: 'Mainly Clear',        icon: '🌤️' },
+  2:  { label: 'Partly Cloudy',       icon: '⛅' },
+  3:  { label: 'Overcast',            icon: '☁️' },
+  45: { label: 'Fog',                 icon: '🌫️' },
+  48: { label: 'Icy Fog',             icon: '🌫️' },
+  51: { label: 'Light Drizzle',       icon: '🌦️' },
+  53: { label: 'Drizzle',             icon: '🌦️' },
+  55: { label: 'Heavy Drizzle',       icon: '🌧️' },
+  61: { label: 'Light Rain',          icon: '🌧️' },
+  63: { label: 'Rain',                icon: '🌧️' },
+  65: { label: 'Heavy Rain',          icon: '🌧️' },
+  71: { label: 'Light Snow',          icon: '🌨️' },
+  73: { label: 'Snow',                icon: '❄️' },
+  75: { label: 'Heavy Snow',          icon: '❄️' },
+  77: { label: 'Snow Grains',         icon: '🌨️' },
+  80: { label: 'Light Showers',       icon: '🌦️' },
+  81: { label: 'Showers',             icon: '🌧️' },
+  82: { label: 'Heavy Showers',       icon: '⛈️' },
+  85: { label: 'Snow Showers',        icon: '🌨️' },
+  86: { label: 'Heavy Snow Showers',  icon: '❄️' },
+  95: { label: 'Thunderstorm',        icon: '⛈️' },
+  96: { label: 'Thunderstorm w/ Hail',icon: '⛈️' },
+  99: { label: 'Thunderstorm w/ Hail',icon: '⛈️' },
+};
+
+function cToF(c) { return Math.round(c * 9/5 + 32); }
+
+function getWeatherCoords() {
+  const stored = localStorage.getItem('nexus_coords');
+  return stored ? JSON.parse(stored) : null;
+}
+
+function setWeatherCoords(lat, lon) {
+  localStorage.setItem('nexus_coords', JSON.stringify({ lat, lon }));
+}
+
+async function fetchWeather() {
+  const coords = getWeatherCoords();
+  if (!coords) return;
+
+  const { lat, lon } = coords;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+    `&current=temperature_2m,apparent_temperature,weathercode` +
+    `&daily=temperature_2m_max,temperature_2m_min` +
+    `&temperature_unit=celsius&timezone=auto&forecast_days=1`;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Open-Meteo error ${res.status}`);
+    const data = await res.json();
+    renderWeather(data);
+    localStorage.setItem('nexus_weather_cache', JSON.stringify({ data, ts: Date.now() }));
+  } catch (err) {
+    // Try cache on failure
+    const cached = localStorage.getItem('nexus_weather_cache');
+    if (cached) {
+      const { data, ts } = JSON.parse(cached);
+      renderWeather(data, ts);
+    } else {
+      document.getElementById('weatherBody').innerHTML =
+        `<div class="weather-placeholder">Could not load weather.</div>`;
+    }
+  }
+}
+
+function renderWeather(data, cachedTs) {
+  const c = data.current;
+  const d = data.daily;
+  const code = c.weathercode;
+  const wmo = WMO_CODES[code] || { label: 'Unknown', icon: '🌡️' };
+
+  const tempC = Math.round(c.temperature_2m);
+  const feelsC = Math.round(c.apparent_temperature);
+  const hiC = Math.round(d.temperature_2m_max[0]);
+  const loC = Math.round(d.temperature_2m_min[0]);
+
+  const tempF = cToF(c.temperature_2m);
+  const feelsF = cToF(c.apparent_temperature);
+  const hiF = cToF(d.temperature_2m_max[0]);
+  const loF = cToF(d.temperature_2m_min[0]);
+
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  const metaStr = cachedTs
+    ? `Cached · ${new Date(cachedTs).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`
+    : `Updated · ${timeStr}`;
+
+  document.getElementById('weatherBody').innerHTML = `
+    <div class="weather-body">
+      <div class="weather-main">
+        <div class="weather-icon">${wmo.icon}</div>
+        <div class="weather-temps">
+          <div class="weather-current">
+            ${tempF}°F <span class="temp-c">/ ${tempC}°C</span>
+          </div>
+          <div class="weather-condition">${wmo.label}</div>
+        </div>
+      </div>
+      <div class="weather-details">
+        <div class="weather-detail-item">High <span>${hiF}°F / ${hiC}°C</span></div>
+        <div class="weather-detail-item">Low <span>${loF}°F / ${loC}°C</span></div>
+        <div class="weather-detail-item">Feels like <span>${feelsF}°F / ${feelsC}°C</span></div>
+      </div>
+      <div class="weather-meta">
+        <span>${metaStr}</span>
+        <button class="weather-refresh-btn" id="weatherRefreshInner" title="Refresh">↻</button>
+      </div>
+    </div>`;
+
+  document.getElementById('weatherRefreshInner')
+    .addEventListener('click', fetchWeather);
+}
+
+function requestLocation() {
+  const btn = document.getElementById('locationBtnLabel');
+  if (!navigator.geolocation) {
+    showToast('Geolocation not supported by this browser.');
+    return;
+  }
+  btn.textContent = 'Locating…';
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const { latitude: lat, longitude: longitude } = pos.coords;
+      setWeatherCoords(lat, longitude);
+      btn.textContent = 'Location saved ✓';
+      setTimeout(() => { btn.textContent = 'Update Location'; }, 2500);
+      showToast('Location saved — fetching weather…');
+      fetchWeather();
+    },
+    err => {
+      btn.textContent = 'Update Location';
+      showToast('Location access denied or unavailable.');
+    },
+    { timeout: 10000 }
+  );
+}
+
+document.getElementById('locationUpdateBtn').addEventListener('click', requestLocation);
+document.getElementById('weatherRefreshBtn').addEventListener('click', fetchWeather);
+
+// Init — load from cache immediately, then refresh if coords exist
+(function initWeather() {
+  const coords = getWeatherCoords();
+  if (!coords) return; // placeholder stays
+
+  // Show cached data instantly while fetching
+  const cached = localStorage.getItem('nexus_weather_cache');
+  if (cached) {
+    const { data, ts } = JSON.parse(cached);
+    renderWeather(data, ts);
+  }
+
+  // Then fetch fresh data
+  fetchWeather();
 })();
 </script>
 </body>
