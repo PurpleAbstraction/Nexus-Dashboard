@@ -2358,6 +2358,9 @@
 </div>
 
 <script>
+// ── API CONFIG ────────────────────────────────────────────────────────
+const BRIEF_MODEL = 'claude-sonnet-4-6';
+
 // ── GITHUB CONFIG ─────────────────────────────────────────────────────
 const GH_USER   = 'PurpleAbstraction';
 const GH_REPO   = 'Bookmarks';
@@ -3606,7 +3609,7 @@ const ENGINES = {
   brave: {
     label: 'Brave Search',
     note: 'Independent index · Reliable fallback',
-    url: q => `https://search.brave.com/search?q=${encodeURIComponent(q)}&source=web&safesearch=off`,
+    url: q => `https://search.brave.com/search?q=${encodeURIComponent(q)}&source=web&safesearch=off&country=us&lang=en-us&summary=0`,
   },
 };
 
@@ -3927,7 +3930,7 @@ Respond ONLY with a JSON object in this exact shape, no markdown, no preamble:
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
+        model: BRIEF_MODEL,
         max_tokens: 1000,
         system: systemPrompt,
         messages: [{ role: 'user', content: userPrompt }],
