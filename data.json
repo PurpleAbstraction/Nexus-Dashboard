@@ -657,6 +657,11 @@
           "url": "https://store.steampowered.com/"
         },
         {
+          "id": "xlwwl3te",
+          "name": "SteamOS",
+          "url": "https://store.steampowered.com/steamos"
+        },
+        {
           "id": "xrwzbqru",
           "name": "This Week in Video Games",
           "url": "https://thisweekinvideogames.com/"
@@ -680,11 +685,6 @@
           "id": "xolta2pl",
           "name": "X4 Foundations - Full List of Ships",
           "url": "https://x4-foundations-wiki.fandom.com/wiki/Full_ships_list"
-        },
-        {
-          "id": "xlwwl3te",
-          "name": "SteamOS",
-          "url": "https://store.steampowered.com/steamos"
         }
       ],
       "pinned": false,
