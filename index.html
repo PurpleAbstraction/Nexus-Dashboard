@@ -65,9 +65,9 @@
   /* ── LAYOUT ── */
   .shell {
     display: grid;
-    grid-template-rows: auto auto 1fr auto;
+    grid-template-rows: auto auto auto 1fr auto;
     grid-template-columns: 1fr;
-    grid-template-areas: "header" "tabs" "content" "footer";
+    grid-template-areas: "header" "glance" "tabs" "content" "footer";
     min-height: 100vh;
     max-width: 1400px;
     margin: 0 auto;
@@ -186,6 +186,48 @@
   .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ── TAB NAV ── */
+  /* ── GLANCE STRIP ── */
+  .glance-strip {
+    grid-area: glance;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 24px;
+    font-family: 'Inconsolata', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    min-height: 44px;
+  }
+  .glance-weather { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .glance-weather-icon { font-size: 20px; line-height: 1; }
+  .glance-weather-info { display: flex; flex-direction: column; gap: 1px; }
+  .glance-temp {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  .glance-temp .temp-c { font-size: 11px; font-weight: 400; color: var(--text-muted); margin-left: 3px; }
+  .glance-condition { font-size: 11px; color: var(--text-muted); }
+  .glance-weather-details { font-size: 11px; color: var(--text-muted); display: flex; flex-direction: column; gap: 1px; }
+  .glance-markets { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+  .glance-market-item { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+  .glance-market-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .glance-market-value { font-size: 12px; color: var(--text-dim); font-family: 'Inconsolata', monospace; }
+  .glance-placeholder { font-size: 11px; color: var(--text-muted); opacity: 0.5; }
+  .glance-divider { width: 1px; height: 28px; background: var(--border); flex-shrink: 0; }
+
   .tab-nav {
     grid-area: tabs;
     display: flex;
@@ -229,73 +271,6 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
     gap: 20px;
-  }
-
-  /* ── WEATHER PANEL ── */
-  .weather-body {
-    padding: 14px 14px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .weather-main {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .weather-icon { font-size: 32px; line-height: 1; flex-shrink: 0; }
-  .weather-temps { display: flex; flex-direction: column; gap: 2px; }
-  .weather-current {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-  .weather-current .temp-c {
-    font-size: 15px;
-    font-weight: 400;
-    color: var(--text-dim);
-    margin-left: 4px;
-  }
-  .weather-condition { font-size: 12px; color: var(--text-dim); letter-spacing: 0.04em; }
-  .weather-details {
-    display: flex;
-    gap: 14px;
-    font-size: 12px;
-    color: var(--text-muted);
-    flex-wrap: wrap;
-  }
-  .weather-detail-item { white-space: nowrap; }
-  .weather-detail-item span { color: var(--text-dim); }
-  .weather-meta {
-    font-size: 11px;
-    color: var(--text-muted);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--border);
-    padding-top: 8px;
-    margin-top: 2px;
-  }
-  .weather-refresh-btn {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 13px;
-    padding: 0;
-    transition: color 180ms ease;
-    line-height: 1;
-  }
-  .weather-refresh-btn:hover { color: var(--accent); }
-  .weather-placeholder {
-    padding: 20px 14px;
-    font-size: 12px;
-    color: var(--text-muted);
-    text-align: center;
-    line-height: 1.7;
   }
 
   /* ── SETTINGS TAB ── */
@@ -1926,6 +1901,16 @@
     </div>
   </header>
 
+  <div class="glance-strip">
+    <div class="glance-weather" id="glanceWeather">
+      <div class="glance-placeholder">Set a location in Settings to see weather.</div>
+    </div>
+    <div class="glance-divider"></div>
+    <div class="glance-markets" id="glanceMarkets">
+      <div class="glance-placeholder">Markets coming soon.</div>
+    </div>
+  </div>
+
   <nav class="tab-nav">
     <button class="tab-btn active" data-tab="bookmarks">Bookmarks</button>
     <button class="tab-btn" data-tab="workspace">Workspace</button>
@@ -2049,19 +2034,6 @@
           </div>
         </div>
 
-        <!-- Weather -->
-        <div class="panel">
-          <div class="panel-header">
-            <span class="panel-title">Weather</span>
-            <button class="icon-btn" id="weatherRefreshBtn" style="padding:3px 8px;font-size:11px;">↻ Refresh</button>
-          </div>
-          <div id="weatherBody">
-            <div class="weather-placeholder" id="weatherPlaceholder">
-              Enable location in Settings to see weather.
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -2100,12 +2072,22 @@
           <div class="panel">
             <div class="panel-header"><span class="panel-title">Sync &amp; Export</span></div>
             <div class="settings-body">
-              <div class="settings-row">
-                <span class="settings-label">Location</span>
-                <button class="settings-action-btn" id="locationUpdateBtn" style="padding:6px 14px;font-size:12px;">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.05 11.5 7.35 11.76a1 1 0 0 0 1.3 0C12.95 21.5 20 15.4 20 10a8 8 0 0 0-8-8z"/></svg>
-                  <span id="locationBtnLabel">Update Location</span>
+              <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
+                <span class="settings-label">Weather Location</span>
+                <div style="display:flex;gap:6px;width:100%;">
+                  <input type="text" id="locationSearchInput" placeholder="City name or region…"
+                    style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);padding:6px 10px;font-family:'Inconsolata',monospace;font-size:13px;outline:none;transition:border-color 180ms ease;"
+                    autocomplete="off">
+                  <button class="settings-action-btn" id="locationSearchBtn" style="padding:6px 14px;font-size:12px;white-space:nowrap;">
+                    Set Location
+                  </button>
+                </div>
+                <div id="locationResults" style="display:none;width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"></div>
+                <button class="settings-action-btn" id="locationGeoBtn" style="padding:4px 10px;font-size:11px;color:var(--text-muted);border-color:var(--border);">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.05 11.5 7.35 11.76a1 1 0 0 0 1.3 0C12.95 21.5 20 15.4 20 10a8 8 0 0 0-8-8z"/></svg>
+                  <span id="locationGeoLabel">Use my location instead</span>
                 </button>
+                <div id="locationCurrent" style="font-size:11px;color:var(--text-muted);"></div>
               </div>
               <hr class="settings-divider">
               <div class="settings-btn-row">
@@ -4706,8 +4688,8 @@ async function fetchWeather() {
       const { data, ts } = JSON.parse(cached);
       renderWeather(data, ts);
     } else {
-      document.getElementById('weatherBody').innerHTML =
-        `<div class="weather-placeholder">Could not load weather.</div>`;
+      document.getElementById('glanceWeather').innerHTML =
+        `<div class="glance-placeholder">Could not load weather.</div>`;
     }
   }
 }
@@ -4728,40 +4710,91 @@ function renderWeather(data, cachedTs) {
   const hiF = cToF(d.temperature_2m_max[0]);
   const loF = cToF(d.temperature_2m_min[0]);
 
-  const now = new Date();
-  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-  const metaStr = cachedTs
-    ? `Cached · ${new Date(cachedTs).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`
-    : `Updated · ${timeStr}`;
-
-  document.getElementById('weatherBody').innerHTML = `
-    <div class="weather-body">
-      <div class="weather-main">
-        <div class="weather-icon">${wmo.icon}</div>
-        <div class="weather-temps">
-          <div class="weather-current">
-            ${tempF}°F <span class="temp-c">/ ${tempC}°C</span>
-          </div>
-          <div class="weather-condition">${wmo.label}</div>
-        </div>
-      </div>
-      <div class="weather-details">
-        <div class="weather-detail-item">High <span>${hiF}°F / ${hiC}°C</span></div>
-        <div class="weather-detail-item">Low <span>${loF}°F / ${loC}°C</span></div>
-        <div class="weather-detail-item">Feels like <span>${feelsF}°F / ${feelsC}°C</span></div>
-      </div>
-      <div class="weather-meta">
-        <span>${metaStr}</span>
-        <button class="weather-refresh-btn" id="weatherRefreshInner" title="Refresh">↻</button>
-      </div>
+  document.getElementById('glanceWeather').innerHTML = `
+    <div class="glance-weather-icon">${wmo.icon}</div>
+    <div class="glance-weather-info">
+      <div class="glance-temp">${tempF}°F <span class="temp-c">/ ${tempC}°C</span></div>
+      <div class="glance-condition">${wmo.label}</div>
+    </div>
+    <div class="glance-weather-details">
+      <span>H ${hiF}° / ${hiC}°  ·  L ${loF}° / ${loC}°</span>
+      <span>Feels like ${feelsF}°F / ${feelsC}°C</span>
     </div>`;
-
-  document.getElementById('weatherRefreshInner')
-    .addEventListener('click', fetchWeather);
 }
 
-function requestLocation() {
-  const btn = document.getElementById('locationBtnLabel');
+// ── LOCATION SEARCH ───────────────────────────────────────────────────
+const GEO_API = 'https://geocoding-api.open-meteo.com/v1/search';
+
+function showLocationCurrent() {
+  const el = document.getElementById('locationCurrent');
+  const stored = localStorage.getItem('nexus_location_name');
+  el.textContent = stored ? `Current: ${stored}` : '';
+}
+
+async function searchLocation() {
+  const input = document.getElementById('locationSearchInput');
+  const resultsEl = document.getElementById('locationResults');
+  const q = input.value.trim();
+  if (!q) return;
+
+  resultsEl.style.display = 'none';
+  resultsEl.innerHTML = '';
+
+  try {
+    const res = await fetch(`${GEO_API}?name=${encodeURIComponent(q)}&count=5&language=en&format=json`);
+    if (!res.ok) throw new Error('Geocoding failed');
+    const data = await res.json();
+
+    if (!data.results || !data.results.length) {
+      showToast('No locations found — try a different name.');
+      return;
+    }
+
+    if (data.results.length === 1) {
+      // Single result — just use it
+      applyLocation(data.results[0]);
+      return;
+    }
+
+    // Multiple results — show disambiguation list
+    resultsEl.style.display = 'block';
+    resultsEl.innerHTML = data.results.map((r, i) => {
+      const label = [r.name, r.admin1, r.country].filter(Boolean).join(', ');
+      return `<div class="location-result-item" data-idx="${i}"
+        style="padding:7px 12px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--border);
+               color:var(--text-dim);transition:background 150ms ease;"
+        onmouseover="this.style.background='var(--surface)'"
+        onmouseout="this.style.background=''"
+        >${label}</div>`;
+    }).join('');
+
+    // Store results temporarily for click handler
+    window._geoResults = data.results;
+    resultsEl.querySelectorAll('.location-result-item').forEach(el => {
+      el.addEventListener('click', () => {
+        applyLocation(window._geoResults[parseInt(el.dataset.idx)]);
+        resultsEl.style.display = 'none';
+        resultsEl.innerHTML = '';
+      });
+    });
+
+  } catch (err) {
+    showToast('Could not search locations — check your connection.');
+  }
+}
+
+function applyLocation(result) {
+  const label = [result.name, result.admin1, result.country].filter(Boolean).join(', ');
+  setWeatherCoords(result.latitude, result.longitude);
+  localStorage.setItem('nexus_location_name', label);
+  document.getElementById('locationSearchInput').value = '';
+  showLocationCurrent();
+  showToast(`Location set to ${label} — fetching weather…`);
+  fetchWeather();
+}
+
+function requestGeoLocation() {
+  const btn = document.getElementById('locationGeoLabel');
   if (!navigator.geolocation) {
     showToast('Geolocation not supported by this browser.');
     return;
@@ -4769,23 +4802,40 @@ function requestLocation() {
   btn.textContent = 'Locating…';
   navigator.geolocation.getCurrentPosition(
     pos => {
-      const { latitude: lat, longitude: longitude } = pos.coords;
-      setWeatherCoords(lat, longitude);
-      btn.textContent = 'Location saved ✓';
-      setTimeout(() => { btn.textContent = 'Update Location'; }, 2500);
+      const { latitude: lat, longitude: lon } = pos.coords;
+      setWeatherCoords(lat, lon);
+      localStorage.setItem('nexus_location_name', 'My Location (GPS)');
+      btn.textContent = 'Use my location instead';
+      showLocationCurrent();
       showToast('Location saved — fetching weather…');
       fetchWeather();
     },
-    err => {
-      btn.textContent = 'Update Location';
+    () => {
+      btn.textContent = 'Use my location instead';
       showToast('Location access denied or unavailable.');
     },
     { timeout: 10000 }
   );
 }
 
-document.getElementById('locationUpdateBtn').addEventListener('click', requestLocation);
-document.getElementById('weatherRefreshBtn').addEventListener('click', fetchWeather);
+document.getElementById('locationSearchBtn').addEventListener('click', searchLocation);
+document.getElementById('locationSearchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') searchLocation();
+  if (e.key === 'Escape') {
+    document.getElementById('locationResults').style.display = 'none';
+  }
+});
+document.getElementById('locationGeoBtn').addEventListener('click', requestGeoLocation);
+
+// Focus border colour on location input
+document.getElementById('locationSearchInput').addEventListener('focus', e => {
+  e.target.style.borderColor = 'var(--accent)';
+});
+document.getElementById('locationSearchInput').addEventListener('blur', e => {
+  e.target.style.borderColor = 'var(--border)';
+});
+
+showLocationCurrent();
 
 // Init — load from cache immediately, then refresh if coords exist
 (function initWeather() {
