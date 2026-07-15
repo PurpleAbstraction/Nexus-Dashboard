@@ -2430,6 +2430,12 @@
 <script>
 // ── API CONFIG ────────────────────────────────────────────────────────
 const BRIEF_MODEL = 'claude-sonnet-4-6';
+const AV_KEY      = 'QSBUJXH3QOPQR0PW';   // Alpha Vantage fallback
+const MARKET_TICKERS = [
+  { symbol: '^DJI',  label: 'DOW',    yahooSymbol: '%5EDJI'  },
+  { symbol: '^IXIC', label: 'NASDAQ', yahooSymbol: '%5EIXIC' },
+  { symbol: '^GSPC', label: 'S&P',    yahooSymbol: '%5EGSPC' },
+];
 
 // ── GITHUB CONFIG ─────────────────────────────────────────────────────
 const GH_USER   = 'PurpleAbstraction';
@@ -4852,6 +4858,147 @@ showLocationCurrent();
   // Then fetch fresh data
   fetchWeather();
 })();
+
+// ── MARKETS ───────────────────────────────────────────────────────────
+function isMarketOpen() {
+  // NYSE hours: Mon–Fri 9:30am–4:00pm ET
+  const now = new Date();
+  const et = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  const day = et.getDay(); // 0=Sun, 6=Sat
+  const h = et.getHours();
+  const m = et.getMinutes();
+  const mins = h * 60 + m;
+  if (day === 0 || day === 6) return false;
+  return mins >= 570 && mins < 960; // 9:30=570, 16:00=960
+}
+
+function marketStatusLabel() {
+  const now = new Date();
+  const et = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  const day = et.getDay();
+  if (day === 0 || day === 6) return 'Weekend';
+  const h = et.getHours();
+  const m = et.getMinutes();
+  const mins = h * 60 + m;
+  if (mins < 570)  return 'Pre-market';
+  if (mins >= 960) return 'After hours';
+  return 'Open';
+}
+
+async function fetchTickerYahoo(ticker) {
+  const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(
+    `https://query1.finance.yahoo.com/v8/finance/chart/${ticker.yahooSymbol}?interval=1d&range=1d`
+  )}`;
+  const res = await fetch(proxyUrl);
+  if (!res.ok) throw new Error(`Yahoo ${res.status}`);
+  const data = await res.json();
+  const meta = data.chart.result[0].meta;
+  return {
+    price:  meta.regularMarketPrice,
+    prev:   meta.chartPreviousClose,
+    change: meta.regularMarketPrice - meta.chartPreviousClose,
+    pct:    ((meta.regularMarketPrice - meta.chartPreviousClose) / meta.chartPreviousClose) * 100,
+  };
+}
+
+async function fetchTickerAV(symbol) {
+  const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${encodeURIComponent(symbol)}&apikey=${AV_KEY}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`AV ${res.status}`);
+  const data = await res.json();
+  const q = data['Global Quote'];
+  if (!q || !q['05. price']) throw new Error('AV no data');
+  const price  = parseFloat(q['05. price']);
+  const prev   = parseFloat(q['08. previous close']);
+  const change = parseFloat(q['09. change']);
+  const pct    = parseFloat(q['10. change percent']);
+  return { price, prev, change, pct };
+}
+
+async function fetchAllMarkets() {
+  const results = await Promise.all(MARKET_TICKERS.map(async ticker => {
+    try {
+      return { ticker, data: await fetchTickerYahoo(ticker), source: 'yahoo' };
+    } catch (_) {
+      try {
+        return { ticker, data: await fetchTickerAV(ticker.symbol), source: 'av' };
+      } catch (e) {
+        return { ticker, data: null, error: e.message };
+      }
+    }
+  }));
+  return results;
+}
+
+function formatPrice(n) {
+  return n >= 10000
+    ? n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+    : n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function renderMarkets(results) {
+  const status = marketStatusLabel();
+  const isOpen = isMarketOpen();
+  const statusColor = isOpen ? 'var(--success)' : 'var(--text-muted)';
+
+  const html = results.map(({ ticker, data, error }) => {
+    if (!data) return `
+      <div class="glance-market-item">
+        <span class="glance-market-label">${ticker.label}</span>
+        <span class="glance-market-value" style="color:var(--text-muted)">—</span>
+      </div>`;
+
+    const up = data.change >= 0;
+    const arrow = up ? '▲' : '▼';
+    const color = up ? 'var(--success)' : 'var(--danger)';
+    const pct = Math.abs(data.pct).toFixed(2);
+
+    return `
+      <div class="glance-market-item">
+        <span class="glance-market-label">${ticker.label}</span>
+        <span class="glance-market-value">${formatPrice(data.price)}</span>
+        <span style="font-size:10px;color:${color};font-family:'Inconsolata',monospace;">
+          ${arrow} ${Math.abs(data.change).toFixed(0)} (${pct}%)
+        </span>
+      </div>`;
+  }).join('');
+
+  document.getElementById('glanceMarkets').innerHTML = `
+    ${html}
+    <div class="glance-market-item" style="align-items:center;margin-left:4px;">
+      <span style="font-size:9px;color:${statusColor};font-family:'Syne',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">${status}</span>
+    </div>`;
+
+  // Cache results
+  localStorage.setItem('nexus_markets_cache', JSON.stringify({ results, ts: Date.now() }));
+}
+
+async function loadMarkets() {
+  // Show cached immediately
+  const cached = localStorage.getItem('nexus_markets_cache');
+  if (cached) {
+    const { results, ts } = JSON.parse(cached);
+    renderMarkets(results);
+  }
+
+  // Only fetch fresh data if market is open or cache is older than 1 hour
+  const cacheAge = cached ? Date.now() - JSON.parse(cached).ts : Infinity;
+  const ONE_HOUR = 60 * 60 * 1000;
+  if (!isMarketOpen() && cacheAge < ONE_HOUR) return;
+
+  try {
+    const results = await fetchAllMarkets();
+    renderMarkets(results);
+  } catch (e) {
+    if (!cached) {
+      document.getElementById('glanceMarkets').innerHTML =
+        `<div class="glance-placeholder">Markets unavailable.</div>`;
+    }
+  }
+}
+
+// Init markets on load
+loadMarkets();
 </script>
 </body>
 </html>
