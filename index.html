@@ -643,6 +643,22 @@
     margin-bottom: 18px;
   }
 
+  /* ── WEATHER FORECAST MODAL ── */
+  .weather-modal { width: 520px; }
+  .forecast-location { font-size: 12px; color: var(--text-muted); margin-top: -12px; margin-bottom: 18px; letter-spacing: 0.04em; }
+  .forecast-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 20px; }
+  .forecast-day {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 4px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius);
+  }
+  .forecast-day-label { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .forecast-day-icon { font-size: 18px; line-height: 1; }
+  .forecast-day-hi { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--text); }
+  .forecast-day-lo { font-size: 11px; color: var(--text-muted); }
+  .forecast-graph { width: 100%; margin-bottom: 16px; }
+  .forecast-graph svg { width: 100%; height: 80px; overflow: visible; }
+  .forecast-footer { font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
+
   .field { margin-bottom: 14px; }
   .field label {
     display: block;
@@ -1528,7 +1544,7 @@
 
   @media (max-width: 860px) {
     .shell {
-      grid-template-areas: "header" "tabs" "content" "footer";
+      grid-template-areas: "header" "glance" "tabs" "content" "footer";
       padding: 0 16px 24px;
     }
 
@@ -1563,6 +1579,31 @@
     .link-chip { font-size: 12px; padding: 5px 8px; }
 
     .settings-row { flex-wrap: wrap; gap: 10px; }
+
+    /* Glance strip — stack vertically on mobile */
+    .glance-strip {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      min-height: unset;
+      padding: 8px 0;
+    }
+
+    .glance-divider { width: 100%; height: 1px; }
+
+    .glance-markets { gap: 14px; }
+
+    .glance-weather-details { display: none; }
+
+    /* Forecast modal responsive */
+    .weather-modal { width: 96vw; }
+    .forecast-days { grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .forecast-day { padding: 6px 2px; }
+    .forecast-day-label { font-size: 9px; }
+    .forecast-day-icon { font-size: 14px; }
+    .forecast-day-hi { font-size: 11px; }
+    .forecast-day-lo { font-size: 10px; }
+    .forecast-day span[style] { display: none; } /* hide C° on mobile */
   }
 
   @media (max-width: 480px) {
@@ -1576,6 +1617,9 @@
     .settings-body { padding: 12px 12px; }
     .workspace-grid { gap: 14px; }
     .settings-grid  { gap: 14px; }
+
+    .glance-markets { gap: 10px; }
+    .glance-market-item { align-items: flex-start; }
   }
 
   /* ── PROMPT MODAL ── */
@@ -2271,6 +2315,20 @@
       <button class="btn btn-ghost" id="promptExport" style="display:none;">Export .txt</button>
       <div class="prompt-spacer"></div>
       <button class="btn btn-ghost" id="promptClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Weather Forecast Modal -->
+<div class="modal-overlay" id="weatherModal">
+  <div class="modal weather-modal">
+    <h3>7-Day Forecast</h3>
+    <div class="forecast-location" id="forecastLocation"></div>
+    <div class="forecast-days" id="forecastDays"></div>
+    <div class="forecast-graph" id="forecastGraph"></div>
+    <div class="forecast-footer">
+      <span id="forecastSource">Open-Meteo</span>
+      <button class="btn btn-ghost" onclick="document.getElementById('weatherModal').classList.remove('open')" style="padding:4px 12px;font-size:12px;">Close</button>
     </div>
   </div>
 </div>
@@ -4678,13 +4736,14 @@ async function fetchWeather() {
   const { lat, lon } = coords;
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
     `&current=temperature_2m,apparent_temperature,weathercode` +
-    `&daily=temperature_2m_max,temperature_2m_min` +
-    `&temperature_unit=celsius&timezone=auto&forecast_days=1`;
+    `&daily=weathercode,temperature_2m_max,temperature_2m_min` +
+    `&temperature_unit=celsius&timezone=auto&forecast_days=7`;
 
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Open-Meteo error ${res.status}`);
     const data = await res.json();
+    _forecastData = data;
     renderWeather(data);
     localStorage.setItem('nexus_weather_cache', JSON.stringify({ data, ts: Date.now() }));
   } catch (err) {
@@ -4716,7 +4775,10 @@ function renderWeather(data, cachedTs) {
   const hiF = cToF(d.temperature_2m_max[0]);
   const loF = cToF(d.temperature_2m_min[0]);
 
-  document.getElementById('glanceWeather').innerHTML = `
+  const el = document.getElementById('glanceWeather');
+  el.style.cursor = 'pointer';
+  el.title = 'Click for 7-day forecast';
+  el.innerHTML = `
     <div class="glance-weather-icon">${wmo.icon}</div>
     <div class="glance-weather-info">
       <div class="glance-temp">${tempF}°F <span class="temp-c">/ ${tempC}°C</span></div>
@@ -4726,7 +4788,132 @@ function renderWeather(data, cachedTs) {
       <span>H ${hiF}° / ${hiC}°  ·  L ${loF}° / ${loC}°</span>
       <span>Feels like ${feelsF}°F / ${feelsC}°C</span>
     </div>`;
+
+  // Re-attach click handler after innerHTML replacement
+  el.onclick = openWeatherModal;
 }
+
+// ── WEATHER FORECAST MODAL ────────────────────────────────────────────
+let _forecastData = null;
+
+async function openWeatherModal() {
+  const modal = document.getElementById('weatherModal');
+  modal.classList.add('open');
+
+  const coords = getWeatherCoords();
+  if (!coords) return;
+
+  // Show cached forecast instantly if available
+  if (_forecastData) {
+    renderForecast(_forecastData);
+    return;
+  }
+
+  document.getElementById('forecastDays').innerHTML =
+    `<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:12px;padding:20px 0;">Loading forecast…</div>`;
+  document.getElementById('forecastGraph').innerHTML = '';
+
+  try {
+    const { lat, lon } = coords;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+      `&daily=weathercode,temperature_2m_max,temperature_2m_min` +
+      `&temperature_unit=celsius&timezone=auto&forecast_days=7`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Open-Meteo error ${res.status}`);
+    const data = await res.json();
+    _forecastData = data;
+    renderForecast(data);
+  } catch (err) {
+    document.getElementById('forecastDays').innerHTML =
+      `<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:12px;padding:20px 0;">Could not load forecast.</div>`;
+  }
+}
+
+function renderForecast(data) {
+  const d = data.daily;
+  const days = d.time.length;
+  const locationName = localStorage.getItem('nexus_location_name') || '';
+  document.getElementById('forecastLocation').textContent = locationName;
+
+  // Day cards
+  const dayLabels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let daysHtml = '';
+  for (let i = 0; i < days; i++) {
+    const date = new Date(d.time[i] + 'T12:00:00');
+    const label = i === 0 ? 'Today' : dayLabels[date.getDay()];
+    const wmo = WMO_CODES[d.weathercode[i]] || { icon: '🌡️' };
+    const hiF = cToF(d.temperature_2m_max[i]);
+    const loF = cToF(d.temperature_2m_min[i]);
+    const hiC = Math.round(d.temperature_2m_max[i]);
+    const loC = Math.round(d.temperature_2m_min[i]);
+    daysHtml += `
+      <div class="forecast-day">
+        <span class="forecast-day-label">${label}</span>
+        <span class="forecast-day-icon">${wmo.icon}</span>
+        <span class="forecast-day-hi">${hiF}°</span>
+        <span class="forecast-day-lo">${loF}°</span>
+        <span style="font-size:9px;color:var(--text-muted);">${hiC}° / ${loC}°</span>
+      </div>`;
+  }
+  document.getElementById('forecastDays').innerHTML = daysHtml;
+
+  // SVG sparkline for high temps
+  const highs = d.temperature_2m_max.map(cToF);
+  const lows  = d.temperature_2m_min.map(cToF);
+  const allTemps = [...highs, ...lows];
+  const minT = Math.min(...allTemps);
+  const maxT = Math.max(...allTemps);
+  const range = maxT - minT || 1;
+
+  const W = 480; const H = 70; const pad = 20;
+  const xStep = (W - pad * 2) / (days - 1);
+
+  function px(i, val) {
+    const x = pad + i * xStep;
+    const y = H - pad - ((val - minT) / range) * (H - pad * 2);
+    return `${x},${y}`;
+  }
+
+  const hiPoints = highs.map((v, i) => px(i, v)).join(' ');
+  const loPoints = lows.map((v, i) => px(i, v)).join(' ');
+
+  // Build area fill between hi and lo
+  const hiPath = highs.map((v, i) => `${i === 0 ? 'M' : 'L'}${px(i, v)}`).join(' ');
+  const loPathRev = lows.map((v, i) => `${px(days - 1 - i, lows[days - 1 - i])}`).join(' L');
+  const areaPath = `${hiPath} L${loPathRev} Z`;
+
+  const svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:80px;">
+    <defs>
+      <linearGradient id="forecastGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.03"/>
+      </linearGradient>
+    </defs>
+    <!-- Area fill -->
+    <path d="${areaPath}" fill="url(#forecastGrad)" stroke="none"/>
+    <!-- Low line -->
+    <polyline points="${loPoints}" fill="none" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.5"/>
+    <!-- High line -->
+    <polyline points="${hiPoints}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- High dots -->
+    ${highs.map((v, i) => {
+      const [x, y] = px(i, v).split(',');
+      return `<circle cx="${x}" cy="${y}" r="3" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>`;
+    }).join('')}
+  </svg>`;
+
+  document.getElementById('forecastGraph').innerHTML = svg;
+
+  const now = new Date();
+  document.getElementById('forecastSource').textContent =
+    `Open-Meteo · ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+}
+
+// Close weather modal on overlay click
+document.getElementById('weatherModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('weatherModal'))
+    document.getElementById('weatherModal').classList.remove('open');
+});
 
 // ── LOCATION SEARCH ───────────────────────────────────────────────────
 const GEO_API = 'https://geocoding-api.open-meteo.com/v1/search';
@@ -4852,6 +5039,7 @@ showLocationCurrent();
   const cached = localStorage.getItem('nexus_weather_cache');
   if (cached) {
     const { data, ts } = JSON.parse(cached);
+    _forecastData = data;
     renderWeather(data, ts);
   }
 

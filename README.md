@@ -8,14 +8,22 @@ A self-hosted personal dashboard and bookmark manager. Lives in your GitHub repo
 
 ## Layout
 
-Nexus uses a three-tab interface with a persistent header. The header contains the logo, clock, and a unified search omnibar with a Links/Web mode toggle. Everything else lives in one of the three tabs.
+Nexus uses a persistent header, a glance strip, and a three-tab interface.
+
+### Header
+Logo, dual clock (local + UTC), and a unified search omnibar with a Links/Web mode toggle. Always visible regardless of which tab is active.
+
+### Glance Strip
+A slim persistent bar between the header and tab nav. Always visible. No interaction required.
+- **Weather** — current conditions, temperature in °F and °C, high/low, feels like. Set your location once in Settings.
+- **Markets** — DOW, NASDAQ, S&P 500 end-of-day prices with change and percentage. Market-hours aware.
 
 ### Tab 1 — Bookmarks
 Full-width bookmark manager. Categories, links, search — everything you'd expect.
 
 ### Tab 2 — Workspace
 A 2×2 panel grid (collapses to single column on mobile):
-- **Web Search** — DuckDuckGo, Perplexity, or Brave, engine remembered between sessions
+- **Web Search** — DuckDuckGo, Perplexity, or Brave; engine remembered between sessions
 - **Applets** — Writing Prompt, Fidget widget, Reflect, News Brief
 - **Scratch Pad** — Quick notes, auto-saved locally, syncs to GitHub with the Save button
 - **RSS Feeds** — Up to 10 feeds, merged chronological stream, per-feed filter
@@ -23,26 +31,40 @@ A 2×2 panel grid (collapses to single column on mobile):
 ### Tab 3 — Settings
 Two-column layout (collapses to single column on mobile):
 - **Appearance** — Dark/light mode toggle, global accent colour picker
-- **Data** — Import bookmarks, export bookmarks, GitHub sync status and token management
+- **Data** — Weather location, import bookmarks, export bookmarks, GitHub sync status and token management
 
 ---
 
 ## Features
 
 ### Bookmarks
-- **Collapsible categories** — color-coded left border accents, favicons, instant search
+- **Collapsible categories** — colour-coded left border accents, favicons, instant search
 - **Pinned category** — pin any one category as a permanent anchor at the top; always open, visually distinct with a ★ PINNED badge
-- **Category colors** — inline color picker when renaming; choose from 30 curated colors or reset to default
-- **Inline editing** — rename categories and pick colors in one step; add, edit, and delete links without touching code
+- **Category colours** — inline colour picker when renaming; choose from 30 curated colours or reset to default
+- **Inline editing** — rename categories and pick colours in one step; add, edit, and delete links without touching code
 - **Move links** — reassign any link to a different category via the edit modal
 - **Global quick-add** — add a link without expanding any category first
 - **Alphabetical sort** — sort all categories and their links A–Z in one click
 - **Drag-and-drop reordering** — drag categories into any order; drag links within a category to reorder them
 - **GitHub-backed storage** — bookmarks saved to `data.json` via the GitHub API with live sync status; auto-retries on SHA conflicts
 
+### Glance Strip — Weather
+- Powered by [Open-Meteo](https://open-meteo.com) — free, no API key required
+- Displays current condition with emoji icon, temperature in both °F and °C, today's high/low, and feels-like temperature
+- Location set by city name search (Open-Meteo geocoding) or browser geolocation — stored in `localStorage`, never in the repo
+- Falls back to cached data if the network is unavailable
+- Location managed from **Settings → Data → Weather Location**
+
+### Glance Strip — Markets
+- DOW (`^DJI`), NASDAQ (`^IXIC`), S&P 500 (`^GSPC`) — end-of-day data only
+- Fetches via Yahoo Finance (unofficial endpoint) through corsproxy.io; falls back to Alpha Vantage free tier if Yahoo is unavailable
+- Market-hours aware: shows Open / Pre-market / After hours / Weekend status; skips refresh outside trading hours if cache is recent
+- Data cached in `localStorage`; shown instantly on load while fresh data fetches in background
+
 ### Appearance
 - **Dark / light theme** — warm dark and parchment light modes, toggled from Settings
 - **Global accent colour** — five choices (Gold, Teal, Ember, Violet, Slate) applied dashboard-wide; persisted to `localStorage` under `nexus_accent`
+- **Dual clock** — local time displayed in the accent colour; UTC date and time below it in muted text; both always visible in the header
 - **Responsive layout** — works on desktop, tablet, and mobile
 
 ### Import & Export
@@ -51,7 +73,8 @@ Two-column layout (collapses to single column on mobile):
 
 ### Web Search
 - **Three engines** — DuckDuckGo, Perplexity, and Brave Search, switchable with one click
-- **DDG optimized** — no AI answers, no ads, dark mode, and privacy settings baked into the URL
+- **DDG optimised** — no AI answers, no ads, dark mode, and privacy settings baked into the URL
+- **Brave** — `summary=0`, `country=us`, `lang=en-us` params included for cleaner results
 - **Persistent preference** — last used engine remembered between sessions
 
 ### RSS Feeds
@@ -72,7 +95,7 @@ Launched from the Workspace tab Applets panel:
 - **Writing Prompt** — four tabs (All / Scenes / Scenarios / Sparks), weighted draw history, inline Write textarea, export as `.txt`
 - **Fidget** — dial, ripple field, clicky button, rocker switch, spring-back slider, five pentatonic toggle switches; sound on/off; inherits the global accent colour
 - **Reflect** — daily practice applet; select one or more elements (Water, Earth, Fire, Air) to capture the feel of the day; five structured yes/somewhat/no questions (Failures, Successes, Learning, Creating, Self-care); optional freeform note; export as dated `.md` file
-- **News Brief** — AI-synthesized daily news brief via Claude API; fetches headlines from wire services; generates eight structured sections (World, US, Financial — Global, Financial — US, Tech, Science, Health, AI); per-item Perplexity deep-dive links; on-demand refresh; cached between sessions; requires a Cloudflare Worker proxy (see setup below)
+- **News Brief** — AI-synthesised daily news brief via Claude API; fetches headlines from wire services; generates structured sections (World, US, Financial, Tech, Science, Health, AI); per-item Perplexity deep-dive links; on-demand refresh; cached between sessions; requires a Cloudflare Worker proxy (see setup below)
 
 ### Keyboard Shortcuts
 - `1` `2` `3` — switch between Bookmarks, Workspace, and Settings tabs
@@ -85,7 +108,6 @@ Shortcut hints are always visible in the footer.
 ### General
 - **Single file** — everything in one `index.html`, no build tools, no frameworks, no dependencies
 - **Custom favicon** — inline SVG node-and-spokes design in dashboard gold
-- **Clock** — live date and time in the header
 
 ---
 
@@ -114,6 +136,22 @@ That's it. Every bookmark change you make will now sync silently back to `data.j
 
 ---
 
+## Weather Setup
+
+No API key required. Open your dashboard, go to **Settings → Data → Weather Location**, type a city name and select from the results. Your coordinates are stored in `localStorage` only — never in the repo.
+
+To use your device's GPS instead, click **Use my location instead** below the search field.
+
+---
+
+## Markets Setup
+
+Markets data works out of the box via Yahoo Finance. If Yahoo is unavailable, it falls back to [Alpha Vantage](https://www.alphavantage.co/support/#api-key). The free Alpha Vantage key is included in the source — 25 requests/day is more than sufficient for three tickers checked occasionally.
+
+If you fork this repo and want your own key, replace `AV_KEY` near the top of the `<script>` block in `index.html`.
+
+---
+
 ## News Brief Setup
 
 The News Brief applet requires a Cloudflare Worker to proxy requests to the Anthropic API. This keeps your API key off the client and handles CORS.
@@ -138,7 +176,7 @@ const response = await fetch('https://nexus-brief.yourname.workers.dev', {
 Replace the URL with your actual Worker URL.
 
 ### 4. Lock the Worker to your domain
-The provided Worker script only accepts requests from `https://yourusername.github.io`. Update the `ALLOWED_ORIGIN` constant at the top of `nexus-brief-worker.js` to match your GitHub Pages domain exactly before deploying.
+Update the `ALLOWED_ORIGIN` constant at the top of `nexus-brief-worker.js` to match your GitHub Pages domain exactly before deploying.
 
 The News Brief uses the Anthropic API on a pay-per-use basis. At roughly $0.01 per refresh, $5 in credits lasts a long time.
 
@@ -146,14 +184,14 @@ The News Brief uses the Anthropic API on a pay-per-use basis. At roughly $0.01 p
 
 ## Migrating from an earlier version
 
-If you were using a previous version of Nexus that stored data in `bookmarks.json`, you need to rename that file before deploying this version:
+If you were using a version of Nexus that stored data in `bookmarks.json`, rename that file before deploying:
 
 1. In your GitHub repo, open `bookmarks.json`
 2. Click the pencil (edit) icon
-3. Change the filename at the top of the editor from `bookmarks.json` to `data.json`
+3. Change the filename to `data.json`
 4. Commit the change
 
-Then deploy the new `index.html`. The dashboard will find `data.json` and all your existing bookmarks will load normally.
+Then deploy the new `index.html`. All existing bookmarks will load normally.
 
 ---
 
@@ -170,23 +208,13 @@ The import preview lets you rename categories, merge them into existing ones, an
 
 ## Web Search
 
-The web search panel in the Workspace tab supports three engines:
-
 | Engine | Notes |
 |--------|-------|
 | **DuckDuckGo** | No AI · No ads · Dark mode · Private — all baked into the search URL |
 | **Perplexity** | AI-powered answers · Account settings carry over when logged in |
-| **Brave Search** | Independent index · Reliable fallback |
+| **Brave Search** | Independent index · AI summary suppressed · US/English results |
 
 Your last-used engine is remembered between sessions. Use `\` to toggle between Links and Web search mode from the keyboard.
-
----
-
-## RSS Feeds
-
-Add up to 10 feeds via the **Edit** button in the RSS panel header. Feed names are auto-generated from the hostname. Click any feed name in the list to filter to that feed; click again to return to the combined view. All feeds are merged chronologically and filtered to the last 7 days by default.
-
-Feed URLs are stored in `localStorage` — they persist across sessions in the same browser but are not synced to GitHub. This is intentional: RSS preferences are quick to re-enter and don't need version control.
 
 ---
 
@@ -202,13 +230,13 @@ The global accent colour is set from **Settings → Appearance**. Five options:
 | Violet | `#9e7ec9` | `#6a4a9a` |
 | Slate | `#7a8fa0` | `#4a6070` |
 
-The selection is persisted to `localStorage` under `nexus_accent` and applied via a `data-accent` attribute on the `<html>` element. All components that use `var(--accent)` — tab underlines, category borders, modal headings, buttons, the fidget widget — respond immediately.
+The selection is persisted to `localStorage` under `nexus_accent` and applied via a `data-accent` attribute on the `<html>` element. All components that use `var(--accent)` respond immediately — tab underlines, category borders, the clock, modal headings, buttons, the fidget widget.
 
 ---
 
 ## Data & Portability
 
-Your bookmarks live in `data.json` alongside `index.html`. You can edit it directly, back it up, or use it with other tools. The scratch pad content is also saved into this file when you hit Save. The format is:
+Your bookmarks live in `data.json` alongside `index.html`. The scratch pad content is also saved here when you hit Save. The format is:
 
 ```json
 {
@@ -228,15 +256,17 @@ Your bookmarks live in `data.json` alongside `index.html`. You can edit it direc
 }
 ```
 
+RSS feeds, weather location, market cache, accent colour, theme, and search engine preference are all stored in `localStorage` only — they don't sync to GitHub. This is intentional: these are per-browser preferences, not portable data.
+
 ---
 
 ## Token Renewal
 
-GitHub tokens expire based on the duration you set. When yours is close to expiring, GitHub will send you a reminder email. To update:
+GitHub tokens expire based on the duration you set. When yours is close to expiring, GitHub will send a reminder email. To update:
 
 1. Generate a new token at [github.com/settings/tokens](https://github.com/settings/tokens)
 2. Go to **Settings → Data** in the dashboard
-3. Click the GitHub sync status button
+3. Click the GitHub sync status indicator
 4. Paste the new token and save
 
 ---
@@ -244,33 +274,46 @@ GitHub tokens expire based on the duration you set. When yours is close to expir
 ## Troubleshooting
 
 **Save failed: "does not match"**
-This happens when `data.json` was updated in GitHub from another browser or device, leaving the dashboard holding a stale SHA. The current version detects this automatically, silently fetches the correct SHA, and retries the save. If you're on an older version, a hard refresh (`Cmd+Shift+R` / `Ctrl+Shift+R`) will re-sync the SHA on load.
+Happens when `data.json` was updated from another browser or device, leaving the dashboard holding a stale SHA. The current version detects this automatically, fetches the correct SHA, and retries. A hard refresh (`Cmd+Shift+R` / `Ctrl+Shift+R`) will also re-sync on load.
 
 **Bookmarks not loading / showing cached data**
-If the dashboard can't reach the GitHub API (network issue, expired token), it falls back to a locally cached copy. Check the GitHub sync button in **Settings → Data** — if it shows an error, click it to verify your token is still valid.
+The dashboard falls back to a local cache if the GitHub API is unreachable. Check the sync indicator in **Settings → Data** — click it to verify your token is valid. Tokens expire based on the duration set when created (90 days recommended).
+
+**Weather not showing**
+Go to **Settings → Data → Weather Location** and set a city. If you used GPS before, try searching by city name instead — browser geolocation can be blocked by Firefox's strict settings. Check that Open-Meteo (`api.open-meteo.com`) isn't blocked by a content blocker.
+
+**Markets showing dashes**
+Both Yahoo Finance (via corsproxy.io) and Alpha Vantage failed. This is usually a network or proxy issue. Try refreshing — corsproxy.io can be intermittently slow. Markets data is cached, so a recent value will show even if the fetch fails.
 
 **Import only showing one folder**
-Make sure you're using a direct export from the browser itself (File → Export Bookmarks in Safari, or Manage Bookmarks → Export in Firefox) rather than a file that's been edited or re-saved.
+Use a direct export from the browser itself (File → Export Bookmarks in Safari, or Manage Bookmarks → Export in Firefox) rather than a file that's been edited or re-saved.
 
 **RSS feed not loading**
-The dashboard tries two proxies (rss2json and corsproxy.io) before giving up. If a feed still fails, verify the URL is correct and publicly accessible. Some feeds behind hard paywalls or with aggressive CORS restrictions cannot be fetched from a static site.
+The dashboard tries two proxies (rss2json and corsproxy.io) before giving up. Verify the URL is correct and publicly accessible. Some feeds behind hard paywalls or with aggressive CORS restrictions cannot be fetched from a static site.
 
-**News Brief: "Load failed" or "Failed to generate brief"**
-This is usually a CORS or Worker issue. Verify your Cloudflare Worker is deployed and that `ALLOWED_ORIGIN` in the Worker matches your GitHub Pages domain exactly. Check the Worker URL in `index.html` is correct. If your Anthropic API credits are exhausted, the Worker will return an error — check your usage at [console.anthropic.com](https://console.anthropic.com).
+**News Brief: "Failed to generate brief: model: …"**
+The Claude model string in the Worker call is outdated. Find `const BRIEF_MODEL` near the top of the `<script>` block in `index.html` and update it to the current model string (e.g. `claude-sonnet-4-6`). This is the most likely cause after Anthropic retires an older model name.
+
+**News Brief: "Load failed" or Worker error**
+Verify your Cloudflare Worker is deployed and that `ALLOWED_ORIGIN` in the Worker matches your GitHub Pages domain exactly. Check the Worker URL in `index.html` is correct. If your Anthropic API credits are exhausted, check usage at [console.anthropic.com](https://console.anthropic.com).
 
 **Favicons not loading**
-Favicons are fetched from Google's favicon service. If a favicon doesn't appear, the site either doesn't have one or the request was blocked. Cosmetic only.
+Fetched from Google's favicon service. Cosmetic only — doesn't affect functionality.
 
 **GitHub Pages showing old version after update**
-GitHub Pages can take a minute or two to reflect changes after a push. Wait a moment and do a hard refresh (`Cmd+Shift+R` / `Ctrl+Shift+R`).
+Pages can take a minute or two after a push. Wait a moment and do a hard refresh.
 
 ---
 
 ## Roadmap
 
-- [ ] Qualia — Reflect companion tool; cross-platform offline app; processes exported `.md` files; visualizes element frequency and response patterns over time
+- [ ] News Brief — alien observer rework: detached anthropological voice, field-notes format, naturally avoids individual names
+- [ ] News Brief — TTS via ElevenLabs API for GalNet-style audio delivery
+- [ ] Cloudflare Pages + Access — migrate to private hosting with email OTP or Google auth
+- [ ] Nexus Lite — update the public stripped-down version on the secondary GitHub account
+- [ ] LCARS interface — standalone `nexus-lcars.html`, Star Trek-inspired alternative UI
+- [ ] Qualia — Reflect companion tool; processes exported `.md` files; visualises element frequency and response patterns over time
 - [ ] Flow — card meditation practice; canonical word list in `data.json`; Draw/Flow mode toggle in the Prompt applet
-- [ ] Prompt applet — Flow mode with four element+word pairings; Reflect→Prompt element bridge via localStorage
 
 ---
 
@@ -281,8 +324,12 @@ No frameworks. No build step. No package manager.
 - Vanilla HTML, CSS, JavaScript
 - [Syne](https://fonts.google.com/specimen/Syne) + [Inconsolata](https://fonts.google.com/specimen/Inconsolata) via Google Fonts
 - [GitHub Contents API](https://docs.github.com/en/rest/repos/contents) for read/write
+- [Open-Meteo](https://open-meteo.com) for weather (no key required)
+- [Open-Meteo Geocoding](https://open-meteo.com/en/docs/geocoding-api) for location search (no key required)
+- [Yahoo Finance](https://finance.yahoo.com) + [Alpha Vantage](https://www.alphavantage.co) for market data
 - [Anthropic API](https://anthropic.com) via Cloudflare Worker proxy for News Brief
-- [rss2json](https://rss2json.com) + [corsproxy.io](https://corsproxy.io) as CORS proxies for RSS feeds
+- [corsproxy.io](https://corsproxy.io) as CORS proxy for RSS feeds and market data
+- [rss2json](https://rss2json.com) as primary RSS proxy
 
 ---
 
