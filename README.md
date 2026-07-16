@@ -15,7 +15,7 @@ Logo, dual clock (local + UTC), and a unified search omnibar with a Links/Web mo
 
 ### Glance Strip
 A slim persistent bar between the header and tab nav. Always visible. No interaction required.
-- **Weather** — current conditions, temperature in °F and °C, high/low, feels like. Set your location once in Settings.
+- **Weather** — Current conditions, temperature in °F and °C, high/low, feels like. Set your location once in Settings.
 - **Markets** — DOW, NASDAQ, S&P 500 end-of-day prices with change and percentage. Market-hours aware.
 
 ### Tab 1 — Bookmarks
@@ -23,7 +23,7 @@ Full-width bookmark manager. Categories, links, search — everything you'd expe
 
 ### Tab 2 — Workspace
 A 2×2 panel grid (collapses to single column on mobile):
-- **Web Search** — DuckDuckGo, Perplexity, or Brave; engine remembered between sessions
+- **Web Search** — Wikipedia, Perplexity, or Brave; engine remembered between sessions
 - **Applets** — Writing Prompt, Fidget widget, Reflect, News Brief
 - **Scratch Pad** — Quick notes, auto-saved locally, syncs to GitHub with the Save button
 - **RSS Feeds** — Up to 10 feeds, merged chronological stream, per-feed filter
@@ -72,8 +72,7 @@ Two-column layout (collapses to single column on mobile):
 - **Export** — download a clean `nexus-data.json` backup any time; both accessible from the Settings tab
 
 ### Web Search
-- **Three engines** — DuckDuckGo, Perplexity, and Brave Search, switchable with one click
-- **DDG optimised** — no AI answers, no ads, dark mode, and privacy settings baked into the URL
+- **Three engines** — Wikipedia, Perplexity, and Brave Search, switchable with one click
 - **Brave** — `summary=0`, `country=us`, `lang=en-us` params included for cleaner results
 - **Persistent preference** — last used engine remembered between sessions
 
@@ -210,7 +209,7 @@ The import preview lets you rename categories, merge them into existing ones, an
 
 | Engine | Notes |
 |--------|-------|
-| **DuckDuckGo** | No AI · No ads · Dark mode · Private — all baked into the search URL |
+| **Wikipedia** | Encyclopedic reference · No tracking |
 | **Perplexity** | AI-powered answers · Account settings carry over when logged in |
 | **Brave Search** | Independent index · AI summary suppressed · US/English results |
 
