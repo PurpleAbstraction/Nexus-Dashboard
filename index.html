@@ -58,9 +58,46 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    font-size: calc(15px * var(--font-scale, 1));
+    font-size: 15px;
     line-height: 1.5;
   }
+
+  /* ── FONT SCALE ── */
+  /* ── FONT SCALE ── */
+  /* Targets content containers rather than individual elements */
+  html[data-scale="small"]  .shell,
+  html[data-scale="small"]  .modal,
+  html[data-scale="small"]  .panel,
+  html[data-scale="small"]  .category,
+  html[data-scale="small"]  .glance-strip,
+  html[data-scale="small"]  .shortcut-footer { font-size: 12px; }
+
+  html[data-scale="small"]  .logo            { font-size: 17px; }
+  html[data-scale="small"]  .clock-local     { font-size: 11px; }
+  html[data-scale="small"]  .clock-utc       { font-size: 9px;  }
+  html[data-scale="small"]  .category-name   { font-size: 11px; }
+  html[data-scale="small"]  .section-label,
+  html[data-scale="small"]  .panel-title,
+  html[data-scale="small"]  .tab-btn         { font-size: 10px; }
+
+  html[data-scale="large"]  .shell,
+  html[data-scale="large"]  .modal,
+  html[data-scale="large"]  .panel,
+  html[data-scale="large"]  .category,
+  html[data-scale="large"]  .glance-strip,
+  html[data-scale="large"]  .shortcut-footer { font-size: 15px; }
+
+  html[data-scale="large"]  .logo            { font-size: 23px; }
+  html[data-scale="large"]  .clock-local     { font-size: 15px; }
+  html[data-scale="large"]  .clock-utc       { font-size: 13px; }
+  html[data-scale="large"]  .category-name   { font-size: 15px; }
+  html[data-scale="large"]  .section-label,
+  html[data-scale="large"]  .panel-title,
+  html[data-scale="large"]  .tab-btn         { font-size: 13px; }
+  html[data-scale="large"]  .link-chip       { font-size: 15px; }
+  html[data-scale="large"]  #scratchpad,
+  html[data-scale="large"]  #webSearchInput,
+  html[data-scale="large"]  .rss-item a      { font-size: 15px; }
 
   /* ── LAYOUT ── */
   .shell {
@@ -2753,11 +2790,12 @@ document.querySelectorAll('.accent-swatch').forEach(sw => {
 });
 
 // ── FONT SIZE ─────────────────────────────────────────────────────────
-const FONT_SCALES = { '0.875': true, '1': true, '1.125': true };
+const FONT_SCALES = ['0.875', '1', '1.125'];
+const SCALE_NAMES = { '0.875': 'small', '1': 'medium', '1.125': 'large' };
 
 function setFontScale(scale) {
-  if (!FONT_SCALES[scale]) scale = '1';
-  html.style.setProperty('--font-scale', scale);
+  if (!FONT_SCALES.includes(scale)) scale = '1';
+  html.setAttribute('data-scale', SCALE_NAMES[scale]);
   localStorage.setItem('nexus_font_scale', scale);
   document.querySelectorAll('.font-size-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.scale === scale);
