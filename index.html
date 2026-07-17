@@ -80,6 +80,16 @@
   html[data-scale="small"]  .panel-title,
   html[data-scale="small"]  .tab-btn         { font-size: 10px; }
 
+  /* Weather glance — floor at readable size regardless of scale */
+  html[data-scale="small"]  .glance-temp          { font-size: 13px; }
+  html[data-scale="small"]  .glance-temp .temp-c  { font-size: 11px; }
+  html[data-scale="small"]  .glance-condition     { font-size: 11px; }
+  html[data-scale="small"]  .glance-weather-details { font-size: 11px; }
+  /* Forecast modal — keep day cards readable */
+  html[data-scale="small"]  .forecast-day-hi      { font-size: 12px; }
+  html[data-scale="small"]  .forecast-day-lo      { font-size: 11px; }
+  html[data-scale="small"]  .forecast-day-label   { font-size: 10px; }
+
   html[data-scale="large"]  .shell,
   html[data-scale="large"]  .modal,
   html[data-scale="large"]  .panel,
