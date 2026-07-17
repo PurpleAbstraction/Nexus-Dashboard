@@ -58,7 +58,7 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    font-size: 15px;
+    font-size: calc(15px * var(--font-scale, 1));
     line-height: 1.5;
   }
 
@@ -345,6 +345,26 @@
   }
   .accent-swatch:hover { transform: scale(1.2); }
   .accent-swatch.selected { border-color: var(--text); transform: scale(1.15); }
+
+  .font-size-btns {
+    display: flex;
+    gap: 6px;
+  }
+  .font-size-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 5px 14px;
+    font-family: 'Inconsolata', monospace;
+    transition: all 180ms ease;
+  }
+  .font-size-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .font-size-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+  .font-size-btn.small  { font-size: 11px; }
+  .font-size-btn.medium { font-size: 13px; }
+  .font-size-btn.large  { font-size: 15px; }
 
   .settings-divider {
     border: none;
@@ -2106,6 +2126,15 @@
                   <div class="accent-swatch" data-accent="slate"  title="Slate"  style="background:#7a8fa0;"></div>
                 </div>
               </div>
+              <hr class="settings-divider">
+              <div class="settings-row">
+                <span class="settings-label">Font Size</span>
+                <div class="font-size-btns">
+                  <button class="font-size-btn small"  data-scale="0.875">Small</button>
+                  <button class="font-size-btn medium active" data-scale="1">Medium</button>
+                  <button class="font-size-btn large"  data-scale="1.125">Large</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2721,6 +2750,25 @@ setAccent(savedAccent);
 
 document.querySelectorAll('.accent-swatch').forEach(sw => {
   sw.addEventListener('click', () => setAccent(sw.dataset.accent));
+});
+
+// ── FONT SIZE ─────────────────────────────────────────────────────────
+const FONT_SCALES = { '0.875': true, '1': true, '1.125': true };
+
+function setFontScale(scale) {
+  if (!FONT_SCALES[scale]) scale = '1';
+  html.style.setProperty('--font-scale', scale);
+  localStorage.setItem('nexus_font_scale', scale);
+  document.querySelectorAll('.font-size-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.scale === scale);
+  });
+}
+
+const savedScale = localStorage.getItem('nexus_font_scale') || '1';
+setFontScale(savedScale);
+
+document.querySelectorAll('.font-size-btn').forEach(btn => {
+  btn.addEventListener('click', () => setFontScale(btn.dataset.scale));
 });
 
 // ── TOAST ─────────────────────────────────────────────────────────────
