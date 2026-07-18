@@ -275,6 +275,48 @@
   .glance-placeholder { font-size: 11px; color: var(--text-muted); opacity: 0.5; }
   .glance-divider { width: 1px; height: 28px; background: var(--border); flex-shrink: 0; }
 
+  .glance-location {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    align-self: center;
+    margin-left: 4px;
+  }
+
+  .glance-aqi {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    align-items: center;
+    margin-left: 4px;
+  }
+  .glance-aqi-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .glance-aqi-value {
+    font-size: 12px;
+    font-family: 'Inconsolata', monospace;
+    font-weight: 600;
+  }
+
+  .glance-market-status {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    align-self: center;
+    margin-right: 4px;
+  }
+
   .tab-nav {
     grid-area: tabs;
     display: flex;
@@ -1661,6 +1703,11 @@
     .glance-markets { gap: 14px; }
 
     .glance-weather-details { display: none; }
+
+    /* On mobile: location and AQI sit below weather, status above markets */
+    .glance-location { margin-left: 0; margin-top: 2px; }
+    .glance-market-status { margin-right: 0; margin-bottom: 2px; }
+    .glance-aqi { flex-direction: row; gap: 6px; margin-left: 0; margin-top: 2px; }
 
     /* Forecast modal responsive */
     .weather-modal { width: 96vw; }
@@ -4842,6 +4889,7 @@ async function fetchWeather() {
     _forecastData = data;
     renderWeather(data);
     localStorage.setItem('nexus_weather_cache', JSON.stringify({ data, ts: Date.now() }));
+    fetchAqi();
   } catch (err) {
     // Try cache on failure
     const cached = localStorage.getItem('nexus_weather_cache');
@@ -4871,6 +4919,7 @@ function renderWeather(data, cachedTs) {
   const hiF = cToF(d.temperature_2m_max[0]);
   const loF = cToF(d.temperature_2m_min[0]);
 
+  const locationName = localStorage.getItem('nexus_location_name') || '';
   const el = document.getElementById('glanceWeather');
   el.style.cursor = 'pointer';
   el.title = 'Click for 7-day forecast';
@@ -4883,10 +4932,63 @@ function renderWeather(data, cachedTs) {
     <div class="glance-weather-details">
       <span>H ${hiF}° / ${hiC}°  ·  L ${loF}° / ${loC}°</span>
       <span>Feels like ${feelsF}°F / ${feelsC}°C</span>
-    </div>`;
+    </div>
+    <div class="glance-aqi" id="glanceAqi">
+      <span class="glance-aqi-label">AQI</span>
+      <span class="glance-aqi-value" style="color:var(--text-muted);">—</span>
+    </div>
+    ${locationName ? `<span class="glance-location">${locationName}</span>` : ''}`;
 
   // Re-attach click handler after innerHTML replacement
   el.onclick = openWeatherModal;
+}
+
+// ── AQI ──────────────────────────────────────────────────────────────
+function aqiColor(aqi) {
+  if (aqi <= 50)  return '#6ec98a'; // Good
+  if (aqi <= 100) return '#c9c96e'; // Moderate
+  if (aqi <= 150) return '#c9784a'; // Unhealthy for sensitive
+  if (aqi <= 200) return '#c96e6e'; // Unhealthy
+  if (aqi <= 300) return '#9e7ec9'; // Very unhealthy
+  return '#c96e6e';                  // Hazardous
+}
+
+function aqiLabel(aqi) {
+  if (aqi <= 50)  return 'Good';
+  if (aqi <= 100) return 'Moderate';
+  if (aqi <= 150) return 'Sensitive';
+  if (aqi <= 200) return 'Unhealthy';
+  if (aqi <= 300) return 'Very Poor';
+  return 'Hazardous';
+}
+
+async function fetchAqi() {
+  const coords = getWeatherCoords();
+  if (!coords) return;
+  const { lat, lon } = coords;
+  try {
+    const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`AQI error ${res.status}`);
+    const data = await res.json();
+    const aqi = Math.round(data.current.us_aqi);
+    const el = document.getElementById('glanceAqi');
+    if (!el) return;
+    el.innerHTML = `
+      <span class="glance-aqi-label">AQI</span>
+      <span class="glance-aqi-value" style="color:${aqiColor(aqi)};" title="${aqiLabel(aqi)}">${aqi}</span>`;
+    localStorage.setItem('nexus_aqi_cache', JSON.stringify({ aqi, ts: Date.now() }));
+  } catch (_) {
+    // Silently fail — AQI is nice-to-have
+    const cached = localStorage.getItem('nexus_aqi_cache');
+    if (cached) {
+      const { aqi } = JSON.parse(cached);
+      const el = document.getElementById('glanceAqi');
+      if (el) el.innerHTML = `
+        <span class="glance-aqi-label">AQI</span>
+        <span class="glance-aqi-value" style="color:${aqiColor(aqi)};" title="${aqiLabel(aqi)}">${aqi}</span>`;
+    }
+  }
 }
 
 // ── WEATHER FORECAST MODAL ────────────────────────────────────────────
@@ -5137,6 +5239,7 @@ showLocationCurrent();
     const { data, ts } = JSON.parse(cached);
     _forecastData = data;
     renderWeather(data, ts);
+    fetchAqi();
   }
 
   // Then fetch fresh data
@@ -5248,10 +5351,8 @@ function renderMarkets(results) {
   }).join('');
 
   document.getElementById('glanceMarkets').innerHTML = `
-    ${html}
-    <div class="glance-market-item" style="align-items:center;margin-left:4px;">
-      <span style="font-size:9px;color:${statusColor};font-family:'Syne',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">${status}</span>
-    </div>`;
+    <span class="glance-market-status" style="color:${statusColor};">${status}</span>
+    ${html}`;
 
   // Cache results
   localStorage.setItem('nexus_markets_cache', JSON.stringify({ results, ts: Date.now() }));
