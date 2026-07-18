@@ -810,7 +810,7 @@
     {
       "id": "xiiyy9yh",
       "name": "Shopping",
-      "open": false,
+      "open": true,
       "links": [
         {
           "id": "xgzh5vs2",
@@ -1039,7 +1039,7 @@
     {
       "id": "xv9u9sjg",
       "name": "Tech",
-      "open": true,
+      "open": false,
       "links": [
         {
           "id": "xf8i4t4w",
