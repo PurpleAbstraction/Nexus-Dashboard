@@ -373,6 +373,11 @@
           "url": "https://pocketcasts.com/"
         },
         {
+          "id": "x3actm1h",
+          "name": "Pocket Casts",
+          "url": "https://pocketcasts.com/podcasts"
+        },
+        {
           "id": "xnoy9q3a",
           "name": "Twitch",
           "url": "https://www.twitch.tv/"
@@ -381,11 +386,6 @@
           "id": "x8dac89u",
           "name": "YouTube",
           "url": "https://www.youtube.com/"
-        },
-        {
-          "id": "x3actm1h",
-          "name": "Pocket Casts",
-          "url": "https://pocketcasts.com/podcasts"
         }
       ],
       "pinned": false,
