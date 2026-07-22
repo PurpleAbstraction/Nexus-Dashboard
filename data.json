@@ -838,6 +838,11 @@
           "url": "https://www.bestbuy.com/"
         },
         {
+          "id": "xr9zgdih",
+          "name": "Bombas",
+          "url": "https://Bombas.com/weekly"
+        },
+        {
           "id": "xnwcayh0",
           "name": "Boy Smells",
           "url": "https://boysmells.com/"
@@ -973,6 +978,11 @@
           "url": "https://store.prince.com/"
         },
         {
+          "id": "xamkexzs",
+          "name": "Quince",
+          "url": "https://Quince.com/tws"
+        },
+        {
           "id": "xijkau6q",
           "name": "Sephora",
           "url": "https://www.sephora.com/"
@@ -1036,16 +1046,6 @@
           "id": "x08ej2q4",
           "name": "Whole Foods Market",
           "url": "https://www.wholefoodsmarket.com/"
-        },
-        {
-          "id": "xamkexzs",
-          "name": "Quince",
-          "url": "https://Quince.com/tws"
-        },
-        {
-          "id": "xr9zgdih",
-          "name": "Bombas",
-          "url": "https://Bombas.com/weekly"
         }
       ],
       "pinned": false,
