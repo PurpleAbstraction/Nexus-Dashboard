@@ -983,6 +983,11 @@
           "url": "https://Quince.com/tws"
         },
         {
+          "id": "xn7pls1w",
+          "name": "Quince (Women)",
+          "url": "https://www.quince.com/shop/women"
+        },
+        {
           "id": "xijkau6q",
           "name": "Sephora",
           "url": "https://www.sephora.com/"
@@ -1046,11 +1051,6 @@
           "id": "x08ej2q4",
           "name": "Whole Foods Market",
           "url": "https://www.wholefoodsmarket.com/"
-        },
-        {
-          "id": "xn7pls1w",
-          "name": "Quince (Women)",
-          "url": "https://www.quince.com/shop/women"
         }
       ],
       "pinned": false,
