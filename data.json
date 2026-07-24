@@ -761,6 +761,12 @@
           "name": "Candid",
           "url": "https://candid.org/",
           "note": "Non-profit and funder research"
+        },
+        {
+          "id": "xg6trhwq",
+          "name": "Charity Navigator",
+          "url": "https://www.charitynavigator.org/",
+          "note": "Accountability, transparency, and financial health ratings"
         }
       ],
       "color": "#c9c96e"
