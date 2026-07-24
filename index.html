@@ -684,6 +684,33 @@
   .link-chip:hover .link-del-btn { visibility: visible; }
   .link-del-btn:hover { color: var(--danger); }
 
+  /* ── LINK NOTE TOOLTIP ── */
+  .link-chip { position: relative; }
+
+  .link-note-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 6px 10px;
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    max-width: 260px;
+    white-space: normal;
+    line-height: 1.4;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 50;
+    pointer-events: none;
+    text-decoration: none;
+  }
+
+  .link-chip:hover .link-note-tooltip { display: block; }
+
   /* Add link row */
   .add-link-row {
     display: flex;
@@ -2409,6 +2436,10 @@
       <label>Category</label>
       <select id="modalCategory"></select>
     </div>
+    <div class="field">
+      <label>Note <span style="font-size:10px;color:var(--text-muted);font-weight:400;letter-spacing:0;">(optional — shown on hover)</span></label>
+      <input type="text" id="modalNote" placeholder="e.g. Good for research, not shopping…">
+    </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" id="modalCancel">Cancel</button>
       <button class="btn btn-primary" id="modalSave">Save</button>
@@ -2973,6 +3004,7 @@ function renderCategory(cat, container, q, isPinned) {
     a.innerHTML = `
       ${fav ? `<img class="link-favicon" src="${fav}" alt="" onerror="this.style.display='none'">` : ''}
       <span>${link.name}</span>
+      ${link.note ? `<div class="link-note-tooltip">${link.note}</div>` : ''}
       <button class="link-edit-btn" title="Edit link">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
       </button>
@@ -3204,10 +3236,12 @@ function openLinkModal(catId, linkId) {
     title.textContent = 'Edit Link';
     nameInput.value = link.name;
     urlInput.value = link.url;
+    document.getElementById('modalNote').value = link.note || '';
   } else {
     title.textContent = 'Add Link';
     nameInput.value = '';
     urlInput.value = '';
+    document.getElementById('modalNote').value = '';
   }
 
   modal.classList.add('open');
@@ -3227,6 +3261,7 @@ document.getElementById('modalSave').addEventListener('click', () => {
   const name = document.getElementById('modalName').value.trim();
   let url = document.getElementById('modalUrl').value.trim();
   const newCatId = document.getElementById('modalCategory').value;
+  const note = document.getElementById('modalNote').value.trim();
 
   if (!name || !url) { alert('Name and URL are required.'); return; }
   if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
@@ -3238,15 +3273,17 @@ document.getElementById('modalSave').addEventListener('click', () => {
     if (_editCatId !== newCatId) {
       oldCat.links = oldCat.links.filter(l => l.id !== _editLinkId);
       const newCat = appData.categories.find(c => c.id === newCatId);
-      link.name = name; link.url = url;
+      link.name = name; link.url = url; link.note = note || undefined;
       newCat.links.push(link);
     } else {
-      link.name = name; link.url = url;
+      link.name = name; link.url = url; link.note = note || undefined;
     }
     showToast('Link saved.');
   } else {
     const cat = appData.categories.find(c => c.id === newCatId);
-    cat.links.push({ id: uid(), name, url });
+    const newLink = { id: uid(), name, url };
+    if (note) newLink.note = note;
+    cat.links.push(newLink);
     showToast('Link added.');
   }
 
