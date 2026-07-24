@@ -749,6 +749,12 @@
           "id": "xhk8aweh",
           "name": "Worksource Oregon",
           "url": "https://worksourceoregon.org/jobsearch"
+        },
+        {
+          "id": "xodsahfk",
+          "name": "ProPublica",
+          "url": "https://projects.propublica.org/nonprofits/",
+          "note": "Non-profit explorer"
         }
       ],
       "color": "#c9c96e"
