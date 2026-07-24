@@ -755,6 +755,12 @@
           "name": "ProPublica",
           "url": "https://projects.propublica.org/nonprofits/",
           "note": "Non-profit explorer"
+        },
+        {
+          "id": "x78snni5",
+          "name": "Candid",
+          "url": "https://candid.org/",
+          "note": "Non-profit and funder research"
         }
       ],
       "color": "#c9c96e"
