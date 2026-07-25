@@ -1068,7 +1068,8 @@
         {
           "id": "x08ej2q4",
           "name": "Whole Foods Market",
-          "url": "https://www.wholefoodsmarket.com/"
+          "url": "https://www.wholefoodsmarket.com/",
+          "note": "Login via Amazon; delivery only with Prime."
         }
       ],
       "pinned": false,
