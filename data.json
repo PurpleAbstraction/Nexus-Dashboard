@@ -24,7 +24,8 @@
         {
           "id": "xfu56bld",
           "name": "Claude Console",
-          "url": "https://platform.claude.com/"
+          "url": "https://platform.claude.com/",
+          "note": "Monitor paid tokens used for News Brief."
         },
         {
           "id": "xq39kquy",
