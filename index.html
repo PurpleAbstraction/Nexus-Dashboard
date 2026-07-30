@@ -1792,6 +1792,15 @@
   .prompt-actions-row .btn-ghost { font-size: 0.8rem; padding: 6px 12px; }
   .prompt-actions-row .btn-primary { font-size: 0.8rem; padding: 6px 14px; }
   .prompt-spacer { flex: 1; }
+  .prompt-reflect-notes {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-style: italic;
+  }
   /* ── MORNING BRIEF MODAL ── */
   .brief-modal {
     width: 720px;
@@ -2406,6 +2415,7 @@
       <button class="prompt-tab" data-ptab="scene">Scenes</button>
       <button class="prompt-tab" data-ptab="scenario">Scenarios</button>
       <button class="prompt-tab" data-ptab="sparks">Sparks</button>
+      <button class="prompt-tab" data-ptab="reflect">Reflect</button>
     </div>
     <div class="prompt-output" id="promptOutput">
       <div class="prompt-empty">Press draw to get a prompt.</div>
@@ -4272,6 +4282,41 @@ if (!getToken()) {
 }
 
 // ── WRITING PROMPT ────────────────────────────────────────────────────
+// Session-only carryover from the Reflect applet — populated by the
+// Reflect IIFE below, never persisted. Cleared on page reload.
+let _lastReflection = null; // { elements: ['fire',...], tags: ['Driven',...], notes: '...' }
+
+const _reflectElementMeta = {
+  fire:  { emoji: '🔥', name: 'Fire' },
+  water: { emoji: '💧', name: 'Water' },
+  earth: { emoji: '🌍', name: 'Earth' },
+  air:   { emoji: '💨', name: 'Air' },
+};
+
+const _reflectPromptTemplates = [
+  'Write a scene steeped in {elements} — something as {tag1} as it is {tag2}.',
+  'Something is unfolding that feels like {elements}. Follow the moment where {tag1} meets {tag2}.',
+  '{elements} carried the day. Write the instant it turned {tag1}, then {tag2}.',
+  'Let {elements} be the weather of this scene. A character who is {tag1} meets one who is {tag2}.',
+];
+
+const _reflectFallbackWords = ['quiet', 'stirring', 'uncertain', 'sharp', 'tender', 'restless'];
+
+function _shuffleArr(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function _escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 const _promptSlots = {
   place:       ['forest','cathedral','harbor','rooftop','basement','marketplace','lighthouse','cave','train station','ruins','garden','fairground','kitchen','library','beach'],
   character:   ['stranger','elder','child','soldier','merchant','healer','outcast','twin','wanderer','thief','inventor','dreamer','jester','rival','neighbor'],
@@ -4330,6 +4375,20 @@ function _promptDraw() {
     let text = tpl;
     Object.entries(drawn).forEach(([s, v]) => { text = text.replace('[' + s + ']', v); });
     result = { type: 'scenario', text };
+  } else if (type === 'reflect') {
+    if (!_lastReflection || (!_lastReflection.elements.length && !_lastReflection.tags.length && !_lastReflection.notes)) {
+      result = { type: 'reflect', empty: true };
+    } else {
+      const elementsText = _lastReflection.elements.length
+        ? _lastReflection.elements.map(e => _reflectElementMeta[e].name).join(' and ')
+        : 'something unnamed';
+      const tagPool = _shuffleArr(_lastReflection.tags.map(t => t.toLowerCase()));
+      const tagSlots = tagPool.slice(0, 2);
+      while (tagSlots.length < 2) tagSlots.push(_reflectFallbackWords[Math.floor(Math.random() * _reflectFallbackWords.length)]);
+      const tpl = _reflectPromptTemplates[Math.floor(Math.random() * _reflectPromptTemplates.length)];
+      const text = tpl.replace('{elements}', elementsText).replace('{tag1}', tagSlots[0]).replace('{tag2}', tagSlots[1]);
+      result = { type: 'reflect', text, tags: _lastReflection.tags.slice(0, 6), notes: _lastReflection.notes };
+    }
   } else {
     const pool = [..._promptSlots.words];
     const picked = [];
@@ -4360,6 +4419,16 @@ function _promptRender(p) {
   } else if (p.type === 'scenario') {
     out.innerHTML = `<div class="prompt-type-label">Scenario</div>
       <div class="prompt-scenario">${p.text}</div>`;
+  } else if (p.type === 'reflect') {
+    if (p.empty) {
+      out.innerHTML = `<div class="prompt-type-label">Reflect</div>
+        <div class="prompt-empty">No reflection yet this session — complete one in Reflect, then come back here.</div>`;
+    } else {
+      out.innerHTML = `<div class="prompt-type-label">Reflect</div>
+        <div class="prompt-scenario">${_escapeHtml(p.text)}</div>
+        ${p.tags.length ? `<div class="prompt-sparks" style="margin-top:12px;">${p.tags.map(t => `<span class="prompt-spark">${_escapeHtml(t)}</span>`).join('')}</div>` : ''}
+        ${p.notes ? `<div class="prompt-reflect-notes">${_escapeHtml(p.notes)}</div>` : ''}`;
+    }
   } else {
     out.innerHTML = `<div class="prompt-type-label">Sparks</div>
       <div class="prompt-sparks">${p.words.map(w => `<span class="prompt-spark">${w}</span>`).join('')}</div>`;
@@ -4373,6 +4442,14 @@ function _promptGetText() {
     prompt = Object.entries(_promptCurrent.drawn).map(([k,v]) => `${k}: ${v}`).join('  ·  ');
   } else if (_promptCurrent.type === 'scenario') {
     prompt = _promptCurrent.text;
+  } else if (_promptCurrent.type === 'reflect') {
+    if (_promptCurrent.empty) {
+      prompt = '(no reflection available this session)';
+    } else {
+      prompt = _promptCurrent.text
+        + (_promptCurrent.tags.length ? '\n' + _promptCurrent.tags.join('  ·  ') : '')
+        + (_promptCurrent.notes ? '\n\nFrom your reflection:\n' + _promptCurrent.notes : '');
+    }
   } else {
     prompt = _promptCurrent.words.join('  ·  ');
   }
@@ -4525,6 +4602,15 @@ function resizeFidgetCanvas() {
       [...state.selectedTags].map(tag => `<span class="reflect-tag-readonly">${tag}</span>`).join('');
   }
 
+  // Session-only handoff to the Prompt applet's Reflect mode — never persisted.
+  function syncLastReflection() {
+    _lastReflection = {
+      elements: [...state.elements],
+      tags: [...state.selectedTags],
+      notes: document.getElementById('reflectNotes').value.trim(),
+    };
+  }
+
   function defaultDateChoice() {
     return new Date().getHours() < 12 ? 'yesterday' : 'today';
   }
@@ -4580,6 +4666,7 @@ function resizeFidgetCanvas() {
   document.getElementById('reflectContinue2').addEventListener('click', () => {
     renderBadges(document.getElementById('reflectBadges3'));
     renderReadonlyTags();
+    syncLastReflection();
     showPage(3);
   });
 
@@ -4587,6 +4674,7 @@ function resizeFidgetCanvas() {
   document.getElementById('reflectBack3').addEventListener('click', () => showPage(2));
   document.getElementById('reflectDateYesterday').addEventListener('click', () => setDateChoice('yesterday'));
   document.getElementById('reflectDateToday').addEventListener('click', () => setDateChoice('today'));
+  document.getElementById('reflectNotes').addEventListener('input', syncLastReflection);
 
   // Close / backdrop (all three pages)
   ['reflectClose1', 'reflectClose2', 'reflectClose3'].forEach(id => {
@@ -4604,6 +4692,7 @@ function resizeFidgetCanvas() {
 
   // Export .md
   document.getElementById('reflectExport').addEventListener('click', () => {
+    syncLastReflection();
     const d = assignedDate();
     const isoDate = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     const dateStr = d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
