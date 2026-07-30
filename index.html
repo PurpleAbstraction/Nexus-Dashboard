@@ -1430,120 +1430,109 @@
   }
 
   /* ── REFLECTION MODAL ── */
-  .reflect-modal { width: 560px; max-width: 96vw; }
+  .reflect-modal { width: 620px; max-width: 96vw; }
 
-  .reflect-date {
+  .reflect-page { display: none; }
+  .reflect-page.active { display: block; }
+
+  .reflect-step-title {
     font-family: 'Syne', sans-serif;
-    font-size: 0.733rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
+    font-size: 1.067rem;
+    font-weight: 700;
+    color: var(--text);
     margin-bottom: 18px;
   }
 
-  .reflect-elements {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    margin-bottom: 22px;
-    padding: 14px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+  /* Page 1 — element cards */
+  .reflect-element-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
-  .reflect-element {
+  .reflect-element-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 8px;
-    cursor: pointer;
-    padding: 8px 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    border: 1px solid transparent;
+    background: var(--surface2);
+    cursor: pointer;
     transition: all var(--transition);
     user-select: none;
   }
-  .reflect-element:hover { border-color: var(--border); background: var(--surface); }
-  .reflect-element.selected { border-color: var(--accent); background: var(--surface); }
-  .reflect-element.selected svg { stroke: var(--accent); }
-  .reflect-element.selected .reflect-element-label { color: var(--accent); }
+  .reflect-element-card:hover { border-color: var(--accent); }
+  .reflect-element-card.selected { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 1px var(--accent); }
+  .reflect-element-card.selected svg { stroke: var(--accent); }
+  .reflect-element-card.selected .reflect-element-card-name { color: var(--accent); }
 
-  .reflect-element svg { stroke: var(--text-muted); transition: stroke var(--transition); }
-
-  .reflect-element-label {
+  .reflect-element-card-header { display: flex; align-items: center; gap: 10px; }
+  .reflect-element-card-header svg { stroke: var(--text-muted); transition: stroke var(--transition); flex-shrink: 0; }
+  .reflect-element-emoji { font-size: 1.2rem; line-height: 1; }
+  .reflect-element-card-name {
     font-family: 'Syne', sans-serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
+    font-weight: 700;
+    font-size: 0.867rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--text);
     transition: color var(--transition);
   }
+  .reflect-element-card-desc { font-size: 0.733rem; color: var(--text-muted); line-height: 1.4; }
 
-  .reflect-question {
+  /* Badges — pages 2 & 3 */
+  .reflect-badges-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .reflect-badge {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .reflect-question:last-of-type { border-bottom: none; }
-
-  .reflect-question label {
-    font-size: 0.867rem;
-    color: var(--text);
-    line-height: 1.4;
-    flex: 1;
-  }
-
-  .reflect-choice-group {
-    display: flex;
-    gap: 4px;
-    flex-shrink: 0;
-  }
-
-  .reflect-choice-btn {
-    background: var(--surface2);
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 999px;
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 5px 10px;
-    font-family: 'Inconsolata', monospace;
     font-size: 0.733rem;
+    font-family: 'Syne', sans-serif;
     letter-spacing: 0.04em;
-    transition: all var(--transition);
-    white-space: nowrap;
+    color: var(--text-dim);
+    background: var(--surface2);
   }
-  .reflect-choice-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .reflect-choice-btn.selected { background: var(--accent); border-color: var(--accent); color: var(--bg); }
-  .reflect-choice-btn.selected.somewhat { background: var(--surface2); border-color: var(--accent); color: var(--accent); }
+  .reflect-badge[data-element="fire"]  { color: #c9784a; border-color: rgba(201,120,74,0.4); }
+  .reflect-badge[data-element="water"] { color: #7eb8c9; border-color: rgba(126,184,201,0.4); }
+  .reflect-badge[data-element="earth"] { color: #8bc98a; border-color: rgba(139,201,138,0.4); }
+  .reflect-badge[data-element="air"]   { color: #b39ddb; border-color: rgba(179,157,219,0.4); }
 
-  .reflect-questions-wrap {
+  /* Page 2 — tag cloud */
+  .reflect-tag-counter { font-size: 0.733rem; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.04em; }
+  .reflect-tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+  .reflect-tag-chip {
     background: var(--surface2);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 4px 14px;
-    margin-bottom: 16px;
+    border-radius: 999px;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 6px 14px;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.8rem;
+    transition: all var(--transition);
+    user-select: none;
   }
+  .reflect-tag-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .reflect-tag-chip.selected { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 
-  .reflect-optional {
-    margin-bottom: 4px;
-  }
-
-  .reflect-optional-label {
-    display: block;
+  /* Page 3 — read-only tags, notes, date toggle */
+  .reflect-tags-readonly { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .reflect-tag-readonly {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-dim);
+    padding: 4px 12px;
     font-size: 0.733rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 8px;
+    font-family: 'Inconsolata', monospace;
   }
 
-  .reflect-optional-wrap { position: relative; }
-
-  .reflect-optional textarea {
+  .reflect-text-wrap { margin-bottom: 16px; }
+  .reflect-textarea {
     width: 100%;
     background: var(--surface2);
     border: 1px solid var(--border);
@@ -1551,35 +1540,38 @@
     color: var(--text);
     font-family: 'Inconsolata', monospace;
     font-size: 0.867rem;
-    padding: 9px 12px;
-    padding-bottom: 22px;
-    resize: none;
+    padding: 12px;
+    resize: vertical;
     outline: none;
     line-height: 1.6;
+    min-height: 120px;
     transition: border-color var(--transition);
-    height: 80px;
   }
-  .reflect-optional textarea:focus { border-color: var(--accent); }
-  .reflect-optional textarea::placeholder { color: var(--text-muted); }
+  .reflect-textarea:focus { border-color: var(--accent); }
+  .reflect-textarea::placeholder { color: var(--text-muted); }
 
-  .reflect-char-count {
-    position: absolute;
-    bottom: 6px;
-    right: 10px;
-    font-size: 0.667rem;
-    color: var(--text-muted);
-    font-family: 'Inconsolata', monospace;
-    pointer-events: none;
+  .reflect-date-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
+  .reflect-date-btn {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: all var(--transition);
   }
-  .reflect-char-count.warn { color: var(--danger); }
+  .reflect-date-btn:hover { border-color: var(--accent); }
+  .reflect-date-btn.selected { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 
-  .reflect-actions {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-top: 16px;
-  }
-  .reflect-spacer { flex: 1; }
+  /* Shared nav row */
+  .reflect-nav { display: flex; gap: 8px; align-items: center; margin-top: 20px; }
+  .reflect-nav-spacer { flex: 1; }
   .applets-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -2451,107 +2443,102 @@
 <div class="modal-overlay" id="reflectModal">
   <div class="modal reflect-modal">
     <h3>Daily Reflection</h3>
-    <div class="reflect-date" id="reflectDate"></div>
 
-    <!-- Element selector -->
-    <div class="reflect-elements">
-      <div class="reflect-element" data-element="water" title="Water — fluid · productive · in flow">
-        <svg width="44" height="38" viewBox="0 0 80 88" fill="none" stroke-linecap="round" stroke-width="3.5">
-          <path d="M0,12 Q20,0  40,12 Q60,24 80,12"/>
-          <path d="M0,32 Q20,20 40,32 Q60,44 80,32"/>
-          <path d="M0,52 Q20,40 40,52 Q60,64 80,52"/>
-          <path d="M0,72 Q20,60 40,72 Q60,84 80,72"/>
-        </svg>
-        <span class="reflect-element-label">Water</span>
+    <!-- Page 1 — element selection -->
+    <div class="reflect-page active" data-page="1">
+      <div class="reflect-step-title">How did today feel?</div>
+      <div class="reflect-element-grid">
+        <div class="reflect-element-card" data-element="fire">
+          <div class="reflect-element-card-header">
+            <svg width="32" height="28" viewBox="0 0 92 80" fill="none" stroke-linecap="round" stroke-width="3.5">
+              <path d="M0,80 L14,60 L0,40 L14,20 L0,0"/>
+              <path d="M26,80 L40,60 L26,40 L40,20 L26,0"/>
+              <path d="M52,80 L66,60 L52,40 L66,20 L52,0"/>
+              <path d="M78,80 L92,60 L78,40 L92,20 L78,0"/>
+            </svg>
+            <span class="reflect-element-emoji">🔥</span>
+            <span class="reflect-element-card-name">Fire</span>
+          </div>
+          <div class="reflect-element-card-desc">Action, intensity, transformation. Days of drive, anger, passion, or urgency.</div>
+        </div>
+        <div class="reflect-element-card" data-element="water">
+          <div class="reflect-element-card-header">
+            <svg width="32" height="28" viewBox="0 0 80 88" fill="none" stroke-linecap="round" stroke-width="3.5">
+              <path d="M0,12 Q20,0  40,12 Q60,24 80,12"/>
+              <path d="M0,32 Q20,20 40,32 Q60,44 80,32"/>
+              <path d="M0,52 Q20,40 40,52 Q60,64 80,52"/>
+              <path d="M0,72 Q20,60 40,72 Q60,84 80,72"/>
+            </svg>
+            <span class="reflect-element-emoji">💧</span>
+            <span class="reflect-element-card-name">Water</span>
+          </div>
+          <div class="reflect-element-card-desc">Feeling, flow, depth. Days of emotion, intuition, reflection, or drift.</div>
+        </div>
+        <div class="reflect-element-card" data-element="earth">
+          <div class="reflect-element-card-header">
+            <svg width="32" height="28" viewBox="0 0 80 70" fill="none" stroke-linecap="round" stroke-width="3.5">
+              <line x1="0" y1="4"  x2="80" y2="4"/>
+              <line x1="0" y1="26" x2="80" y2="26"/>
+              <line x1="0" y1="48" x2="80" y2="48"/>
+              <line x1="0" y1="66" x2="80" y2="66"/>
+            </svg>
+            <span class="reflect-element-emoji">🌍</span>
+            <span class="reflect-element-card-name">Earth</span>
+          </div>
+          <div class="reflect-element-card-desc">Body, weight, structure. Days of steadiness, productivity, heaviness, or resistance.</div>
+        </div>
+        <div class="reflect-element-card" data-element="air">
+          <div class="reflect-element-card-header">
+            <svg width="32" height="28" viewBox="0 0 80 90" fill="none" stroke-linecap="round" stroke-width="3.5">
+              <line x1="0" y1="2"  x2="80" y2="24"/>
+              <line x1="0" y1="24" x2="80" y2="46"/>
+              <line x1="0" y1="46" x2="80" y2="68"/>
+              <line x1="0" y1="68" x2="80" y2="90"/>
+            </svg>
+            <span class="reflect-element-emoji">💨</span>
+            <span class="reflect-element-card-name">Air</span>
+          </div>
+          <div class="reflect-element-card-desc">Mind, movement, connection. Days of curiosity, scattered thoughts, lightness, or detachment.</div>
+        </div>
       </div>
-      <div class="reflect-element" data-element="earth" title="Earth — grounded · restful · steady">
-        <svg width="44" height="38" viewBox="0 0 80 70" fill="none" stroke-linecap="round" stroke-width="3.5">
-          <line x1="0" y1="4"  x2="80" y2="4"/>
-          <line x1="0" y1="26" x2="80" y2="26"/>
-          <line x1="0" y1="48" x2="80" y2="48"/>
-          <line x1="0" y1="66" x2="80" y2="66"/>
-        </svg>
-        <span class="reflect-element-label">Earth</span>
-      </div>
-      <div class="reflect-element" data-element="fire" title="Fire — chaotic · turbulent · resistant">
-        <svg width="44" height="38" viewBox="0 0 92 80" fill="none" stroke-linecap="round" stroke-width="3.5">
-          <path d="M0,80 L14,60 L0,40 L14,20 L0,0"/>
-          <path d="M26,80 L40,60 L26,40 L40,20 L26,0"/>
-          <path d="M52,80 L66,60 L52,40 L66,20 L52,0"/>
-          <path d="M78,80 L92,60 L78,40 L92,20 L78,0"/>
-        </svg>
-        <span class="reflect-element-label">Fire</span>
-      </div>
-      <div class="reflect-element" data-element="air" title="Air — light · dreamy · imaginative">
-        <svg width="44" height="38" viewBox="0 0 80 90" fill="none" stroke-linecap="round" stroke-width="3.5">
-          <line x1="0" y1="2"  x2="80" y2="24"/>
-          <line x1="0" y1="24" x2="80" y2="46"/>
-          <line x1="0" y1="46" x2="80" y2="68"/>
-          <line x1="0" y1="68" x2="80" y2="90"/>
-        </svg>
-        <span class="reflect-element-label">Air</span>
+      <div class="reflect-nav">
+        <button class="btn btn-ghost" id="reflectClose1">Close</button>
+        <div class="reflect-nav-spacer"></div>
+        <button class="btn btn-primary" id="reflectContinue1" disabled>Continue</button>
       </div>
     </div>
 
-    <!-- Structured questions -->
-    <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;letter-spacing:0.04em;">Reflecting on today, did you experience any of the following?</p>
-    <div class="reflect-questions-wrap">
-      <div class="reflect-question" data-q="failures">
-        <label>Failures</label>
-        <div class="reflect-choice-group">
-          <button class="reflect-choice-btn" data-value="yes">Yes</button>
-          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
-          <button class="reflect-choice-btn" data-value="no">No</button>
-        </div>
-      </div>
-      <div class="reflect-question" data-q="successes">
-        <label>Successes</label>
-        <div class="reflect-choice-group">
-          <button class="reflect-choice-btn" data-value="yes">Yes</button>
-          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
-          <button class="reflect-choice-btn" data-value="no">No</button>
-        </div>
-      </div>
-      <div class="reflect-question" data-q="learning">
-        <label>Learning</label>
-        <div class="reflect-choice-group">
-          <button class="reflect-choice-btn" data-value="yes">Yes</button>
-          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
-          <button class="reflect-choice-btn" data-value="no">No</button>
-        </div>
-      </div>
-      <div class="reflect-question" data-q="creating">
-        <label>Creating</label>
-        <div class="reflect-choice-group">
-          <button class="reflect-choice-btn" data-value="yes">Yes</button>
-          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
-          <button class="reflect-choice-btn" data-value="no">No</button>
-        </div>
-      </div>
-      <div class="reflect-question" data-q="selfcare">
-        <label>Self-care</label>
-        <div class="reflect-choice-group">
-          <button class="reflect-choice-btn" data-value="yes">Yes</button>
-          <button class="reflect-choice-btn somewhat" data-value="somewhat">Somewhat</button>
-          <button class="reflect-choice-btn" data-value="no">No</button>
-        </div>
+    <!-- Page 2 — tag cloud -->
+    <div class="reflect-page" data-page="2">
+      <div class="reflect-badges-row" id="reflectBadges2"></div>
+      <div class="reflect-tag-counter" id="reflectTagCounter">0 tags selected</div>
+      <div class="reflect-tag-cloud" id="reflectTagCloud"></div>
+      <div class="reflect-nav">
+        <button class="btn btn-ghost" id="reflectBack2">Back</button>
+        <button class="btn btn-ghost" id="reflectClose2">Close</button>
+        <div class="reflect-nav-spacer"></div>
+        <button class="btn btn-primary" id="reflectContinue2">Continue</button>
       </div>
     </div>
 
-    <!-- Optional freeform -->
-    <div class="reflect-optional">
-      <span class="reflect-optional-label">Optional — Becoming your best self</span>
-      <div class="reflect-optional-wrap">
-        <textarea id="reflectOptional" maxlength="280" placeholder="If you prioritized becoming your best self today, write a thought about it…"></textarea>
-        <span class="reflect-char-count" id="reflectOptionalCount">280</span>
+    <!-- Page 3 — reflection & export -->
+    <div class="reflect-page" data-page="3">
+      <div class="reflect-badges-row" id="reflectBadges3"></div>
+      <div class="reflect-tags-readonly" id="reflectTagsReadonly"></div>
+      <div class="reflect-text-wrap">
+        <textarea class="reflect-textarea" id="reflectNotes" placeholder="Anything else about today worth noting?"></textarea>
       </div>
-    </div>
-
-    <div class="reflect-actions">
-      <button class="btn btn-primary" id="reflectExport">Export .md</button>
-      <button class="btn btn-ghost" id="reflectClear">Clear</button>
-      <div class="reflect-spacer"></div>
-      <button class="btn btn-ghost" id="reflectClose">Close</button>
+      <div class="reflect-date-toggle">
+        <button class="reflect-date-btn" id="reflectDateYesterday" data-value="yesterday">Yesterday</button>
+        <button class="reflect-date-btn" id="reflectDateToday" data-value="today">Today</button>
+      </div>
+      <div class="reflect-nav">
+        <button class="btn btn-ghost" id="reflectBack3">Back</button>
+        <button class="btn btn-ghost" id="reflectClear">Clear</button>
+        <div class="reflect-nav-spacer"></div>
+        <button class="btn btn-primary" id="reflectExport">Export .md</button>
+        <button class="btn btn-ghost" id="reflectClose3">Close</button>
+      </div>
     </div>
   </div>
 </div>
@@ -4447,102 +4434,185 @@ function resizeFidgetCanvas() {
   }
 }
 
-document.getElementById('appletReflectBtn').addEventListener('click', () => {
-  // Set today's date on open
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  document.getElementById('reflectDate').textContent = dateStr;
-  document.getElementById('reflectModal').classList.add('open');
-});
-
 // ── REFLECTION APPLET ─────────────────────────────────────────────────
 (function() {
-  const OPTIONAL_LIMIT = 280;
+  const modal = document.getElementById('reflectModal');
+  const pages = document.querySelectorAll('.reflect-page');
 
-  const ELEMENT_LABELS = {
-    water: 'Water: fluid, productive, in flow',
-    earth: 'Earth: grounded, restful, steady',
-    fire:  'Fire: chaotic, turbulent, resistant',
-    air:   'Air: light, dreamy, imaginative',
+  const ELEMENTS = {
+    fire:  { emoji: '🔥', name: 'Fire',  tags: ['Driven','Restless','Passionate','Consuming','Impatient','Scattered','Focused','Angry','Inspired','Courageous','Urgent','Transformative','Creative'] },
+    water: { emoji: '💧', name: 'Water', tags: ['Flowing','Reflective','Emotional','Drifting','Intuitive','Overwhelmed','Gentle','Deep','Melancholy','Receptive','Cleansing','Turbulent'] },
+    earth: { emoji: '🌍', name: 'Earth', tags: ['Grounded','Productive','Heavy','Steady','Stubborn','Practical','Slow','Nourishing','Tired','Rooted','Methodical','Resistant','Stifled'] },
+    air:   { emoji: '💨', name: 'Air',   tags: ['Curious','Scattered','Expansive','Detached','Communicative','Restless','Playful','Observant','Unsettled','Sharp','Light','Wandering','Creative','Stifled'] },
   };
 
-  const QUESTION_LABELS = {
-    failures:  'Failures',
-    successes: 'Successes',
-    learning:  'Learning',
-    creating:  'Creating',
-    selfcare:  'Self-care',
+  const TAG_LIMITS = { 1: Infinity, 2: 8, 3: 7, 4: 6 };
+
+  let state = {
+    elements: new Set(),
+    sampledForKey: null,
+    tagPool: [],       // [{tag, element}]
+    selectedTags: new Set(),
+    dateChoice: 'today',
   };
 
-  // Choice button logic — one selection per question row
-  document.querySelectorAll('.reflect-question[data-q]').forEach(row => {
-    row.querySelectorAll('.reflect-choice-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const wasSelected = btn.classList.contains('selected');
-        row.querySelectorAll('.reflect-choice-btn').forEach(b => b.classList.remove('selected'));
-        if (!wasSelected) btn.classList.add('selected');
+  function showPage(n) {
+    pages.forEach(p => p.classList.toggle('active', p.dataset.page === String(n)));
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function elementsKey() {
+    return [...state.elements].sort().join(',');
+  }
+
+  function sampleTagPool() {
+    const limit = TAG_LIMITS[state.elements.size] ?? Infinity;
+    const seen = new Set();
+    const pool = [];
+    state.elements.forEach(el => {
+      const shuffled = shuffle(ELEMENTS[el].tags);
+      const picked = limit === Infinity ? shuffled : shuffled.slice(0, limit);
+      picked.forEach(tag => {
+        if (!seen.has(tag)) {
+          seen.add(tag);
+          pool.push({ tag, element: el });
+        }
       });
+    });
+    state.tagPool = shuffle(pool);
+    state.selectedTags = new Set();
+  }
+
+  function renderBadges(container) {
+    container.innerHTML = [...state.elements].map(el => {
+      const e = ELEMENTS[el];
+      return `<span class="reflect-badge" data-element="${el}">${e.emoji} ${e.name}</span>`;
+    }).join('');
+  }
+
+  function updateTagCounter() {
+    const n = state.selectedTags.size;
+    document.getElementById('reflectTagCounter').textContent = `${n} tag${n === 1 ? '' : 's'} selected`;
+  }
+
+  function renderTagCloud() {
+    updateTagCounter();
+    const cloud = document.getElementById('reflectTagCloud');
+    cloud.innerHTML = state.tagPool.map(({ tag }) =>
+      `<button class="reflect-tag-chip${state.selectedTags.has(tag) ? ' selected' : ''}" data-tag="${tag}">${tag}</button>`
+    ).join('');
+    cloud.querySelectorAll('.reflect-tag-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const tag = chip.dataset.tag;
+        if (state.selectedTags.has(tag)) state.selectedTags.delete(tag);
+        else state.selectedTags.add(tag);
+        chip.classList.toggle('selected');
+        updateTagCounter();
+      });
+    });
+  }
+
+  function renderReadonlyTags() {
+    document.getElementById('reflectTagsReadonly').innerHTML =
+      [...state.selectedTags].map(tag => `<span class="reflect-tag-readonly">${tag}</span>`).join('');
+  }
+
+  function defaultDateChoice() {
+    return new Date().getHours() < 12 ? 'yesterday' : 'today';
+  }
+
+  function setDateChoice(choice) {
+    state.dateChoice = choice;
+    document.getElementById('reflectDateYesterday').classList.toggle('selected', choice === 'yesterday');
+    document.getElementById('reflectDateToday').classList.toggle('selected', choice === 'today');
+  }
+
+  function assignedDate() {
+    const d = new Date();
+    if (state.dateChoice === 'yesterday') d.setDate(d.getDate() - 1);
+    return d;
+  }
+
+  function resetAll() {
+    state.elements = new Set();
+    state.sampledForKey = null;
+    state.tagPool = [];
+    state.selectedTags = new Set();
+    document.querySelectorAll('.reflect-element-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('reflectContinue1').disabled = true;
+    document.getElementById('reflectNotes').value = '';
+    setDateChoice(defaultDateChoice());
+    showPage(1);
+  }
+
+  // Page 1 — element cards
+  document.querySelectorAll('.reflect-element-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const el = card.dataset.element;
+      card.classList.toggle('selected');
+      if (state.elements.has(el)) state.elements.delete(el);
+      else state.elements.add(el);
+      document.getElementById('reflectContinue1').disabled = state.elements.size === 0;
     });
   });
 
-  // Optional textarea counter
-  const optionalTA = document.getElementById('reflectOptional');
-  const optionalCount = document.getElementById('reflectOptionalCount');
-  optionalTA.addEventListener('input', () => {
-    const remaining = OPTIONAL_LIMIT - optionalTA.value.length;
-    optionalCount.textContent = remaining;
-    optionalCount.classList.toggle('warn', remaining <= 40);
+  document.getElementById('reflectContinue1').addEventListener('click', () => {
+    const key = elementsKey();
+    if (key !== state.sampledForKey) {
+      sampleTagPool();
+      state.sampledForKey = key;
+    }
+    renderBadges(document.getElementById('reflectBadges2'));
+    renderTagCloud();
+    showPage(2);
   });
 
-  // Element selection — toggle, multiple allowed
-  document.querySelectorAll('.reflect-element').forEach(el => {
-    el.addEventListener('click', () => el.classList.toggle('selected'));
+  // Page 2 — tag cloud
+  document.getElementById('reflectBack2').addEventListener('click', () => showPage(1));
+  document.getElementById('reflectContinue2').addEventListener('click', () => {
+    renderBadges(document.getElementById('reflectBadges3'));
+    renderReadonlyTags();
+    showPage(3);
   });
 
-  // Close / backdrop
-  document.getElementById('reflectClose').addEventListener('click', () => {
-    document.getElementById('reflectModal').classList.remove('open');
+  // Page 3 — reflection & export
+  document.getElementById('reflectBack3').addEventListener('click', () => showPage(2));
+  document.getElementById('reflectDateYesterday').addEventListener('click', () => setDateChoice('yesterday'));
+  document.getElementById('reflectDateToday').addEventListener('click', () => setDateChoice('today'));
+
+  // Close / backdrop (all three pages)
+  ['reflectClose1', 'reflectClose2', 'reflectClose3'].forEach(id => {
+    document.getElementById(id).addEventListener('click', () => modal.classList.remove('open'));
   });
-  document.getElementById('reflectModal').addEventListener('click', e => {
-    if (e.target === document.getElementById('reflectModal'))
-      document.getElementById('reflectModal').classList.remove('open');
+  modal.addEventListener('click', e => {
+    if (e.target === modal) modal.classList.remove('open');
   });
 
   // Clear
   document.getElementById('reflectClear').addEventListener('click', () => {
-    if (!confirm('Clear all answers?')) return;
-    document.querySelectorAll('.reflect-choice-btn').forEach(b => b.classList.remove('selected'));
-    document.querySelectorAll('.reflect-element').forEach(el => el.classList.remove('selected'));
-    optionalTA.value = '';
-    optionalCount.textContent = OPTIONAL_LIMIT;
-    optionalCount.classList.remove('warn');
+    if (!confirm('Clear this reflection?')) return;
+    resetAll();
   });
 
   // Export .md
   document.getElementById('reflectExport').addEventListener('click', () => {
-    const date = document.getElementById('reflectDate').textContent;
-    const d = new Date();
-    const isoDate = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const d = assignedDate();
+    const isoDate = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const dateStr = d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-    const selectedElements = [...document.querySelectorAll('.reflect-element.selected')]
-      .map(el => el.dataset.element);
-    const elementLine = selectedElements.length
-      ? selectedElements.map(e => ELEMENT_LABELS[e]).join('\n')
-      : '(none selected)';
+    const elementLine = [...state.elements].map(el => `${ELEMENTS[el].emoji} ${ELEMENTS[el].name}`).join(' · ');
+    const tagsLine = [...state.selectedTags].join(' · ');
+    const notes = document.getElementById('reflectNotes').value.trim();
 
-    const answers = Object.keys(QUESTION_LABELS).map(key => {
-      const row = document.querySelector(`.reflect-question[data-q="${key}"]`);
-      const selected = row?.querySelector('.reflect-choice-btn.selected');
-      const value = selected ? selected.dataset.value : '(no answer)';
-      return `**${QUESTION_LABELS[key]}:** ${value}`;
-    }).join('\n');
-
-    const optional = optionalTA.value.trim();
-    const optionalSection = optional
-      ? `\n\n## Becoming your best self\n${optional}`
-      : '';
-
-    const md = `# Daily Reflection\n**Date:** ${date}\n\n## Element\n${elementLine}\n\n---\n\n## Inventory\n${answers}${optionalSection}\n`;
+    const md = `# Daily Reflection\n**Date:** ${dateStr}\n\n## Element\n${elementLine || '(none selected)'}\n\n## Tags\n${tagsLine || '(none selected)'}\n\n## Notes\n${notes}\n`;
 
     const blob = new Blob([md], { type: 'text/markdown' });
     const a = document.createElement('a');
@@ -4550,6 +4620,12 @@ document.getElementById('appletReflectBtn').addEventListener('click', () => {
     a.download = `reflection-${isoDate}.md`;
     a.click();
     showToast('Reflection exported.');
+  });
+
+  // Open — reset to page 1 each time
+  document.getElementById('appletReflectBtn').addEventListener('click', () => {
+    resetAll();
+    modal.classList.add('open');
   });
 })();
 
