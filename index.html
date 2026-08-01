@@ -1467,6 +1467,11 @@
   .reflect-element-card.selected svg { stroke: var(--accent); }
   .reflect-element-card.selected .reflect-element-card-name { color: var(--accent); }
 
+  .reflect-element-card[data-element="fire"]  { border-color: rgba(209, 96, 58, 0.55); }
+  .reflect-element-card[data-element="water"] { border-color: rgba(74, 144, 201, 0.55); }
+  .reflect-element-card[data-element="earth"] { border-color: rgba(90, 168, 90, 0.55); }
+  .reflect-element-card[data-element="air"]   { border-color: rgba(147, 112, 219, 0.55); }
+
   .reflect-element-card-header { display: flex; align-items: center; gap: 10px; }
   .reflect-element-card-header svg { stroke: var(--text-muted); transition: stroke var(--transition); flex-shrink: 0; }
   .reflect-element-emoji { font-size: 1.2rem; line-height: 1; }
@@ -2409,7 +2414,7 @@
 <!-- Prompt Modal -->
 <div class="modal-overlay" id="promptModal">
   <div class="modal prompt-modal">
-    <h3>Prompt Draw</h3>
+    <h3>Prompt</h3>
     <div class="prompt-tabs">
       <button class="prompt-tab active" data-ptab="all">All</button>
       <button class="prompt-tab" data-ptab="scene">Scenes</button>
@@ -2418,13 +2423,13 @@
       <button class="prompt-tab" data-ptab="reflect">Reflect</button>
     </div>
     <div class="prompt-output" id="promptOutput">
-      <div class="prompt-empty">Press draw to get a prompt.</div>
+      <div class="prompt-empty">Press New to get a prompt.</div>
     </div>
     <div class="prompt-write" id="promptWrite">
       <textarea id="promptWriteText" placeholder="Write here…"></textarea>
     </div>
     <div class="prompt-actions-row">
-      <button class="btn btn-primary" id="promptDraw">Draw</button>
+      <button class="btn btn-primary" id="promptDraw">New</button>
       <button class="btn btn-ghost" id="promptWriteToggle">Write</button>
       <button class="btn btn-ghost" id="promptExport" style="display:none;">Export .txt</button>
       <div class="prompt-spacer"></div>
@@ -4408,7 +4413,7 @@ function _promptDraw() {
 
 function _promptRender(p) {
   const out = document.getElementById('promptOutput');
-  if (!p) { out.innerHTML = '<div class="prompt-empty">Press draw to get a prompt.</div>'; return; }
+  if (!p) { out.innerHTML = '<div class="prompt-empty">Press New to get a prompt.</div>'; return; }
   if (p.type === 'scene') {
     out.innerHTML = `<div class="prompt-type-label">Scene</div>
       <div class="prompt-scene-words">${
