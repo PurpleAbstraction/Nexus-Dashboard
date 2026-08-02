@@ -4431,8 +4431,7 @@ function _promptDraw() {
   _promptCurrent = result;
   _promptRender(result);
   document.getElementById('promptExport').style.display = 'none';
-  const wa = document.getElementById('promptWrite');
-  if (wa.classList.contains('visible')) document.getElementById('promptWriteText').value = '';
+  document.getElementById('promptWriteText').value = '';
 }
 
 function _promptRender(p) {
