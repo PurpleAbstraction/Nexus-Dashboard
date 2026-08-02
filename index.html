@@ -1726,6 +1726,7 @@
     margin-bottom: 18px;
   }
   .prompt-tab {
+    position: relative;
     padding: 4px 12px;
     border-radius: 20px;
     border: 1px solid var(--border);
@@ -1738,6 +1739,17 @@
   }
   .prompt-tab:hover { border-color: var(--accent); color: var(--accent); }
   .prompt-tab.active { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+  .prompt-tab[data-ptab="reflect"].has-entry::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .prompt-tab[data-ptab="reflect"].has-entry.active::after { background: var(--bg); }
   .prompt-output {
     background: var(--surface2);
     border: 1px solid var(--border);
@@ -2552,6 +2564,7 @@
         <button class="btn btn-ghost" id="reflectClear">Clear</button>
         <div class="reflect-nav-spacer"></div>
         <button class="btn btn-primary" id="reflectExport">Export .md</button>
+        <button class="btn btn-ghost" id="reflectToPrompt">Open in Prompt</button>
         <button class="btn btn-ghost" id="reflectClose3">Close</button>
       </div>
     </div>
@@ -4344,6 +4357,17 @@ let _promptDrawCounts = JSON.parse(localStorage.getItem('nexus_prompt_counts') |
 let _promptTab = 'all';
 let _promptCurrent = null;
 
+function _promptSetTab(tab) {
+  _promptTab = tab;
+  document.querySelectorAll('.prompt-tab').forEach(b => b.classList.toggle('active', b.dataset.ptab === tab));
+}
+
+function _updatePromptReflectDot() {
+  const hasEntry = !!(_lastReflection && (_lastReflection.elements.length || _lastReflection.tags.length || _lastReflection.notes));
+  const tab = document.querySelector('.prompt-tab[data-ptab="reflect"]');
+  if (tab) tab.classList.toggle('has-entry', hasEntry);
+}
+
 function _promptWeightedPick(arr, key) {
   const weighted = arr.map(v => ({ v, w: 1 / (1 + (_promptDrawCounts[key + ':' + v] || 0)) }));
   const total = weighted.reduce((s, x) => s + x.w, 0);
@@ -4475,11 +4499,7 @@ document.addEventListener('keydown', e => {
 document.getElementById('promptDraw').addEventListener('click', _promptDraw);
 
 document.querySelectorAll('.prompt-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    _promptTab = btn.dataset.ptab;
-    document.querySelectorAll('.prompt-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
+  btn.addEventListener('click', () => _promptSetTab(btn.dataset.ptab));
 });
 
 document.getElementById('promptWriteToggle').addEventListener('click', () => {
@@ -4614,6 +4634,7 @@ function resizeFidgetCanvas() {
       tags: [...state.selectedTags],
       notes: document.getElementById('reflectNotes').value.trim(),
     };
+    _updatePromptReflectDot();
   }
 
   function defaultDateChoice() {
@@ -4716,6 +4737,16 @@ function resizeFidgetCanvas() {
     showToast('Reflection exported.');
   });
 
+  // Open in Prompt — hand off to Prompt's Reflect tab with a fresh draw
+  document.getElementById('reflectToPrompt').addEventListener('click', () => {
+    syncLastReflection();
+    modal.classList.remove('open');
+    document.getElementById('promptModal').classList.add('open');
+    _promptSetTab('reflect');
+    _updatePromptReflectDot();
+    _promptDraw();
+  });
+
   // Open — reset to page 1 each time
   document.getElementById('appletReflectBtn').addEventListener('click', () => {
     resetAll();
@@ -4724,6 +4755,7 @@ function resizeFidgetCanvas() {
 })();
 
 document.getElementById('appletPromptBtn').addEventListener('click', () => {
+  _updatePromptReflectDot();
   document.getElementById('promptModal').classList.add('open');
 });
 document.getElementById('appletFidgetBtn').addEventListener('click', () => {
