@@ -1916,9 +1916,10 @@
     color: var(--text);
   }
 
-  .brief-paragraph.brief-good {
-    color: var(--text-dim);
-    font-size: 0.867rem;
+  .brief-sources {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
     padding-top: 4px;
     border-top: 1px solid var(--border);
   }
@@ -4185,16 +4186,13 @@ async function refreshBrief() {
     // Claude API call
     const systemPrompt = `You are a sharp, neutral news editor writing a short daily news brief. Write in clear, confident prose — not bullet points, not headlines, not wire-copy. A well-informed human wrote this.
 
-Your brief has exactly three parts:
+Your brief has exactly two parts:
 
 PART 1 — World & US (one paragraph, 3-5 sentences):
 Synthesize the most significant global and US national stories into connected prose. What happened, where, and why it matters. Do not list stories separately — weave them together naturally if they connect, or flow from one to the next if they don't.
 
 PART 2 — The broader picture (one paragraph, 3-5 sentences):
 Cover the most noteworthy developments across technology, science, finance, and health. Pick the most genuinely interesting or significant stories. No forced categories — just what's worth knowing today.
-
-PART 3 — Something good (one sentence):
-End with one uplifting, hopeful, or quietly remarkable story from the good news sources. Keep it genuine — not saccharine.
 
 RULES:
 - Never use people's names. Use their title and country/organization (e.g. "the President of the United States", "the Prime Minister of the United Kingdom", "the CEO of the company").
@@ -4207,8 +4205,7 @@ RULES:
 Respond ONLY with a JSON object in this exact shape, no markdown, no preamble:
 {
   "world": "Paragraph covering world and US news.",
-  "broader": "Paragraph covering tech, science, finance, health.",
-  "good": "One uplifting sentence."
+  "broader": "Paragraph covering tech, science, finance, health."
 }`;
 
     const userPrompt = `Here are today's headlines from wire services. Write the News Brief.\n\n${headlineText}`;
@@ -4234,8 +4231,9 @@ Respond ONLY with a JSON object in this exact shape, no markdown, no preamble:
     const clean = rawText.replace(/```json|```/g, '').trim();
     const brief = JSON.parse(clean);
 
-    // Cache with timestamp
+    // Cache with timestamp + sources footnote
     brief.refreshedAt = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    brief.sources = [...new Set(allHeadlines.map(h => h.source))];
     localStorage.setItem(BRIEF_CACHE_KEY, JSON.stringify(brief));
 
     renderBrief(brief);
@@ -4263,11 +4261,11 @@ function renderBrief(brief) {
     proseEl.appendChild(p2);
   }
 
-  if (brief.good) {
-    const p3 = document.createElement('p');
-    p3.className = 'brief-paragraph brief-good';
-    p3.textContent = brief.good;
-    proseEl.appendChild(p3);
+  if (brief.sources && brief.sources.length) {
+    const src = document.createElement('p');
+    src.className = 'brief-sources';
+    src.textContent = `Sources: ${brief.sources.join(', ')}`;
+    proseEl.appendChild(src);
   }
 
   // Timestamp
